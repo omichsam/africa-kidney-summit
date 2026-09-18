@@ -1,0 +1,388 @@
+// COUNTDOWN
+const EVENT_DATE = new Date('2027-03-09T09:00:00+03:00');
+(function(){
+  const el = {d:document.getElementById('cd-days'),h:document.getElementById('cd-hours'),m:document.getElementById('cd-mins'),s:document.getElementById('cd-secs')};
+  const wrap = document.getElementById('countdown');
+  const pad = (n,l) => String(n).padStart(l,'0');
+  function tick(){
+    const diff = EVENT_DATE - new Date();
+    if(diff <= 0){ wrap.innerHTML = '<div class="cd" style="min-width:auto;padding:16px 28px"><span class="cd__num" style="font-size:1.2rem">We are live</span><span class="cd__lbl">Happening now</span></div>'; return; }
+    const sec = Math.floor(diff/1000);
+    el.d.textContent = pad(Math.floor(sec/86400),3);
+    el.h.textContent = pad(Math.floor((sec%86400)/3600),2);
+    el.m.textContent = pad(Math.floor((sec%3600)/60),2);
+    el.s.textContent = pad(sec%60,2);
+    // Re-trigger the tick fade on the seconds digit so the widget visibly "lives"
+    el.s.classList.remove('tick');
+    void el.s.offsetWidth;
+    el.s.classList.add('tick');
+  }
+  tick(); setInterval(tick,1000);
+})();
+
+// HEADER
+const siteHeader = document.getElementById('siteHeader');
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+const backToTop = document.getElementById('backToTop');
+window.addEventListener('scroll', () => {
+  siteHeader.classList.toggle('scrolled', window.scrollY > 40);
+  backToTop.classList.toggle('show', window.scrollY > 500);
+}, { passive:true });
+backToTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Move focus to the skip target so keyboard/screen-reader users land at the top of the page too
+  document.getElementById('main-content').setAttribute('tabindex', '-1');
+  document.getElementById('main-content').focus({ preventScroll: true });
+});
+navToggle.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  navToggle.classList.toggle('active', open);
+  navToggle.setAttribute('aria-expanded', open);
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  navLinks.classList.remove('open'); navToggle.classList.remove('active'); navToggle.setAttribute('aria-expanded','false');
+}));
+
+// SCROLL SPY — underline the nav link for whichever section is currently in view
+(function initScrollSpy(){
+  const spyLinks = Array.from(navLinks.querySelectorAll('a[href^="#"]'));
+  const sectionMap = new Map();
+  spyLinks.forEach(link => {
+    const section = document.getElementById(link.getAttribute('href').slice(1));
+    if (section) sectionMap.set(section, link);
+  });
+  if (!sectionMap.size) return;
+
+  function setActive(link){
+    spyLinks.forEach(a => a.classList.toggle('active', a === link));
+  }
+
+  const spy = new IntersectionObserver((entries) => {
+    // Prefer the entry closest to the top-of-viewport activation line; avoids flicker
+    // when a short section and its neighbour are both technically intersecting.
+    const visible = entries.filter(e => e.isIntersecting);
+    if (!visible.length) return;
+    visible.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+    setActive(sectionMap.get(visible[0].target));
+  }, {
+    // Activation band sits just under the fixed header; bottom cut-off keeps only
+    // the section currently owning the top of the viewport as "active".
+    rootMargin: '-104px 0px -55% 0px',
+    threshold: 0
+  });
+  sectionMap.forEach((link, section) => spy.observe(section));
+})();
+
+// QTY
+const qtyInput = document.getElementById('qty');
+document.getElementById('qtyMinus').addEventListener('click', () => { qtyInput.value = Math.max(1, (parseInt(qtyInput.value)||1) - 1); });
+document.getElementById('qtyPlus').addEventListener('click', () => { qtyInput.value = Math.min(25, (parseInt(qtyInput.value)||1) + 1); });
+
+// PAYMENT SELECT
+document.querySelectorAll('input[name="payment"]').forEach(input => {
+  input.addEventListener('change', () => {
+    document.querySelectorAll('.pay').forEach(l => l.classList.remove('is-selected'));
+    if (input.checked) input.closest('.pay').classList.add('is-selected');
+  });
+});
+
+// BOOKING FORM (no pricing)
+const form = document.getElementById('bookingForm');
+const formError = document.getElementById('formError');
+const confirmPanel = document.getElementById('bookingConfirm');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  formError.classList.remove('show'); formError.textContent = '';
+
+  const catSelect = form.category;
+  const selected = catSelect.options[catSelect.selectedIndex];
+  const catName = selected.textContent;
+  const qty = Math.max(1, parseInt(qtyInput.value)||1);
+  const payment = form.querySelector('input[name="payment"]:checked');
+  const name = form.name.value.trim();
+  const email = form.email.value.trim();
+  const org = form.organisation.value.trim();
+  const country = form.country.value.trim();
+  const cAuth = document.getElementById('cAuth').checked;
+  const cTerms = document.getElementById('cTerms').checked;
+  const cPrivacy = document.getElementById('cPrivacy').checked;
+
+  let error = '';
+  if (!catSelect.value) error = 'Please select a delegate category.';
+  else if (!name) error = 'Please provide the lead delegate full name.';
+  else if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) error = 'Please provide a valid email address.';
+  else if (!org) error = 'Please provide the organisation name.';
+  else if (!country) error = 'Please provide the country.';
+  else if (!payment) error = 'Please select a payment preference.';
+  else if (!cAuth) error = 'Please confirm you are authorised to submit this booking.';
+  else if (!cTerms) error = 'Please accept the Delegate Terms & Conditions.';
+  else if (!cPrivacy) error = 'Please consent to data processing.';
+
+  if (error) {
+    formError.textContent = error; formError.classList.add('show');
+    formError.scrollIntoView({ behavior:'smooth', block:'center' });
+    return;
+  }
+
+  const paymentLabels = { card:'Card payment', transfer:'Bank transfer', invoice:'Invoice to organisation' };
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let ref = ''; for (let i = 0; i < 5; i++) ref += chars[Math.floor(Math.random()*chars.length)];
+
+  document.getElementById('confirmRef').textContent = 'AKHS-2027-' + ref;
+  document.getElementById('confirmCategory').textContent = catName;
+  document.getElementById('confirmQty').textContent = qty + (qty === 1 ? ' delegate' : ' delegates');
+  document.getElementById('confirmPayment').textContent = paymentLabels[payment.value];
+  document.getElementById('confirmName').textContent = name;
+  document.getElementById('confirmOrg').textContent = org;
+  document.getElementById('confirmCountry').textContent = country;
+
+  form.closest('.booking-wrap').hidden = true;
+  confirmPanel.hidden = false;
+  confirmPanel.scrollIntoView({ behavior:'smooth', block:'start' });
+});
+
+// PARTNERS CAROUSEL
+(function initCarousel(){
+  const viewport = document.getElementById('carouselViewport');
+  const track = document.getElementById('carouselTrack');
+  const slides = Array.from(track.children);
+  const prevBtn = document.getElementById('carouselPrev');
+  const nextBtn = document.getElementById('carouselNext');
+  const dotsWrap = document.getElementById('carouselDots');
+  let currentIndex = 0;
+
+  function slidesPerView(){
+    const w = window.innerWidth;
+    if (w <= 560) return 1;
+    if (w <= 960) return 2;
+    return 3;
+  }
+  function maxIndex(){ return Math.max(0, slides.length - slidesPerView()); }
+
+  function buildDots(){
+    dotsWrap.innerHTML = '';
+    const pages = maxIndex() + 1;
+    for (let i = 0; i < pages; i++){
+      const d = document.createElement('button');
+      d.className = 'carousel__dot' + (i === currentIndex ? ' active' : '');
+      d.setAttribute('aria-label', 'Go to page ' + (i+1));
+      d.addEventListener('click', () => { goTo(i); restartAutoplay(); });
+      dotsWrap.appendChild(d);
+    }
+  }
+
+  function updateUI(){
+    // scroll to index
+    const slideWidth = slides[0].getBoundingClientRect().width;
+    const gap = parseFloat(getComputedStyle(track).gap) || 0;
+    viewport.scrollTo({ left: currentIndex * (slideWidth + gap), behavior: 'smooth' });
+
+    // buttons
+    prevBtn.disabled = currentIndex <= 0;
+    nextBtn.disabled = currentIndex >= maxIndex();
+
+    // dots
+    const dots = dotsWrap.querySelectorAll('.carousel__dot');
+    dots.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+  }
+
+  function goTo(i){
+    const max = maxIndex();
+    currentIndex = Math.max(0, Math.min(max, i));
+    updateUI();
+  }
+
+  // AUTOPLAY
+  const AUTOPLAY_DELAY = 4200;
+  const carouselEl = viewport.closest('.carousel');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let autoplayTimer = null;
+
+  function advance(){
+    const max = maxIndex();
+    goTo(currentIndex >= max ? 0 : currentIndex + 1);
+  }
+  function startAutoplay(){
+    if (reduceMotion || maxIndex() === 0) return;
+    stopAutoplay();
+    autoplayTimer = setInterval(advance, AUTOPLAY_DELAY);
+  }
+  function stopAutoplay(){
+    if (autoplayTimer){ clearInterval(autoplayTimer); autoplayTimer = null; }
+  }
+  function restartAutoplay(){ stopAutoplay(); startAutoplay(); }
+
+  prevBtn.addEventListener('click', () => { goTo(currentIndex - 1); restartAutoplay(); });
+  nextBtn.addEventListener('click', () => { goTo(currentIndex + 1); restartAutoplay(); });
+
+  // Pause on hover/focus/touch so a reader isn't fighting a moving carousel; resume after
+  carouselEl.addEventListener('mouseenter', stopAutoplay);
+  carouselEl.addEventListener('mouseleave', startAutoplay);
+  carouselEl.addEventListener('focusin', stopAutoplay);
+  carouselEl.addEventListener('focusout', startAutoplay);
+  carouselEl.addEventListener('touchstart', stopAutoplay, { passive: true });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopAutoplay(); else startAutoplay();
+  });
+
+  // Rebuild dots on resize (view sizes change page counts)
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (currentIndex > maxIndex()) currentIndex = maxIndex();
+      buildDots();
+      updateUI();
+      restartAutoplay();
+    }, 180);
+  });
+
+  // Sync when user scrolls the viewport directly
+  viewport.addEventListener('scroll', () => {
+    const slideWidth = slides[0].getBoundingClientRect().width;
+    const gap = parseFloat(getComputedStyle(track).gap) || 0;
+    const idx = Math.round(viewport.scrollLeft / (slideWidth + gap));
+    if (idx !== currentIndex){
+      currentIndex = Math.max(0, Math.min(maxIndex(), idx));
+      const dots = dotsWrap.querySelectorAll('.carousel__dot');
+      dots.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+      prevBtn.disabled = currentIndex <= 0;
+      nextBtn.disabled = currentIndex >= maxIndex();
+    }
+  }, { passive: true });
+
+  // Build initial state
+  buildDots();
+  updateUI();
+  startAutoplay();
+})();
+
+// EXHIBIT MODAL
+const exhibitModal = document.getElementById('exhibitModal');
+const modalFormView = document.getElementById('modalFormView');
+const modalSuccessView = document.getElementById('modalSuccessView');
+const exhibitForm = document.getElementById('exhibitForm');
+const exhibitError = document.getElementById('exhibitError');
+let lastFocusedBeforeModal = null;
+
+function getFocusable(container) {
+  return Array.from(container.querySelectorAll(
+    'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])'
+  )).filter(el => el.offsetParent !== null);
+}
+
+function openModal(trigger) {
+  lastFocusedBeforeModal = trigger || document.activeElement;
+  exhibitModal.classList.add('open');
+  exhibitModal.removeAttribute('aria-hidden');
+  document.body.style.overflow = 'hidden';
+  const focusables = getFocusable(exhibitModal.querySelector('.modal__panel'));
+  (focusables[0] || exhibitModal).focus();
+}
+function closeModal() {
+  exhibitModal.classList.remove('open');
+  exhibitModal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  if (lastFocusedBeforeModal) lastFocusedBeforeModal.focus();
+}
+
+document.getElementById('openExhibitModal').addEventListener('click', (e) => openModal(e.currentTarget));
+document.getElementById('openExhibitModalCta').addEventListener('click', (e) => openModal(e.currentTarget));
+document.getElementById('closeExhibitModal').addEventListener('click', closeModal);
+
+exhibitModal.addEventListener('click', (e) => { if (e.target === exhibitModal) closeModal(); });
+document.addEventListener('keydown', (e) => {
+  if (!exhibitModal.classList.contains('open')) return;
+  if (e.key === 'Escape') { closeModal(); return; }
+  // Trap Tab focus inside the open modal
+  if (e.key === 'Tab') {
+    const focusables = getFocusable(exhibitModal.querySelector('.modal__panel'));
+    if (!focusables.length) return;
+    const first = focusables[0], last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+});
+
+exhibitForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  exhibitError.classList.remove('show'); exhibitError.textContent = '';
+
+  const org = document.getElementById('eorg').value.trim();
+  const name = document.getElementById('ename').value.trim();
+  const email = document.getElementById('eemail').value.trim();
+  const phone = document.getElementById('ephone').value.trim();
+  const pkg = document.getElementById('epackage').value;
+
+  let error = '';
+  if (!org) error = 'Please provide your company or organisation name.';
+  else if (!name) error = 'Please provide a contact person.';
+  else if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) error = 'Please provide a valid email address.';
+  else if (!phone) error = 'Please provide a contact telephone number.';
+  else if (!pkg) error = 'Please select a package of interest.';
+
+  if (error) {
+    exhibitError.textContent = error; exhibitError.classList.add('show');
+    return;
+  }
+
+  modalFormView.style.display = 'none';
+  modalSuccessView.classList.add('show');
+});
+
+// SCROLL REVEAL
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold:0.12, rootMargin:'0px 0px -60px 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// VIEW MORE SPEAKERS
+(function initViewMoreSpeakers(){
+  const btn = document.getElementById('viewMoreSpeakers');
+  if (!btn) return;
+  const moreCard = btn.closest('.speaker--more');
+  const hiddenSpeakers = Array.from(document.querySelectorAll('.speaker--hidden'));
+  btn.addEventListener('click', () => {
+    hiddenSpeakers.forEach((el, i) => {
+      el.classList.remove('speaker--hidden');
+      el.classList.add('reveal');
+      // Stagger the reveal so the new cards fade/slide in one after another rather than
+      // popping in all at once.
+      requestAnimationFrame(() => setTimeout(() => el.classList.add('in'), i * 90));
+    });
+    btn.setAttribute('aria-expanded', 'true');
+    moreCard.style.display = 'none';
+  });
+})();
+
+// STAT COUNT-UP — numbers animate from 0 to their target once the strip scrolls into view
+(function initStatCounters(){
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const counters = Array.from(document.querySelectorAll('.stat__num[data-count]'));
+  if (!counters.length) return;
+
+  function animateCount(el){
+    const target = parseInt(el.dataset.count, 10) || 0;
+    const valEl = el.querySelector('.stat__num-val') || el;
+    if (reduceMotion) { valEl.textContent = target; return; }
+    const duration = 1200;
+    const start = performance.now();
+    function tick(now){
+      const p = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - p, 3); // ease-out cubic
+      valEl.textContent = Math.round(target * eased);
+      if (p < 1) requestAnimationFrame(tick);
+      else valEl.textContent = target;
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const counterIo = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { animateCount(entry.target); counterIo.unobserve(entry.target); }
+    });
+  }, { threshold: 0.4 });
+  counters.forEach(el => counterIo.observe(el));
+})();
