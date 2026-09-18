@@ -32,13 +32,17 @@
 <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
 
-<!-- Tailwind CSS (Play CDN) — utility classes available for any new markup. Preflight (its
-     base-style reset) is disabled so it doesn't touch the existing hand-built design below.
+<!-- Tailwind CSS (Play CDN) — utility classes available for any new markup, under a "tw-"
+     prefix (e.g. tw-flex, tw-container). The prefix is required, not optional: the site's own
+     CSS already defines classes named .container and .sr-only, and Tailwind ships utilities
+     with those exact names — without a prefix its .container silently overrode the site's
+     centred-container layout. Preflight (Tailwind's base-style reset) is also disabled so it
+     doesn't touch the existing hand-built design below.
      Note: the Play CDN is meant for prototyping; swap it for the CLI/PostCSS build before
      relying on it heavily in production (see README). -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-  tailwind.config = { corePlugins: { preflight: false } };
+  tailwind.config = { prefix: 'tw-', corePlugins: { preflight: false } };
 </script>
 
 <link rel="stylesheet" href="css/styles.css">

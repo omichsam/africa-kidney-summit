@@ -3,7 +3,7 @@
 A single-page marketing and delegate-registration site for the Africa Kidney Health
 Summit, held **9–11 March 2027** at the KICC, Nairobi, Kenya.
 
-**Live site:** https://omichsam.github.io/africa-kidney-summit/
+**Live site:** <https://omichsam.github.io/africa-kidney-summit/>
 
 ## What's on the page
 
@@ -20,12 +20,16 @@ Plain **HTML + CSS + vanilla JavaScript** — no framework, no build step, no
 dependencies to install. Open [index.html](index.html) in a browser and it works.
 
 **Tailwind CSS** is loaded via the [Play CDN](https://tailwindcss.com/docs/installation/play-cdn)
-in `<head>` for use in any new markup, with Preflight (its base-style reset) turned off so it
-doesn't alter the existing hand-built design in `css/styles.css`. The Play CDN is fine for this
-kind of static site but isn't meant for heavy production use (it compiles in the browser on every
-load) — if Tailwind usage grows, switch to the Tailwind CLI or PostCSS build instead.
+in `<head>` for use in any new markup, under a **`tw-` prefix** (e.g. `tw-flex`, `tw-gap-4`,
+`tw-container`). The prefix is required, not optional — `css/styles.css` already defines classes
+named `.container` and `.sr-only`, and Tailwind ships utilities with those exact names, so an
+unprefixed setup silently breaks the existing layout (Tailwind's `.container` overrides the
+site's centred one). Preflight (Tailwind's base-style reset) is also turned off so it doesn't
+alter the existing hand-built design. The Play CDN is fine for this kind of static site but isn't
+meant for heavy production use (it compiles in the browser on every load) — if Tailwind usage
+grows, switch to the Tailwind CLI or PostCSS build instead.
 
-```
+```text
 index.html          All page markup and content
 css/styles.css       Design tokens + styles for every section/component
 js/script.js         Countdown, nav scroll-spy, carousel, forms, modals,
