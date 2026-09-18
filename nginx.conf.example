@@ -1,0 +1,24 @@
+# Africa Kidney Health Summit — example Nginx server block
+# Use this ONLY if your host runs Nginx instead of Apache (in that case .htaccess is ignored).
+# Hides the .html extension the same way the included .htaccess does for Apache.
+
+server {
+    listen 80;
+    server_name www.kidneyhealth.africa kidneyhealth.africa;
+    root /var/www/africa-kidney-summit;
+    index index.html;
+
+    # Serve clean URLs: /about -> about.html (if such a page exists)
+    location / {
+        try_files $uri $uri.html $uri/ =404;
+    }
+
+    # Redirect any request that still shows .html to the clean URL
+    location ~ ^/(.+)\.html$ {
+        return 301 /$1;
+    }
+
+    location = /index.html {
+        return 301 /;
+    }
+}
