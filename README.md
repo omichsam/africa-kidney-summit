@@ -19,6 +19,12 @@ Summit, held **9–11 March 2027** at the KICC, Nairobi, Kenya.
 Plain **HTML + CSS + vanilla JavaScript** — no framework, no build step, no
 dependencies to install. Open [index.html](index.html) in a browser and it works.
 
+**Tailwind CSS** is loaded via the [Play CDN](https://tailwindcss.com/docs/installation/play-cdn)
+in `<head>` for use in any new markup, with Preflight (its base-style reset) turned off so it
+doesn't alter the existing hand-built design in `css/styles.css`. The Play CDN is fine for this
+kind of static site but isn't meant for heavy production use (it compiles in the browser on every
+load) — if Tailwind usage grows, switch to the Tailwind CLI or PostCSS build instead.
+
 ```
 index.html          All page markup and content
 css/styles.css       Design tokens + styles for every section/component

@@ -31,6 +31,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+
+<!-- Tailwind CSS (Play CDN) — utility classes available for any new markup. Preflight (its
+     base-style reset) is disabled so it doesn't touch the existing hand-built design below.
+     Note: the Play CDN is meant for prototyping; swap it for the CLI/PostCSS build before
+     relying on it heavily in production (see README). -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { corePlugins: { preflight: false } };
+</script>
+
 <link rel="stylesheet" href="css/styles.css">
 
 <!-- Structured data: helps search engines show this as a rich Event result -->
