@@ -563,7 +563,15 @@
       </div>
     </div>
 
-    <div class="booking-wrap reveal">
+    <div class="booking-toggle reveal" id="bookingToggle">
+      <button type="button" class="btn btn--primary btn--lg" id="startRegistration">
+        Start registration
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+      <p class="booking-toggle__note">Takes about 2 minutes · no payment required to reserve your place</p>
+    </div>
+
+    <div class="booking-wrap reveal" id="bookingWrap" hidden>
       <form id="bookingForm" novalidate>
         <fieldset class="fset">
           <div class="fset__head">

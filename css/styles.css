@@ -525,6 +525,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 }
 
 /* FORM */
+/* Collapsed-by-default prompt shown instead of the full form; "Book a delegate place" links
+   sitewide expand the form directly via JS rather than leaving the visitor to find this button. */
+.booking-toggle{max-width:820px;margin:2.4rem auto 0;text-align:center}
+.booking-toggle__note{margin-top:.9rem;font-size:.82rem;color:var(--muted)}
 .booking-wrap{max-width:820px;margin:2.4rem auto 0;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(1.6rem,3.5vw,2.6rem);box-shadow:var(--shadow)}
 .fset{border:0;padding:0;margin:0 0 2rem}
 .fset:last-of-type{margin-bottom:1.4rem}

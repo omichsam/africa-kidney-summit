@@ -87,6 +87,33 @@ document.querySelectorAll('input[name="payment"]').forEach(input => {
   });
 });
 
+// BOOKING FORM TOGGLE — collapsed by default; expands on its own button or on any
+// "Book a delegate place" / "Book" link anywhere on the page, so a visitor who clicks one
+// of those never has to find a second button once they arrive.
+(function initBookingToggle(){
+  const toggle = document.getElementById('bookingToggle');
+  const wrap = document.getElementById('bookingWrap');
+  const startBtn = document.getElementById('startRegistration');
+  if (!toggle || !wrap) return;
+
+  function expand(focusFirstField){
+    if (!wrap.hidden) return;
+    wrap.hidden = false;
+    toggle.hidden = true;
+    if (focusFirstField) {
+      const firstField = wrap.querySelector('select, input, textarea, button');
+      if (firstField) firstField.focus({ preventScroll: true });
+    }
+  }
+
+  startBtn.addEventListener('click', () => expand(true));
+  document.querySelectorAll('a[href="#booking-form"]').forEach(link => {
+    link.addEventListener('click', () => expand(false));
+  });
+  // Direct/shared link straight to the section should land on the real form, not the prompt.
+  if (window.location.hash === '#booking-form') expand(false);
+})();
+
 // BOOKING FORM (no pricing)
 const form = document.getElementById('bookingForm');
 const formError = document.getElementById('formError');
