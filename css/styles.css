@@ -526,6 +526,21 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .booking-toggle{max-width:820px;margin:2.4rem auto 0;text-align:center}
 .booking-toggle__note{margin-top:.9rem;font-size:.82rem;color:var(--muted)}
 
+/* FORM FIELDS — shared by the exhibition enquiry modal */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.field{display:grid;gap:.4rem;margin-bottom:1rem}
+.field label{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.3rem}
+.field label .req{color:var(--red-2)}
+.field input,.field select,.field textarea{width:100%;padding:.85rem 1rem;border-radius:10px;font-family:'Inter',sans-serif;font-size:.9rem;background:var(--blue-pale);border:1px solid var(--line);color:var(--ink);transition:border-color .2s,background .2s,box-shadow .2s;outline:none}
+.field textarea{resize:vertical;min-height:96px}
+.field input::placeholder,.field textarea::placeholder{color:rgba(10,31,61,.35)}
+.field input:focus,.field select:focus,.field textarea:focus{background:#fff;border-color:var(--blue-2);box-shadow:0 0 0 4px rgba(46,111,191,.11)}
+.field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235D6E86' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .9rem center;background-size:15px;padding-right:2.4rem;cursor:pointer}
+@media(max-width:640px){.grid-2{grid-template-columns:1fr}}
+
+.form-error{display:none;margin-top:1rem;padding:.9rem 1.1rem;border-radius:10px;background:#FDF0F2;border:1px solid rgba(230,57,80,.3);font-size:.83rem;color:var(--red-dark);line-height:1.5}
+.form-error.show{display:block}
+
 /* EXHIBITION — no pricing */
 .exhibition{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.6rem}
 .exhibition--pair{grid-template-columns:repeat(2,1fr);max-width:820px;margin-inline:auto}
