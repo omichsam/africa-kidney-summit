@@ -717,6 +717,14 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .footer{background:var(--ink);color:rgba(255,255,255,.58);padding:4rem 0 2.2rem;font-size:.86rem}
 .footer__grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1.3fr;gap:2.2rem;padding-bottom:2.6rem;border-bottom:1px solid rgba(255,255,255,.1)}
 .footer__about{max-width:310px;line-height:1.65;font-size:.84rem;margin-top:1.1rem}
+.footer__social{display:flex;gap:.7rem;margin-top:1.3rem}
+.footer__social a{
+  display:grid;place-items:center;width:36px;height:36px;border-radius:10px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.75);transition:background .2s,color .2s,transform .2s;
+}
+.footer__social a:hover{background:var(--blue-3);color:#fff;transform:translateY(-2px)}
+.footer__social svg{width:17px;height:17px}
 .footer h5{font-family:'Plus Jakarta Sans',sans-serif;color:#fff;font-size:.73rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin:0 0 1rem}
 .footer ul{list-style:none;padding:0;margin:0;display:grid;gap:.6rem}
 .footer ul li{font-size:.83rem;line-height:1.5}
