@@ -71,12 +71,18 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .official-bar__meta{margin-left:auto;display:flex;gap:1.1rem;flex-wrap:wrap;align-items:center}
 .official-bar__meta a{color:rgba(255,255,255,.78);text-decoration:none}
 .official-bar__meta a:hover{color:#fff}
-@media(max-width:760px){.official-bar__meta{margin-left:0;width:100%;justify-content:space-between;font-size:.68rem}}
+@media(max-width:760px){
+  .official-bar__meta{margin-left:0;width:100%;justify-content:space-between;font-size:.68rem}
+  /* Seal + meta wrap onto several lines once the meta drops to full width below —
+     the desktop 44px cap clips the wrapped lines instead of just hiding on scroll. */
+  .official-bar{max-height:88px}
+}
+@media(max-width:480px){.official-bar{max-height:112px}}
 
 .nav{padding:12px 0}
 .nav__inner{display:flex;align-items:center;gap:1.4rem}
 .nav__links{display:flex;gap:1.3rem;margin-left:auto}
-.nav__links a{color:rgba(10,31,61,.72);text-decoration:none;font-size:.84rem;font-weight:600;position:relative;padding:.25rem 0;transition:color .2s}
+.nav__links a{color:rgba(10,31,61,.72);text-decoration:none;font-size:.84rem;font-weight:600;position:relative;padding:.25rem 0;white-space:nowrap;transition:color .2s}
 .nav__links a::after{content:'';position:absolute;left:0;bottom:0;height:2px;width:0;border-radius:2px;background:linear-gradient(90deg,var(--blue-2),var(--red-2));transition:width .3s}
 .nav__links a:hover{color:var(--ink)}
 .nav__links a:hover::after{width:100%}
