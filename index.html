@@ -104,10 +104,10 @@
         <a href="#focus">Focus Areas</a>
         <a href="#program">Programme</a>
         <a href="#registration">Attendees</a>
-        <a href="#booking-form">Registration</a>
+        <a href="https://apps.little.africa/events/africa-kidney-health-summit" target="_blank" rel="noopener">Registration</a>
         <a href="#exhibition">Exhibition &amp; Partnership</a>
       </nav>
-      <a href="#booking-form" class="btn btn--primary btn--sm nav__cta">Book a delegate place</a>
+      <a href="https://apps.little.africa/events/africa-kidney-health-summit" target="_blank" rel="noopener" class="btn btn--primary btn--sm nav__cta">Book a delegate place</a>
       <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </header>
@@ -135,7 +135,7 @@
           <div class="cd"><span class="cd__num" id="cd-secs">00</span><span class="cd__lbl"><span class="cd__live-dot" aria-hidden="true"></span>Seconds</span></div>
         </div>
         <div class="hero__cta">
-          <a href="#booking-form" class="btn btn--primary btn--lg">Book a delegate place
+          <a href="https://apps.little.africa/events/africa-kidney-health-summit" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Book a delegate place
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
           <a href="#exhibition" class="btn btn--ghost btn--lg">Exhibit at the summit</a>
@@ -496,21 +496,21 @@
     </div>
 
     <div style="text-align:center;margin-top:2.4rem">
-      <a href="#booking-form" class="btn btn--primary btn--lg">Book a delegate place
+      <a href="https://apps.little.africa/events/africa-kidney-health-summit" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Book a delegate place
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
     </div>
   </div>
 </section>
 
-<!-- BOOKING FORM (no prices) — includes the "how it works" steps, folded in rather than
-     given its own section, since it was just describing the form directly below it. -->
+<!-- BOOKING — includes the "how it works" steps, folded in rather than given its own
+     section, since it was just describing the registration flow directly below it. -->
 <section class="section section--tint" id="booking-form">
   <div class="container">
     <div class="head-center reveal">
-      <span class="eyebrow">Official Booking Form</span>
+      <span class="eyebrow">Official Booking</span>
       <h2 class="h2">Complete your delegate registration.</h2>
-      <p class="lead">All fields marked with an asterisk are required. Your registration reference is issued on submission.</p>
+      <p class="lead">Registration is handled on the summit's official ticketing platform. Select your delegate category, confirm your details and choose a payment method there.</p>
     </div>
 
     <div class="process-v2 process-v2--compact reveal">
@@ -560,134 +560,12 @@
       </div>
     </div>
 
-    <div class="booking-toggle reveal" id="bookingToggle">
-      <button type="button" class="btn btn--primary btn--lg" id="startRegistration">
-        Start registration
+    <div class="booking-toggle reveal">
+      <a href="https://apps.little.africa/events/africa-kidney-health-summit" target="_blank" rel="noopener" class="btn btn--primary btn--lg">
+        Continue to registration
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </button>
-      <p class="booking-toggle__note">Takes about 2 minutes · no payment required to reserve your place</p>
-    </div>
-
-    <div class="booking-wrap reveal" id="bookingWrap" hidden>
-      <form id="bookingForm" novalidate>
-        <fieldset class="fset">
-          <div class="fset__head">
-            <span class="fset__n">1</span>
-            <span class="fset__title">Delegate category &amp; quantity</span>
-          </div>
-          <div class="grid-2">
-            <div class="field">
-              <label for="category">Category <span class="req">*</span></label>
-              <select id="category" name="category" required>
-                <option value="">Select a category…</option>
-                <option value="government">Government &amp; Public Sector</option>
-                <option value="clinician">Nephrologist / Clinician</option>
-                <option value="nurse">Nurse &amp; Allied Health</option>
-                <option value="researcher">Researcher / Academia</option>
-                <option value="student">Student / Trainee</option>
-                <option value="ngo">Civil Society / NGO</option>
-                <option value="industry">Industry &amp; Private Sector</option>
-                <option value="media">Media &amp; Press</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Number of delegates <span class="req">*</span></label>
-              <div class="qty">
-                <button type="button" id="qtyMinus" aria-label="Decrease">−</button>
-                <input type="number" id="qty" name="qty" value="1" min="1" max="25" inputmode="numeric" aria-label="Number of delegates">
-                <button type="button" id="qtyPlus" aria-label="Increase">+</button>
-              </div>
-            </div>
-          </div>
-        </fieldset>
-
-        <fieldset class="fset">
-          <div class="fset__head">
-            <span class="fset__n">2</span>
-            <span class="fset__title">Lead delegate details</span>
-          </div>
-          <div class="grid-2">
-            <div class="field"><label for="fname">Full name <span class="req">*</span></label><input id="fname" name="name" type="text" placeholder="Dr. Jane Wanjiku" required></div>
-            <div class="field"><label for="femail">Official email <span class="req">*</span></label><input id="femail" name="email" type="email" placeholder="you@organisation.org" required></div>
-          </div>
-          <div class="grid-2">
-            <div class="field"><label for="forg">Organisation <span class="req">*</span></label><input id="forg" name="organisation" type="text" placeholder="Ministry of Health" required></div>
-            <div class="field"><label for="fcountry">Country <span class="req">*</span></label><input id="fcountry" name="country" type="text" placeholder="Kenya" required></div>
-          </div>
-        </fieldset>
-
-        <fieldset class="fset">
-          <div class="fset__head">
-            <span class="fset__n">3</span>
-            <span class="fset__title">Payment preference</span>
-          </div>
-          <div class="pay-grid">
-            <label class="pay">
-              <input type="radio" name="payment" value="card" required>
-              <span class="pay__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></span>
-              <b>Card payment</b>
-              <small>Secure SSL checkout link issued on confirmation.</small>
-            </label>
-            <label class="pay">
-              <input type="radio" name="payment" value="transfer">
-              <span class="pay__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01"/></svg></span>
-              <b>Bank transfer</b>
-              <small>Official bank details issued with your invoice.</small>
-            </label>
-            <label class="pay">
-              <input type="radio" name="payment" value="invoice">
-              <span class="pay__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></span>
-              <b>Invoice to organisation</b>
-              <small>For public sector and institutional bookings.</small>
-            </label>
-          </div>
-        </fieldset>
-
-        <fieldset class="fset">
-          <div class="fset__head">
-            <span class="fset__n">4</span>
-            <span class="fset__title">Declarations</span>
-          </div>
-          <label class="consent"><input type="checkbox" id="cAuth" required><span>I confirm I am authorised to submit this booking on behalf of the named organisation. <span class="req">*</span></span></label>
-          <label class="consent"><input type="checkbox" id="cTerms" required><span>I accept the Delegate Terms &amp; Conditions. <span class="req">*</span></span></label>
-          <label class="consent"><input type="checkbox" id="cPrivacy" required><span>I consent to data processing under the Privacy Notice and Kenya Data Protection Act 2019. <span class="req">*</span></span></label>
-        </fieldset>
-
-        <div class="form-error" id="formError" role="alert"></div>
-
-        <button type="submit" class="btn btn--primary btn--block btn--lg">
-          Submit registration
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </button>
-      </form>
-    </div>
-
-    <div class="confirm" id="bookingConfirm" hidden>
-      <div class="confirm__seal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.4 9.3 8 10 4.6-.7 8-5 8-10V6l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg>
-      </div>
-      <h3>Registration received.</h3>
-      <p>Your booking has been logged with the summit secretariat. Please retain your registration reference below.</p>
-      <div class="ref-box">
-        <div><span>Registration reference</span><b id="confirmRef">AKHS-2027-00000</b></div>
-        <div style="text-align:right"><span>Status</span><b style="font-size:.82rem;font-family:'Inter',sans-serif;letter-spacing:0">Awaiting confirmation</b></div>
-      </div>
-      <div class="confirm-grid">
-        <div><small>Category</small><b id="confirmCategory">—</b></div>
-        <div><small>Delegates</small><b id="confirmQty">—</b></div>
-        <div><small>Payment</small><b id="confirmPayment">—</b></div>
-        <div><small>Lead delegate</small><b id="confirmName">—</b></div>
-        <div><small>Organisation</small><b id="confirmOrg">—</b></div>
-        <div><small>Country</small><b id="confirmCountry">—</b></div>
-      </div>
-      <div class="confirm-next">
-        <h4>What happens next</h4>
-        <ol>
-          <li>The secretariat reviews your booking and confirms your place within <b>48 hours</b>.</li>
-          <li>An <b>official invoice</b> is issued with payment instructions.</li>
-          <li>Your <b>delegate confirmation pack</b> is issued on receipt of payment.</li>
-        </ol>
-      </div>
+      </a>
+      <p class="booking-toggle__note">Opens the official ticketing platform in a new tab · no payment required to reserve your place</p>
     </div>
   </div>
 </section>
@@ -870,7 +748,7 @@
         <p>Be in the room. Book your delegate place or request partnership information.</p>
       </div>
       <div class="cta__actions">
-        <a href="#booking-form" class="btn btn--primary btn--lg">Book a delegate place</a>
+        <a href="https://apps.little.africa/events/africa-kidney-health-summit" target="_blank" rel="noopener" class="btn btn--primary btn--lg">Book a delegate place</a>
         <button type="button" class="btn btn--white btn--lg" id="openExhibitModalCta">Exhibit at the summit</button>
         <p class="cta__micro">9th – 11th March 2027 · KICC, Nairobi, Kenya</p>
       </div>
@@ -911,7 +789,7 @@
         <h5>Delegates</h5>
         <ul>
           <li><a href="#registration">Attendees</a></li>
-          <li><a href="#booking-form">Book a place</a></li>
+          <li><a href="https://apps.little.africa/events/africa-kidney-health-summit" target="_blank" rel="noopener">Book a place</a></li>
           <li><a href="#exhibition">Exhibition &amp; Partnership</a></li>
           <li><a href="#venue">Venue</a></li>
         </ul>

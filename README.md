@@ -50,10 +50,16 @@ Any static file server works equally well (`npx serve`, VS Code Live Server, etc
 
 ## Forms
 
-The booking and exhibition-enquiry forms are **front-end only** right now: they
-validate input, generate a mock registration reference, and show a confirmation
-panel — no data is actually sent anywhere. Wire `js/script.js`'s two `submit`
-handlers up to a real backend/email service before going live.
+Every "Book a delegate place" / "Book" link on the page (nav, hero, Who Should
+Attend, the booking section, the CTA banner and footer) points to the official
+external ticketing platform:
+<https://apps.little.africa/events/africa-kidney-health-summit>, opened in a
+new tab. There is no in-page booking form or mock confirmation anymore.
+
+The exhibition-enquiry form is still **front-end only**: it validates input
+and shows a confirmation panel, but no data is actually sent anywhere. Wire
+`js/script.js`'s `submit` handler up to a real backend/email service before
+going live.
 
 ## Deployment & clean URLs
 
