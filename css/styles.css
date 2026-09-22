@@ -587,15 +587,14 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .exhibit-tile__cta{
   display:inline-flex;align-items:center;gap:.4rem;
   font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;
-  font-size:.8rem;color:var(--ink);padding-top:1rem;
-  border-top:1px solid var(--line-soft);transition:color .2s;
+  font-size:.8rem;color:var(--ink);padding:1rem 0 0;margin:0;
+  background:none;border:0;border-top:1px solid var(--line-soft);
+  cursor:pointer;transition:color .2s;
 }
-.exhibit-tile:hover .exhibit-tile__cta{color:var(--red-2)}
+.exhibit-tile__cta:hover,.exhibit-tile:hover .exhibit-tile__cta{color:var(--red-2)}
 .exhibit-tile__cta svg{width:14px;height:14px}
 @media(max-width:900px){.exhibition{grid-template-columns:1fr;gap:1rem}}
 
-.exhibition__cta{text-align:center;margin-top:2.6rem}
-.exhibition__cta p{font-size:.85rem;color:var(--muted);margin-top:.9rem}
 
 /* MODAL */
 .modal{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:1.4rem;background:rgba(10,31,61,.72);backdrop-filter:blur(6px);overflow-y:auto}

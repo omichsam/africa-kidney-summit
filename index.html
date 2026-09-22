@@ -45,7 +45,7 @@
   tailwind.config = { prefix: 'tw-', corePlugins: { preflight: false } };
 </script>
 
-<link rel="stylesheet" href="css/styles.css?v=20260922">
+<link rel="stylesheet" href="css/styles.css?v=20260922-2">
 
 <!-- Structured data: helps search engines show this as a rich Event result -->
 <script type="application/ld+json">
@@ -585,9 +585,9 @@
         <span class="exhibit-tile__tag">Exhibition</span>
         <h3>Exhibition Space</h3>
         <p>Shell-scheme booths with fascia board, power point and delegate passes — direct floor access to book meetings with clinicians, procurement leads and ministry delegations across the three days.</p>
-        <span class="exhibit-tile__cta">Learn more
+        <button type="button" class="exhibit-tile__cta js-open-exhibit-modal" data-package="Exhibition Space">Learn more
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </span>
+        </button>
       </div>
 
       <div class="exhibit-tile reveal" style="--d:80ms">
@@ -595,18 +595,10 @@
         <span class="exhibit-tile__tag">Partnership</span>
         <h3>Partnership Packages</h3>
         <p>Premium booth placement, logo on official materials, breakout session slots and keynote mentions — tiered packages for organisations seeking a strategic, high-visibility presence.</p>
-        <span class="exhibit-tile__cta">Learn more
+        <button type="button" class="exhibit-tile__cta js-open-exhibit-modal" data-package="Partnership Package">Learn more
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </span>
+        </button>
       </div>
-    </div>
-
-    <div class="exhibition__cta reveal">
-      <button type="button" class="btn btn--primary btn--lg" id="openExhibitModal">
-        Request partnership information
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </button>
-      <p>Complete a short form and the partnership team will contact you within 48 hours with the full prospectus.</p>
     </div>
   </div>
 </section>
@@ -657,10 +649,9 @@
           <label for="epackage">Package of interest <span class="req">*</span></label>
           <select id="epackage" name="epackage" required>
             <option value="">Select a package…</option>
-            <option>Standard Booth</option>
-            <option>Gold Partnership</option>
-            <option>Platinum Partnership</option>
-            <option>Custom / other partnership</option>
+            <option>Exhibition Space</option>
+            <option>Partnership Package</option>
+            <option>Custom / other</option>
           </select>
         </div>
 
@@ -817,6 +808,6 @@
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
-<script src="js/script.js?v=20260922"></script>
+<script src="js/script.js?v=20260922-2"></script>
 </body>
 </html>

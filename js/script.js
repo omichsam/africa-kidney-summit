@@ -204,11 +204,12 @@ function getFocusable(container) {
   )).filter(el => el.offsetParent !== null);
 }
 
-function openModal(trigger) {
+function openModal(trigger, presetPackage) {
   lastFocusedBeforeModal = trigger || document.activeElement;
   exhibitModal.classList.add('open');
   exhibitModal.removeAttribute('aria-hidden');
   document.body.style.overflow = 'hidden';
+  if (presetPackage) document.getElementById('epackage').value = presetPackage;
   const focusables = getFocusable(exhibitModal.querySelector('.modal__panel'));
   (focusables[0] || exhibitModal).focus();
 }
@@ -219,8 +220,10 @@ function closeModal() {
   if (lastFocusedBeforeModal) lastFocusedBeforeModal.focus();
 }
 
-document.getElementById('openExhibitModal').addEventListener('click', (e) => openModal(e.currentTarget));
 document.getElementById('openExhibitModalCta').addEventListener('click', (e) => openModal(e.currentTarget));
+document.querySelectorAll('.js-open-exhibit-modal').forEach(btn => {
+  btn.addEventListener('click', (e) => openModal(e.currentTarget, btn.dataset.package));
+});
 document.getElementById('closeExhibitModal').addEventListener('click', closeModal);
 
 exhibitModal.addEventListener('click', (e) => { if (e.target === exhibitModal) closeModal(); });
