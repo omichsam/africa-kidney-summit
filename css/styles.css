@@ -594,6 +594,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 /* EXHIBITION — no pricing */
 .exhibition{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.6rem}
 .exhibition--pair{grid-template-columns:repeat(2,1fr);max-width:820px;margin-inline:auto}
+.exhibition--pair .exhibit-tile{align-items:center;text-align:center}
+.exhibition--pair .exhibit-tile__cta{align-self:stretch;justify-content:center}
 /* Neumorphism: tile matches the (now-tinted) section tone, no border — a soft extrusion,
    set against Contact's glass and the Programme cards' glass-top/neumorphic-body blend. */
 .exhibit-tile{
