@@ -708,6 +708,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .footer__bottom{display:flex;justify-content:space-between;align-items:center;gap:1.4rem;padding-top:1.4rem;flex-wrap:wrap;font-size:.76rem;border-top:1px solid rgba(255,255,255,.08);margin-top:1.6rem}
 .footer__badges{display:flex;gap:.5rem;flex-wrap:wrap}
 .footer__badges span{padding:.3rem .65rem;border-radius:5px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);font-size:.64rem;font-weight:700;letter-spacing:.07em;color:rgba(255,255,255,.6);text-transform:uppercase}
+@media(max-width:560px){.footer__badges{display:none}}
 @media(max-width:900px){.footer__grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.footer__grid{grid-template-columns:1fr;gap:1.9rem}}
 
