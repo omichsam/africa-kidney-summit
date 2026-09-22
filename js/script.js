@@ -35,14 +35,21 @@ backToTop.addEventListener('click', () => {
   document.getElementById('main-content').setAttribute('tabindex', '-1');
   document.getElementById('main-content').focus({ preventScroll: true });
 });
-navToggle.addEventListener('click', () => {
-  const open = navLinks.classList.toggle('open');
+const navBackdrop = document.getElementById('navBackdrop');
+navBackdrop.hidden = false;
+function setNavOpen(open){
+  navLinks.classList.toggle('open', open);
   navToggle.classList.toggle('active', open);
   navToggle.setAttribute('aria-expanded', open);
+  navBackdrop.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+navToggle.addEventListener('click', () => setNavOpen(!navLinks.classList.contains('open')));
+navBackdrop.addEventListener('click', () => setNavOpen(false));
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && navLinks.classList.contains('open')) setNavOpen(false);
 });
-navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-  navLinks.classList.remove('open'); navToggle.classList.remove('active'); navToggle.setAttribute('aria-expanded','false');
-}));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setNavOpen(false)));
 
 // SCROLL SPY — underline the nav link for whichever section is currently in view
 (function initScrollSpy(){
