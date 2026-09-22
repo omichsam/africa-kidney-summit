@@ -51,8 +51,9 @@ Any static file server works equally well (`npx serve`, VS Code Live Server, etc
 ## Forms
 
 Every "Book a delegate place" / "Book" link on the page (nav, hero, Who Should
-Attend, the booking section, the CTA banner and footer) points to the official
-external ticketing platform:
+Attend, the CTA banner and footer) scrolls to the Official Booking section
+(`#booking-form`). Only the "Continue to registration" button inside that
+section links out to the official external ticketing platform:
 <https://apps.little.africa/events/africa-kidney-health-summit>, opened in a
 new tab. There is no in-page booking form or mock confirmation anymore.
 
