@@ -108,7 +108,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .hero h1 em{font-style:normal;background:linear-gradient(100deg,var(--blue-2) 0%,var(--blue-3) 42%,var(--red-2) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero__sub{margin:1.4rem 0 0;max-width:580px;color:var(--muted);font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.7}
 .hero__sub strong{color:var(--ink);font-weight:600}
-.hero__ref{margin-top:1.2rem;display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;color:var(--muted-2);letter-spacing:.04em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;padding:.35rem .7rem;border-radius:6px;background:var(--blue-pale);border:1px solid var(--line-soft)}
 .countdown{display:inline-flex;gap:.55rem;margin:2.3rem 0 0;flex-wrap:wrap;align-items:center;max-width:100%;padding:.7rem;border-radius:18px;background:#fff;border:1px solid var(--line-soft);box-shadow:var(--shadow-sm)}
 .cd{min-width:84px;padding:16px 10px 13px;border-radius:var(--r);text-align:center;position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:0 14px 32px -22px rgba(10,31,61,.4);transition:transform .25s ease,box-shadow .25s ease}
 .cd:hover{transform:translateY(-2px);box-shadow:0 18px 36px -20px rgba(10,31,61,.45)}
