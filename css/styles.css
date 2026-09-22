@@ -592,7 +592,46 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 @media(max-width:640px){.confirm-grid{grid-template-columns:1fr}}
 
 /* EXHIBITION — no pricing */
-.exhibition{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.6rem}
+.exhibition-groups{margin-top:2.6rem;display:grid;gap:2.4rem}
+.exh-group__label{
+  display:inline-flex;align-items:center;gap:.5rem;margin-bottom:1rem;
+  font-size:.68rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;
+}
+.exh-group__label::before{content:'';width:18px;height:2px;border-radius:2px}
+.exh-group__label--exhibitor{color:var(--blue-2)}
+.exh-group__label--exhibitor::before{background:var(--blue-2)}
+.exh-group__label--partner{color:var(--red-2)}
+.exh-group__label--partner::before{background:var(--red-2)}
+
+.exhibit-banner{
+  position:relative;display:flex;align-items:center;gap:1.6rem;
+  background:var(--blue-pale);border:1px solid rgba(10,31,61,.05);border-radius:var(--r-lg);
+  padding:1.6rem 1.9rem;overflow:hidden;
+  box-shadow:6px 6px 14px rgba(163,177,198,.4),-6px -6px 14px rgba(255,255,255,.85);
+  transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s;
+}
+.exhibit-banner::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--blue-3),var(--red-2));
+  transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.22,1,.36,1);
+}
+.exhibit-banner:hover::before{transform:scaleX(1)}
+.exhibit-banner:hover{transform:translateY(-4px);box-shadow:9px 9px 20px rgba(163,177,198,.45),-9px -9px 20px rgba(255,255,255,.9)}
+.exhibit-banner .exhibit-tile__mark{margin-bottom:0;flex-shrink:0}
+.exhibit-banner__body{flex:1;min-width:0}
+.exhibit-banner__body h3{margin-bottom:.4rem}
+.exhibit-banner__body p{margin-bottom:0}
+.exhibit-banner:hover .exhibit-tile__cta{color:var(--red-2)}
+.exhibit-banner .exhibit-tile__cta{flex-shrink:0;padding-top:0;border-top:none}
+@media(max-width:640px){
+  .exhibit-banner{flex-direction:column;align-items:flex-start;text-align:left}
+  .exhibit-banner .exhibit-tile__cta{padding-top:1rem;border-top:1px solid var(--line-soft);align-self:stretch}
+}
+
+.exhibition--partners{grid-template-columns:repeat(2,1fr)}
+@media(max-width:640px){.exhibition--partners{grid-template-columns:1fr}}
+
+.exhibition{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
 /* Neumorphism: tile matches the (now-tinted) section tone, no border — a soft extrusion,
    set against Contact's glass and the Programme cards' glass-top/neumorphic-body blend. */
 .exhibit-tile{
