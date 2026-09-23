@@ -63,21 +63,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 
 .site-header{position:fixed;inset:0 0 auto 0;z-index:100;background:#fff;transition:box-shadow .3s}
 .site-header.scrolled{box-shadow:0 1px 0 var(--line-soft),0 14px 40px -30px rgba(10,31,61,.5)}
-.official-bar{background:var(--ink);color:rgba(255,255,255,.78);font-size:.72rem;overflow:hidden;max-height:44px;transition:max-height .35s,opacity .3s}
-.site-header.scrolled .official-bar{max-height:0;opacity:0}
-.official-bar__inner{display:flex;align-items:center;gap:1.2rem;padding:.55rem 0;flex-wrap:wrap}
-.official-bar__seal{display:inline-flex;align-items:center;gap:.45rem;color:#fff;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.66rem}
-.official-bar__seal::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--red-2);box-shadow:0 0 0 3px rgba(230,57,80,.25)}
-.official-bar__meta{margin-left:auto;display:flex;gap:1.1rem;flex-wrap:wrap;align-items:center}
-.official-bar__meta a{color:rgba(255,255,255,.78);text-decoration:none}
-.official-bar__meta a:hover{color:#fff}
-@media(max-width:760px){
-  .official-bar__meta{margin-left:0;width:100%;justify-content:space-between;font-size:.68rem}
-  /* Seal + meta wrap onto several lines once the meta drops to full width below —
-     the desktop 44px cap clips the wrapped lines instead of just hiding on scroll. */
-  .official-bar{max-height:88px}
-}
-@media(max-width:480px){.official-bar{max-height:112px}}
 
 .nav{padding:12px 0}
 .nav__inner{display:flex;align-items:center;gap:1.4rem}
