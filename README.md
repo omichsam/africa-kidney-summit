@@ -92,26 +92,28 @@ GitHub Pages):
 
 ### CI/CD to Namecheap cPanel
 
-**Primary: [deploy-cpanel-ssh.yml](.github/workflows/deploy-cpanel-ssh.yml)** —
-rsyncs the site to a cPanel host over SSH on every push to `main` (or manually
-via the Actions tab). Requires SSH Access enabled on the hosting plan (cPanel →
-Security → SSH Access) and these repo secrets — **Settings → Secrets and
-variables → Actions → New repository secret**:
+**Primary: [deploy-cpanel.yml](.github/workflows/deploy-cpanel.yml)** — pushes
+the site to a cPanel host over FTP/FTPS on every push to `main` (or manually
+via the Actions tab). Inert until you add these repo secrets — **Settings →
+Secrets and variables → Actions → New repository secret**:
 
 | Secret | Value | Required |
 | --- | --- | --- |
-| `SSH_HOST` | Server hostname, e.g. `premium356.web-hosting.com` | yes |
-| `SSH_PORT` | SSH port — Namecheap shared hosting is typically `21098`, not 22 | yes |
-| `SSH_USERNAME` | cPanel username | yes |
-| `SSH_PRIVATE_KEY` | Full contents of the private key generated in cPanel → SSH Access → Manage SSH Keys (must be **authorized** there first, and generated with no passphrase) | yes |
-| `SSH_TARGET_DIR` | Absolute path to the site's document root, e.g. `/home/username/yourdomain.com/public_html/` | yes |
+| `FTP_SERVER` | Your cPanel server hostname, e.g. `premium356.web-hosting.com` (check cPanel's Server Information panel, not just `ftp.yourdomain.com`, which can silently fail if DNS isn't set up for it) | yes |
+| `FTP_USERNAME` | A dedicated FTP account's login (cPanel → Files → FTP Accounts), e.g. `deploy@yourdomain.com` | yes |
+| `FTP_PASSWORD` | That FTP account's password | yes |
+| `FTP_PROTOCOL` | `ftps` (default) or `ftp` if your host doesn't support FTPS | no |
+| `FTP_PORT` | `21` (default) | no |
+| `FTP_SERVER_DIR` | Where the site lives, relative to what that FTP account is scoped to. If the account's own "Directory" field in cPanel already points straight at `public_html`, use `/` here — not `/public_html/` again, which would try to upload into a folder that doesn't exist | yes |
 
-**Fallback: [deploy-cpanel.yml](.github/workflows/deploy-cpanel.yml)** — the
-same deploy over FTP/FTPS, manual-only (`workflow_dispatch`) so it doesn't also
-fire on every push. Useful if SSH access ever stops working. Needs its own
-secrets — `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`, and optionally
-`FTP_PROTOCOL` (default `ftps`), `FTP_PORT` (default `21`), `FTP_SERVER_DIR`
-(default `/public_html/`) — found in cPanel under **Files → FTP Accounts**.
+**Fallback (currently non-functional): [deploy-cpanel-ssh.yml](.github/workflows/deploy-cpanel-ssh.yml)**
+— the same deploy via `rsync` over SSH, manual-only (`workflow_dispatch`).
+Authentication kept failing (`Permission denied`) even with a freshly
+generated and cPanel-authorized key, most likely because this host's SSH
+Access page only manages keys for cPanel's own Git feature rather than
+granting a real external SSH/SFTP login — worth confirming with hosting
+support before relying on it. Needs `SSH_HOST`, `SSH_PORT`, `SSH_USERNAME`,
+`SSH_PRIVATE_KEY`, `SSH_TARGET_DIR` secrets if revisited.
 
 Both workflows are inert until their secrets are set. Once set, push to `main`
 and check the **Actions** tab on GitHub for the deploy run.

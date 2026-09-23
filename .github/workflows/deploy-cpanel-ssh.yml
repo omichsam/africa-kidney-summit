@@ -1,8 +1,11 @@
 name: Deploy to Namecheap cPanel (SSH)
 
+# Manual-only: SSH auth to this host has been failing (Permission denied even
+# with a freshly authorized key), most likely because cPanel's SSH Access page
+# here only manages keys for cPanel's own Git feature rather than granting a
+# real external SSH/SFTP login. FTP (deploy-cpanel.yml) is the primary
+# pipeline until that's confirmed/resolved with hosting support.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 jobs:
