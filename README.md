@@ -92,31 +92,30 @@ GitHub Pages):
 
 ### CI/CD to Namecheap cPanel
 
-**Primary: [deploy-cpanel.yml](.github/workflows/deploy-cpanel.yml)** — pushes
-the site to a cPanel host over FTP/FTPS on every push to `main` (or manually
-via the Actions tab). Inert until you add these repo secrets — **Settings →
-Secrets and variables → Actions → New repository secret**:
+**Live at <https://kidneyhealth.africa/>.** [deploy-cpanel.yml](.github/workflows/deploy-cpanel.yml)
+pushes the site to cPanel over FTP/FTPS on every push to `main` (or manually
+via the Actions tab), using these repo secrets — **Settings → Secrets and
+variables → Actions**:
 
 | Secret | Value | Required |
 | --- | --- | --- |
-| `FTP_SERVER` | Your cPanel server hostname, e.g. `premium356.web-hosting.com` (check cPanel's Server Information panel, not just `ftp.yourdomain.com`, which can silently fail if DNS isn't set up for it) | yes |
+| `FTP_SERVER` | cPanel server hostname, e.g. `premium356.web-hosting.com` (check cPanel's Server Information panel — `ftp.yourdomain.com` can silently fail if DNS isn't set up for it) | yes |
 | `FTP_USERNAME` | A dedicated FTP account's login (cPanel → Files → FTP Accounts), e.g. `deploy@yourdomain.com` | yes |
 | `FTP_PASSWORD` | That FTP account's password | yes |
 | `FTP_PROTOCOL` | `ftps` (default) or `ftp` if your host doesn't support FTPS | no |
 | `FTP_PORT` | `21` (default) | no |
-| `FTP_SERVER_DIR` | Where the site lives, relative to what that FTP account is scoped to. If the account's own "Directory" field in cPanel already points straight at `public_html`, use `/` here — not `/public_html/` again, which would try to upload into a folder that doesn't exist | yes |
+| `FTP_SERVER_DIR` | Where the site lives, relative to what that FTP account is scoped to. If the account's own "Directory" field in cPanel already points straight at the live document root, use `/` here | yes |
 
-**Fallback (currently non-functional): [deploy-cpanel-ssh.yml](.github/workflows/deploy-cpanel-ssh.yml)**
-— the same deploy via `rsync` over SSH, manual-only (`workflow_dispatch`).
-Authentication kept failing (`Permission denied`) even with a freshly
-generated and cPanel-authorized key, most likely because this host's SSH
-Access page only manages keys for cPanel's own Git feature rather than
-granting a real external SSH/SFTP login — worth confirming with hosting
-support before relying on it. Needs `SSH_HOST`, `SSH_PORT`, `SSH_USERNAME`,
-`SSH_PRIVATE_KEY`, `SSH_TARGET_DIR` secrets if revisited.
+**Important:** create the FTP account's "Directory" pointed at your domain's
+actual **document root** — check cPanel → **Domains** for the exact path
+first. A domain that looks like an addon domain can still have its account's
+home folder as the real root (e.g. `/home/user/public_html`, not
+`/home/user/yourdomain.com/public_html`) — using the wrong one silently
+uploads the site somewhere nobody visits.
 
-Both workflows are inert until their secrets are set. Once set, push to `main`
-and check the **Actions** tab on GitHub for the deploy run.
+An SSH/rsync-based pipeline was tried first but abandoned — this host's SSH
+Access page only manages keys for cPanel's own Git feature, not a real
+external SSH/SFTP login, so authentication never succeeded.
 
 ## SEO
 
