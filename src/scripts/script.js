@@ -1,3 +1,6 @@
+// COPYRIGHT YEAR
+document.getElementById('copyrightYear').textContent = new Date().getFullYear();
+
 // COUNTDOWN
 const EVENT_DATE = new Date('2027-03-09T09:00:00+03:00');
 (function(){

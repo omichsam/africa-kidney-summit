@@ -689,7 +689,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .footer__meta{display:grid;gap:.7rem;font-size:.83rem}
 .footer__meta div{display:flex;gap:.6rem;align-items:flex-start}
 .footer__meta svg{width:15px;height:15px;flex-shrink:0;margin-top:3px;color:var(--blue-3)}
-.footer__legal{padding-top:1.6rem;font-size:.74rem;color:rgba(255,255,255,.42);line-height:1.6;display:grid;gap:.5rem}
 .footer__bottom{display:flex;justify-content:center;align-items:center;padding-top:1.4rem;font-size:.76rem;color:rgba(255,255,255,.55);border-top:1px solid rgba(255,255,255,.08);margin-top:1.6rem}
 @media(max-width:900px){.footer__grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.footer__grid{grid-template-columns:1fr;gap:1.9rem}}
