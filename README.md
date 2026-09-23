@@ -83,11 +83,36 @@ the root with no file extension in the URL automatically — nothing extra neede
 Two config files are included for other hosting options (both are inert/ignored on
 GitHub Pages):
 
-- [.htaccess](.htaccess) — for **Apache** hosts, hides `.html` from any URL and
-  redirects `/index.html` → `/`. Requires `mod_rewrite` enabled and
-  `AllowOverride` permitting `.htaccess` on the host.
+- [.htaccess](.htaccess) — for **Apache** hosts (this includes Namecheap cPanel),
+  hides `.html` from any URL and redirects `/index.html` → `/`. Requires
+  `mod_rewrite` enabled and `AllowOverride` permitting `.htaccess` on the host —
+  both are on by default on Namecheap shared hosting.
 - [nginx.conf.example](nginx.conf.example) — the same behaviour as a server block,
   for hosts running **Nginx** instead.
+
+### CI/CD to Namecheap cPanel
+
+[.github/workflows/deploy-cpanel.yml](.github/workflows/deploy-cpanel.yml) pushes
+the site to a cPanel host over FTP/FTPS on every push to `main` (or manually via
+the Actions tab). It's inert until you add these repo secrets — **Settings →
+Secrets and variables → Actions → New repository secret**:
+
+| Secret | Value | Required |
+| --- | --- | --- |
+| `FTP_SERVER` | Your cPanel host, e.g. `ftp.yourdomain.com` or the server IP | yes |
+| `FTP_USERNAME` | Your cPanel/FTP username | yes |
+| `FTP_PASSWORD` | Your cPanel/FTP password | yes |
+| `FTP_PROTOCOL` | `ftps` (default) or `ftp` if your host doesn't support FTPS | no |
+| `FTP_PORT` | `21` (default) | no |
+| `FTP_SERVER_DIR` | Where the site lives on the server, default `/public_html/`. Use `/public_html/yoursubdomain/` for a subdomain/addon domain instead | no |
+
+Find your FTP credentials in cPanel under **Files → FTP Accounts** (create a
+dedicated FTP account there rather than using your main cPanel login, so the
+GitHub secret can be rotated/revoked independently). Namecheap shared hosting
+supports FTPS on port 21 by default.
+
+Once the secrets are set, push to `main` and check the **Actions** tab on GitHub
+for the deploy run.
 
 ## SEO
 
