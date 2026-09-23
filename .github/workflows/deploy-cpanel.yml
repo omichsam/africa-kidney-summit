@@ -1,8 +1,8 @@
-name: Deploy to Namecheap cPanel
+name: Deploy to Namecheap cPanel (FTP fallback)
 
+# Manual-only now that SSH/rsync (deploy-cpanel-ssh.yml) handles automatic
+# deploys on push -- kept around as a fallback if SSH access ever breaks.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 jobs:
