@@ -683,7 +683,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .footer__social-ig:hover{background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af,#515bd4);box-shadow:0 8px 18px -6px rgba(221,42,123,.55)}
 .footer__social-tt:hover{background:#000;box-shadow:0 8px 18px -6px rgba(37,244,238,.4)}
 .footer__social-fb:hover{background:#1877f2;box-shadow:0 8px 18px -6px rgba(24,119,242,.55)}
+.footer__social-fb:hover svg{fill:#fff}
 .footer__social-wa:hover{background:#25d366;box-shadow:0 8px 18px -6px rgba(37,211,102,.55)}
+.footer__social-wa:hover svg{stroke:#fff}
 .footer h5{font-family:'Plus Jakarta Sans',sans-serif;color:#fff;font-size:.73rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin:0 0 1rem}
 .footer ul{list-style:none;padding:0;margin:0;display:grid;gap:.6rem}
 .footer ul li{font-size:.83rem;line-height:1.5}
