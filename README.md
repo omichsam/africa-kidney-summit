@@ -93,9 +93,11 @@ GitHub Pages):
 ### CI/CD to Namecheap cPanel
 
 **Live at <https://kidneyhealth.africa/>.** [deploy-cpanel.yml](.github/workflows/deploy-cpanel.yml)
-pushes the site to cPanel over FTP/FTPS on every push to `main` (or manually
-via the Actions tab), using these repo secrets — **Settings → Secrets and
-variables → Actions**:
+pushes the site to cPanel over FTP/FTPS. It's **manual-only** (`workflow_dispatch`)
+— pushing to `main` does *not* auto-deploy, so changes can be reviewed first.
+To actually go live: **Actions tab → "Deploy to Namecheap cPanel" → Run workflow**
+(or `gh workflow run deploy-cpanel.yml`). Uses these repo secrets — **Settings →
+Secrets and variables → Actions**:
 
 | Secret | Value | Required |
 | --- | --- | --- |

@@ -1,8 +1,9 @@
 name: Deploy to Namecheap cPanel
 
+# Manual-only: deploys to the live site only when explicitly triggered
+# (Actions tab -> Run workflow, or `gh workflow run`), so changes can be
+# reviewed on main before they go live rather than auto-publishing on push.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 jobs:
