@@ -121,7 +121,9 @@ external SSH/SFTP login, so authentication never succeeded.
 
 ## SEO
 
-[robots.txt](robots.txt) and [sitemap.xml](sitemap.xml) both currently reference
-`https://www.kidneyhealth.africa/` as the canonical domain — update these (and the
-`<meta>`/Open Graph tags in `index.html`) if the site ends up living at a
-different URL long-term.
+Canonical domain is `https://kidneyhealth.africa/` (no `www`) — consistent across
+the `<link rel="canonical">`, Open Graph/Twitter tags, the JSON-LD `Event`
+schema, `robots.txt`'s `Sitemap:` line and `sitemap.xml`'s `<loc>`.
+[.htaccess](.htaccess) 301-redirects `www.kidneyhealth.africa` to the bare
+domain so both never get indexed as separate pages. If the canonical domain
+ever changes, update all of those in one pass — they're required to match.

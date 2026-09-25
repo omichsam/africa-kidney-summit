@@ -4,6 +4,11 @@
 
 RewriteEngine On
 
+# Canonical host: kidneyhealth.africa (no www) — redirect www to consolidate SEO
+# value onto a single URL instead of splitting it across two indexed hosts.
+RewriteCond %{HTTP_HOST} ^www\.kidneyhealth\.africa$ [NC]
+RewriteRule ^ https://kidneyhealth.africa%{REQUEST_URI} [R=301,L]
+
 # Serve index.html at the site root without exposing the filename
 DirectoryIndex index.html
 

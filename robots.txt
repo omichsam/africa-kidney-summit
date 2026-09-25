@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.kidneyhealth.africa/sitemap.xml
+Sitemap: https://kidneyhealth.africa/sitemap.xml
