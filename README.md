@@ -1,7 +1,7 @@
 # Africa Kidney Health Summit 2027 — Official Registration Site
 
 A single-page marketing and delegate-registration site for the Africa Kidney Health
-Summit, held **9–11 March 2027** at the KICC, Nairobi, Kenya.
+Summit, held **9–11 March 2027** in Nairobi, Kenya.
 
 **Live site:** <https://omichsam.github.io/africa-kidney-summit/>
 
