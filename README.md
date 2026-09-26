@@ -63,17 +63,40 @@ Any static file server works equally well (`npx serve`, VS Code Live Server, etc
 
 ## Forms
 
-Every "Book a delegate place" / "Book" link on the page (nav, hero, Who Should
-Attend, the CTA banner and footer) scrolls to the Official Booking section
-(`#booking-form`). Only the "Continue to registration" button inside that
-section links out to the official external ticketing platform:
-<https://apps.little.africa/events/africa-kidney-health-summit>, opened in a
-new tab. There is no in-page booking form or mock confirmation anymore.
+Every "Book a delegate place" / "Register" link on the page (nav, hero, Who
+Should Attend, the CTA banner and footer) scrolls to the Official Booking
+section (`#booking-form`). That section has three action cards:
 
-The exhibition-enquiry form is still **front-end only**: it validates input
-and shows a confirmation panel, but no data is actually sent anywhere. Wire
-`src/scripts/script.js`'s `submit` handler up to a real backend/email service before
-going live.
+- **Register Now** links out to the official external ticketing platform:
+  <https://apps.little.africa/events/africa-kidney-health-summit>, opened in
+  a new tab.
+- **Invitation Letter Or Invoice** and **Student & Group Rates** each open a
+  modal form (`#letterModal`, `#rateModal`) and submit straight to the
+  secretariat's inbox via [Web3Forms](https://web3forms.com) — see below.
+
+The exhibition-enquiry form (`#exhibitModal`) is still **front-end only**: it
+validates input and shows a confirmation panel, but no data is actually sent
+anywhere. Wire `src/scripts/script.js`'s `exhibitForm` `submit` handler up to
+a real backend/email service before going live, or point it at Web3Forms the
+same way the other two modals are wired.
+
+### Setting up Web3Forms for the rate & letter/invoice requests
+
+Both modals POST to `https://api.web3forms.com/submit` with no backend of
+this site's own involved — Web3Forms relays the submission to a fixed
+destination inbox tied to an access key. Each modal needs its own key
+because they deliver to two different inboxes:
+
+| Modal | Destination inbox | Placeholder in `src/scripts/script.js` |
+| --- | --- | --- |
+| Student & Group Rates (`#rateModal`) | `admin@kidneyhealth.africa` | `YOUR_WEB3FORMS_ACCESS_KEY_RATE` |
+| Invitation Letter Or Invoice (`#letterModal`) | `secretariat@kidneyhealth.africa` | `YOUR_WEB3FORMS_ACCESS_KEY_LETTER` |
+
+To go live: create a free Web3Forms account against each destination inbox
+at <https://web3forms.com>, copy the access key it issues, and replace the
+matching placeholder string in `wireRequestForm(...)`'s `accessKey` option.
+Both forms also carry a hidden `botcheck` honeypot field per Web3Forms'
+spam-prevention recommendation — leave it as-is.
 
 ## Deployment & clean URLs
 

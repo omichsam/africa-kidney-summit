@@ -200,13 +200,14 @@ navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => se
   startAutoplay();
 })();
 
-// EXHIBIT MODAL
+// MODALS (shared open/close/focus-trap across the exhibit, rate and letter modals)
 const exhibitModal = document.getElementById('exhibitModal');
 const modalFormView = document.getElementById('modalFormView');
 const modalSuccessView = document.getElementById('modalSuccessView');
 const exhibitForm = document.getElementById('exhibitForm');
 const exhibitError = document.getElementById('exhibitError');
 let lastFocusedBeforeModal = null;
+let activeModal = null;
 
 function getFocusable(container) {
   return Array.from(container.querySelectorAll(
@@ -214,35 +215,40 @@ function getFocusable(container) {
   )).filter(el => el.offsetParent !== null);
 }
 
-function openModal(trigger, presetPackage) {
+function openModal(modalEl, trigger) {
   lastFocusedBeforeModal = trigger || document.activeElement;
-  exhibitModal.classList.add('open');
-  exhibitModal.removeAttribute('aria-hidden');
+  activeModal = modalEl;
+  modalEl.classList.add('open');
+  modalEl.removeAttribute('aria-hidden');
   document.body.style.overflow = 'hidden';
-  if (presetPackage) document.getElementById('epackage').value = presetPackage;
-  const focusables = getFocusable(exhibitModal.querySelector('.modal__panel'));
-  (focusables[0] || exhibitModal).focus();
+  const focusables = getFocusable(modalEl.querySelector('.modal__panel'));
+  (focusables[0] || modalEl).focus();
 }
 function closeModal() {
-  exhibitModal.classList.remove('open');
-  exhibitModal.setAttribute('aria-hidden', 'true');
+  if (!activeModal) return;
+  activeModal.classList.remove('open');
+  activeModal.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
   if (lastFocusedBeforeModal) lastFocusedBeforeModal.focus();
+  activeModal = null;
 }
 
-document.getElementById('openExhibitModalCta').addEventListener('click', (e) => openModal(e.currentTarget));
+document.getElementById('openExhibitModalCta').addEventListener('click', (e) => openModal(exhibitModal, e.currentTarget));
 document.querySelectorAll('.js-open-exhibit-modal').forEach(btn => {
-  btn.addEventListener('click', (e) => openModal(e.currentTarget, btn.dataset.package));
+  btn.addEventListener('click', (e) => {
+    openModal(exhibitModal, e.currentTarget);
+    if (btn.dataset.package) document.getElementById('epackage').value = btn.dataset.package;
+  });
 });
 document.getElementById('closeExhibitModal').addEventListener('click', closeModal);
-
 exhibitModal.addEventListener('click', (e) => { if (e.target === exhibitModal) closeModal(); });
+
 document.addEventListener('keydown', (e) => {
-  if (!exhibitModal.classList.contains('open')) return;
+  if (!activeModal) return;
   if (e.key === 'Escape') { closeModal(); return; }
   // Trap Tab focus inside the open modal
   if (e.key === 'Tab') {
-    const focusables = getFocusable(exhibitModal.querySelector('.modal__panel'));
+    const focusables = getFocusable(activeModal.querySelector('.modal__panel'));
     if (!focusables.length) return;
     const first = focusables[0], last = focusables[focusables.length - 1];
     if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
@@ -274,6 +280,102 @@ exhibitForm.addEventListener('submit', (e) => {
 
   modalFormView.style.display = 'none';
   modalSuccessView.classList.add('show');
+});
+
+// RATE & LETTER REQUEST FORMS — submitted straight to the secretariat's inbox via Web3Forms
+// (a free form-to-email relay), since this static site has no backend of its own.
+// Replace each placeholder access key with a real one from https://web3forms.com,
+// created against the matching destination inbox.
+const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+
+async function submitToWeb3Forms(form, accessKey) {
+  const data = new FormData(form);
+  data.append('access_key', accessKey);
+  const res = await fetch(WEB3FORMS_ENDPOINT, { method: 'POST', headers: { Accept: 'application/json' }, body: data });
+  return res.json();
+}
+
+function wireRequestForm({ form, errorEl, formView, successView, submitBtn, accessKey, requiredFields, fallbackEmail }) {
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorEl.classList.remove('show'); errorEl.textContent = '';
+
+    for (const { id, message } of requiredFields) {
+      if (!document.getElementById(id).value.trim()) {
+        errorEl.textContent = message; errorEl.classList.add('show');
+        return;
+      }
+    }
+    const emailField = form.querySelector('input[type="email"]');
+    if (emailField && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value.trim())) {
+      errorEl.textContent = 'Please provide a valid email address.'; errorEl.classList.add('show');
+      return;
+    }
+
+    const label = submitBtn.querySelector('.btn-label');
+    submitBtn.disabled = true; label.textContent = 'Sending…';
+    try {
+      const result = await submitToWeb3Forms(form, accessKey);
+      if (!result.success) throw new Error(result.message || 'Submission failed');
+      formView.style.display = 'none';
+      successView.classList.add('show');
+    } catch (err) {
+      errorEl.textContent = `Something went wrong sending your request. Please try again or email ${fallbackEmail} directly.`;
+      errorEl.classList.add('show');
+    } finally {
+      submitBtn.disabled = false; label.textContent = 'Send request';
+    }
+  });
+}
+
+// RATE MODAL
+const rateModal = document.getElementById('rateModal');
+document.getElementById('openRateModalCta').addEventListener('click', (e) => openModal(rateModal, e.currentTarget));
+document.getElementById('closeRateModal').addEventListener('click', closeModal);
+rateModal.addEventListener('click', (e) => { if (e.target === rateModal) closeModal(); });
+wireRequestForm({
+  form: document.getElementById('rateForm'),
+  errorEl: document.getElementById('rateError'),
+  formView: document.getElementById('rateFormView'),
+  successView: document.getElementById('rateSuccessView'),
+  submitBtn: document.getElementById('rateSubmitBtn'),
+  accessKey: 'YOUR_WEB3FORMS_ACCESS_KEY_RATE',
+  fallbackEmail: 'admin@kidneyhealth.africa',
+  requiredFields: [
+    { id: 'rfname', message: 'Please provide your first name.' },
+    { id: 'rlname', message: 'Please provide your last name.' },
+    { id: 'remail', message: 'Please provide your email address.' },
+    { id: 'rorg', message: 'Please provide your organization.' },
+    { id: 'rcountry', message: 'Please provide your country.' },
+    { id: 'rphone', message: 'Please provide a contact phone number.' },
+    { id: 'rpasses', message: 'Please tell us how many delegate passes you need.' },
+    { id: 'rgroup', message: 'Please select a group description.' },
+  ],
+});
+
+// LETTER / INVOICE MODAL
+const letterModal = document.getElementById('letterModal');
+document.getElementById('openLetterModalCta').addEventListener('click', (e) => openModal(letterModal, e.currentTarget));
+document.getElementById('closeLetterModal').addEventListener('click', closeModal);
+letterModal.addEventListener('click', (e) => { if (e.target === letterModal) closeModal(); });
+wireRequestForm({
+  form: document.getElementById('letterForm'),
+  errorEl: document.getElementById('letterError'),
+  formView: document.getElementById('letterFormView'),
+  successView: document.getElementById('letterSuccessView'),
+  submitBtn: document.getElementById('letterSubmitBtn'),
+  accessKey: 'YOUR_WEB3FORMS_ACCESS_KEY_LETTER',
+  fallbackEmail: 'secretariat@kidneyhealth.africa',
+  requiredFields: [
+    { id: 'lfname', message: 'Please provide your first name.' },
+    { id: 'llname', message: 'Please provide your last name.' },
+    { id: 'lemail', message: 'Please provide your email address.' },
+    { id: 'lorg', message: 'Please provide your organization.' },
+    { id: 'lcountry', message: 'Please provide your country.' },
+    { id: 'lphone', message: 'Please provide a contact phone number.' },
+    { id: 'lpasses', message: 'Please tell us how many delegate passes you need.' },
+    { id: 'lneed', message: 'Please select what you need.' },
+  ],
 });
 
 // SCROLL REVEAL
