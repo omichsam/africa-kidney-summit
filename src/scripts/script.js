@@ -168,20 +168,36 @@ exhibitForm.addEventListener('submit', (e) => {
   modalSuccessView.classList.add('show');
 });
 
-// RATE & LETTER REQUEST FORMS — submitted straight to the secretariat's inbox via Web3Forms
-// (a free form-to-email relay), since this static site has no backend of its own.
-// Replace each placeholder access key with a real one from https://web3forms.com,
-// created against the matching destination inbox.
-const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+// RATE & LETTER REQUEST FORMS — submitted to send-request.php (see that file at the repo
+// root), which emails the submission using this server's own PHP mail(). Only works on the
+// cPanel-hosted domain, since GitHub Pages can't run PHP.
+const REQUEST_FORM_ENDPOINT = 'send-request.php';
 
-async function submitToWeb3Forms(form, accessKey) {
+async function submitRequestForm(form, formType) {
+  // PHP mangles POST keys containing spaces/dots into underscores (e.g. "Email address"
+  // -> Email_address), so field labels are flattened into one "summary" field here rather
+  // than relied on as literal $_POST keys server-side.
   const data = new FormData(form);
-  data.append('access_key', accessKey);
-  const res = await fetch(WEB3FORMS_ENDPOINT, { method: 'POST', headers: { Accept: 'application/json' }, body: data });
+  const email = (form.querySelector('input[type="email"]')?.value || '').trim();
+  const lines = [];
+  for (const [key, value] of data.entries()) {
+    if (key === 'botcheck') continue;
+    lines.push(`${key}: ${value}`);
+  }
+  const payload = new URLSearchParams();
+  payload.set('form_type', formType);
+  payload.set('email', email);
+  payload.set('summary', lines.join('\n'));
+  payload.set('botcheck', data.get('botcheck') || '');
+  const res = await fetch(REQUEST_FORM_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded', Accept: 'application/json' },
+    body: payload,
+  });
   return res.json();
 }
 
-function wireRequestForm({ form, errorEl, formView, successView, submitBtn, accessKey, requiredFields, fallbackEmail }) {
+function wireRequestForm({ form, errorEl, formView, successView, submitBtn, formType, requiredFields, fallbackEmail }) {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     errorEl.classList.remove('show'); errorEl.textContent = '';
@@ -201,7 +217,7 @@ function wireRequestForm({ form, errorEl, formView, successView, submitBtn, acce
     const label = submitBtn.querySelector('.btn-label');
     submitBtn.disabled = true; label.textContent = 'Sending…';
     try {
-      const result = await submitToWeb3Forms(form, accessKey);
+      const result = await submitRequestForm(form, formType);
       if (!result.success) throw new Error(result.message || 'Submission failed');
       formView.style.display = 'none';
       successView.classList.add('show');
@@ -225,7 +241,7 @@ wireRequestForm({
   formView: document.getElementById('rateFormView'),
   successView: document.getElementById('rateSuccessView'),
   submitBtn: document.getElementById('rateSubmitBtn'),
-  accessKey: 'YOUR_WEB3FORMS_ACCESS_KEY_RATE',
+  formType: 'rate',
   fallbackEmail: 'admin@kidneyhealth.africa',
   requiredFields: [
     { id: 'rfname', message: 'Please provide your first name.' },
@@ -250,7 +266,7 @@ wireRequestForm({
   formView: document.getElementById('letterFormView'),
   successView: document.getElementById('letterSuccessView'),
   submitBtn: document.getElementById('letterSubmitBtn'),
-  accessKey: 'YOUR_WEB3FORMS_ACCESS_KEY_LETTER',
+  formType: 'letter',
   fallbackEmail: 'secretariat@kidneyhealth.africa',
   requiredFields: [
     { id: 'lfname', message: 'Please provide your first name.' },

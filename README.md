@@ -71,32 +71,39 @@ section (`#booking-form`). That section has three action cards:
   <https://apps.little.africa/events/africa-kidney-health-summit>, opened in
   a new tab.
 - **Invitation Letter Or Invoice** and **Student & Group Rates** each open a
-  modal form (`#letterModal`, `#rateModal`) and submit straight to the
-  secretariat's inbox via [Web3Forms](https://web3forms.com) — see below.
+  modal form (`#letterModal`, `#rateModal`) and submit to [send-request.php](send-request.php),
+  which emails the submission using this server's own PHP `mail()` — see below.
 
 The exhibition-enquiry form (`#exhibitModal`) is still **front-end only**: it
 validates input and shows a confirmation panel, but no data is actually sent
 anywhere. Wire `src/scripts/script.js`'s `exhibitForm` `submit` handler up to
-a real backend/email service before going live, or point it at Web3Forms the
-same way the other two modals are wired.
+`send-request.php` (add a third `form_type` case) before going live.
 
-### Setting up Web3Forms for the rate & letter/invoice requests
+### How the rate & letter/invoice requests get emailed
 
-Both modals POST to `https://api.web3forms.com/submit` with no backend of
-this site's own involved — Web3Forms relays the submission to a fixed
-destination inbox tied to an access key. Each modal needs its own key
-because they deliver to two different inboxes:
+Both modals POST to [send-request.php](send-request.php) at the site root.
+That script maps a fixed `form_type` value (`rate` or `letter`) to one of two
+hardcoded destination inboxes and sends the submission with PHP's built-in
+`mail()` — no third-party service, no API key. The destination is never
+taken from the request itself, so the endpoint can't be used to relay mail
+to an arbitrary address:
 
-| Modal | Destination inbox | Placeholder in `src/scripts/script.js` |
+| Modal | `form_type` | Destination inbox |
 | --- | --- | --- |
-| Student & Group Rates (`#rateModal`) | `admin@kidneyhealth.africa` | `YOUR_WEB3FORMS_ACCESS_KEY_RATE` |
-| Invitation Letter Or Invoice (`#letterModal`) | `secretariat@kidneyhealth.africa` | `YOUR_WEB3FORMS_ACCESS_KEY_LETTER` |
+| Student & Group Rates (`#rateModal`) | `rate` | `admin@kidneyhealth.africa` |
+| Invitation Letter Or Invoice (`#letterModal`) | `letter` | `secretariat@kidneyhealth.africa` |
 
-To go live: create a free Web3Forms account against each destination inbox
-at <https://web3forms.com>, copy the access key it issues, and replace the
-matching placeholder string in `wireRequestForm(...)`'s `accessKey` option.
-Both forms also carry a hidden `botcheck` honeypot field per Web3Forms'
-spam-prevention recommendation — leave it as-is.
+**This only works on the cPanel-hosted domain** (`kidneyhealth.africa`) —
+GitHub Pages is static-only and can't run PHP, so on
+`omichsam.github.io/africa-kidney-summit/` these two forms will always show
+their fallback error. Both forms also carry a hidden `botcheck` honeypot
+field the script checks before sending — leave it as-is.
+
+If submitted mail lands in spam, check that the host's SPF/DKIM records
+cover `kidneyhealth.africa` and that `noreply@kidneyhealth.africa` (the
+`From` address `send-request.php` sends as) is a valid address on the
+domain — some hosts reject mail claiming to be `From` an address that
+doesn't exist.
 
 ## Deployment & clean URLs
 
