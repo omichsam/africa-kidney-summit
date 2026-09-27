@@ -71,9 +71,21 @@ $config = require $configFile;
 require __DIR__ . '/lib/PHPMailer/Exception.php';
 require __DIR__ . '/lib/PHPMailer/SMTP.php';
 require __DIR__ . '/lib/PHPMailer/PHPMailer.php';
+require __DIR__ . '/lib/email-template.php';
 
 $to = $recipients[$formType]['to'];
 $subject = $recipients[$formType]['subject'];
+
+// "$body" is a flattened "Label: value" list built client-side (see script.js) — split it
+// back into rows so the HTML email can render it as a proper field/value table.
+$rows = [];
+foreach (explode("\n", $body) as $line) {
+    $line = trim($line);
+    if ($line === '') continue;
+    $pos = strpos($line, ': ');
+    $rows[] = $pos === false ? [$line, ''] : [substr($line, 0, $pos), substr($line, $pos + 2)];
+}
+$htmlBody = render_request_email($recipients[$formType]['subject'], $rows, $submitterEmail);
 
 try {
     $mail = new PHPMailer\PHPMailer\PHPMailer(true);
@@ -84,13 +96,15 @@ try {
     $mail->Password = $config['smtp_pass'];
     $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
+    $mail->CharSet = 'UTF-8';
 
     $mail->setFrom($config['smtp_user'], 'Africa Kidney Health Summit');
     $mail->addAddress($to);
     $mail->addReplyTo($submitterEmail);
     $mail->Subject = $subject;
-    $mail->Body = $body;
-    $mail->isHTML(false);
+    $mail->isHTML(true);
+    $mail->Body = $htmlBody;
+    $mail->AltBody = $body;
 
     $mail->send();
     respond(true, 'Sent.');
