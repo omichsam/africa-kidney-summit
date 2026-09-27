@@ -14,6 +14,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Write mail credentials (never committed to git)
+        run: |
+          cat > mail-config.local.php << 'PHP_EOF'
+          <?php
+          return [
+              'smtp_user' => '${{ secrets.GMAIL_SMTP_USER }}',
+              'smtp_pass' => '${{ secrets.GMAIL_SMTP_PASSWORD }}',
+          ];
+          PHP_EOF
+
       - name: Deploy to cPanel
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:

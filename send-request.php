@@ -1,11 +1,16 @@
 <?php
 /**
  * Relays the Student & Group Rate and Invitation Letter/Invoice request forms as email,
- * using this server's own PHP mail() instead of a third-party relay (e.g. Web3Forms).
+ * sent via authenticated Gmail SMTP (PHPMailer) rather than a third-party relay or PHP's
+ * bare mail() — Gmail's SMTP servers reject unauthenticated mail from most shared hosts,
+ * so real auth is needed for reliable delivery.
+ *
  * Only ever sends to one of the fixed inboxes below, keyed by "form_type" — never to an
  * address supplied in the request — so this endpoint can't be abused as an open mail relay.
- * Only works when this file is actually served (the cPanel-hosted domain); GitHub Pages
- * is static-only and can't run PHP, so the forms will show their fallback error there.
+ *
+ * The SMTP credential lives in mail-config.local.php, which is NOT committed to git (see
+ * .gitignore) and is written fresh by the deploy workflow from GitHub secrets on every
+ * deploy. This file only works on the cPanel-hosted domain; GitHub Pages is static-only.
  */
 
 // Never let a PHP warning/notice leak raw HTML into what must stay a clean JSON response.
@@ -53,17 +58,40 @@ if ($body === '') {
     respond(false, 'The request was empty.');
 }
 
+$configFile = __DIR__ . '/mail-config.local.php';
+if (!file_exists($configFile)) {
+    http_response_code(500);
+    respond(false, 'Mail is not configured on this server yet.');
+}
+$config = require $configFile;
+
+require __DIR__ . '/lib/PHPMailer/Exception.php';
+require __DIR__ . '/lib/PHPMailer/SMTP.php';
+require __DIR__ . '/lib/PHPMailer/PHPMailer.php';
+
 $to = $recipients[$formType]['to'];
 $subject = $recipients[$formType]['subject'];
-$headers = implode("\r\n", [
-    'From: Africa Kidney Health Summit <noreply@kidneyhealth.africa>',
-    'Reply-To: ' . $submitterEmail,
-    'Content-Type: text/plain; charset=UTF-8',
-]);
 
-if (mail($to, $subject, $body, $headers)) {
+try {
+    $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = $config['smtp_user'];
+    $mail->Password = $config['smtp_pass'];
+    $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port = 587;
+
+    $mail->setFrom($config['smtp_user'], 'Africa Kidney Health Summit');
+    $mail->addAddress($to);
+    $mail->addReplyTo($submitterEmail);
+    $mail->Subject = $subject;
+    $mail->Body = $body;
+    $mail->isHTML(false);
+
+    $mail->send();
     respond(true, 'Sent.');
+} catch (Throwable $e) {
+    http_response_code(500);
+    respond(false, 'The mail server could not send this request.');
 }
-
-http_response_code(500);
-respond(false, 'The mail server could not send this request.');
