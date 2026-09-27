@@ -19,8 +19,10 @@ jobs:
           cat > mail-config.local.php << 'PHP_EOF'
           <?php
           return [
-              'smtp_user' => '${{ secrets.GMAIL_SMTP_USER }}',
-              'smtp_pass' => '${{ secrets.GMAIL_SMTP_PASSWORD }}',
+              'smtp_host' => '${{ secrets.SMTP_HOST }}',
+              'smtp_port' => '${{ secrets.SMTP_PORT }}',
+              'smtp_user' => 'admin@kidneyhealth.africa',
+              'smtp_pass' => '${{ secrets.SMTP_PASSWORD }}',
           ];
           PHP_EOF
 

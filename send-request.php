@@ -1,15 +1,16 @@
 <?php
 /**
- * Relays the Student & Group Rate and Invitation Letter/Invoice request forms as email,
- * sent via authenticated Gmail SMTP (PHPMailer) rather than a third-party relay or PHP's
- * bare mail() — Gmail's SMTP servers reject unauthenticated mail from most shared hosts,
+ * Relays the request forms as email, sent via authenticated SMTP (PHPMailer) through the
+ * domain's own mailbox (admin@kidneyhealth.africa) rather than a third-party relay or PHP's
+ * bare mail() — most receiving mail servers reject unauthenticated mail from shared hosts,
  * so real auth is needed for reliable delivery.
  *
  * Only ever sends to one of the fixed inboxes below, keyed by "form_type" — never to an
  * address supplied in the request — so this endpoint can't be abused as an open mail relay.
+ * Every send is also CC'd to secretariat@kidneyhealth.africa.
  *
- * The SMTP credential lives in mail-config.local.php, which is NOT committed to git (see
- * .gitignore) and is written fresh by the deploy workflow from GitHub secrets on every
+ * The SMTP host/port/credential live in mail-config.local.php, which is NOT committed to git
+ * (see .gitignore) and is written fresh by the deploy workflow from GitHub secrets on every
  * deploy. This file only works on the cPanel-hosted domain; GitHub Pages is static-only.
  */
 
@@ -35,13 +36,10 @@ if (!empty($_POST['botcheck'])) {
     respond(true, 'Received.');
 }
 
-// Temporarily routed to a mailbox the team can actually access while
-// admin@/secretariat@kidneyhealth.africa are set up — switch the 'to' values
-// back once those mailboxes are confirmed working.
 $recipients = [
-    'rate'    => ['to' => 'onwongasamm@gmail.com', 'subject' => 'Student / Group Rate Request — Africa Kidney Health Summit'],
-    'letter'  => ['to' => 'onwongasamm@gmail.com', 'subject' => 'Invitation Letter / Invoice Request — Africa Kidney Health Summit'],
-    'exhibit' => ['to' => 'onwongasamm@gmail.com', 'subject' => 'Exhibition & Partnership Enquiry — Africa Kidney Health Summit'],
+    'rate'    => ['to' => 'admin@kidneyhealth.africa', 'subject' => 'Student / Group Rate Request — Africa Kidney Health Summit'],
+    'letter'  => ['to' => 'admin@kidneyhealth.africa', 'subject' => 'Invitation Letter / Invoice Request — Africa Kidney Health Summit'],
+    'exhibit' => ['to' => 'admin@kidneyhealth.africa', 'subject' => 'Exhibition & Partnership Enquiry — Africa Kidney Health Summit'],
 ];
 
 $formType = $_POST['form_type'] ?? '';
@@ -89,18 +87,23 @@ foreach (explode("\n", $body) as $line) {
 $htmlBody = render_request_email($recipients[$formType]['subject'], $rows, $submitterEmail);
 
 try {
+    $port = (int) $config['smtp_port'];
+
     $mail = new PHPMailer\PHPMailer\PHPMailer(true);
     $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com';
+    $mail->Host = $config['smtp_host'];
     $mail->SMTPAuth = true;
     $mail->Username = $config['smtp_user'];
     $mail->Password = $config['smtp_pass'];
-    $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->Port = 587;
+    $mail->SMTPSecure = $port === 465
+        ? PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS
+        : PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port = $port;
     $mail->CharSet = 'UTF-8';
 
     $mail->setFrom($config['smtp_user'], 'Africa Kidney Health Summit');
     $mail->addAddress($to);
+    $mail->addCC('secretariat@kidneyhealth.africa');
     $mail->addReplyTo($submitterEmail);
     $mail->Subject = $subject;
     $mail->isHTML(true);
