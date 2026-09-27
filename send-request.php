@@ -114,5 +114,7 @@ try {
     respond(true, 'Sent.');
 } catch (Throwable $e) {
     http_response_code(500);
-    respond(false, 'The mail server could not send this request.');
+    // TEMPORARY diagnostic: surfaces the real SMTP error while wiring up the admin@ mailbox.
+    // Revert to the generic message below before leaving this deployed for real users.
+    respond(false, 'DEBUG: ' . $e->getMessage());
 }
