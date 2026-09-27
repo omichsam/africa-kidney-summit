@@ -1,25 +1,75 @@
 <?php
 /**
  * Renders the HTML body for request-form notification emails. Kept table-based with inline
- * styles (no external CSS/fonts/images) since that's what survives across Gmail, Outlook and
- * mobile mail clients unmodified.
+ * styles (no external CSS/fonts-as-requirement/images) since that's what survives across
+ * Gmail, Outlook and mobile mail clients — the Google Fonts <link> is a progressive
+ * enhancement that several clients (Gmail app, Apple Mail, Outlook.com) do honour; everywhere
+ * else it falls back to the closest system font.
+ *
+ * Font stack mirrors the main site (src/styles/styles.css): Plus Jakarta Sans for
+ * headings/labels, Inter for body copy.
  */
+
+$HEADING_FONT = "'Plus Jakarta Sans','Segoe UI',Helvetica,Arial,sans-serif";
+$BODY_FONT = "'Inter','Segoe UI',Helvetica,Arial,sans-serif";
 
 function h($value) {
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 }
 
+// Short values (e.g. a name, an email, a country) are paired two-to-a-row so the reader
+// doesn't have to scroll through a long single column for what's really a compact form.
+// Anything longer, or containing a line break (free-text messages), gets its own full-width row.
+function is_short_value($value) {
+    return mb_strlen($value) <= 40 && strpos($value, "\n") === false;
+}
+
+function render_field_block($label, $value, $headingFont, $bodyFont) {
+    return '
+              <div style="padding:14px 18px;">
+                <p style="margin:0 0 4px;font-family:' . $headingFont . ';font-size:11px;font-weight:700;letter-spacing:.05em;color:#8494A8;text-transform:uppercase;">' . h($label) . '</p>
+                <p style="margin:0;font-family:' . $bodyFont . ';font-size:14.5px;line-height:1.5;color:#0A1F3D;">' . nl2br(h($value)) . '</p>
+              </div>';
+}
+
 function render_request_email($title, array $rows, $submitterEmail) {
+    global $HEADING_FONT, $BODY_FONT;
+
     $rowsHtml = '';
     $zebra = false;
-    foreach ($rows as [$label, $value]) {
+    $pending = null;
+
+    $nextBg = function () use (&$zebra) {
         $bg = $zebra ? '#F7F9FC' : '#FFFFFF';
         $zebra = !$zebra;
-        $rowsHtml .= '
-            <tr>
-              <td style="padding:12px 18px;border:1px solid #E5E9F0;background:' . $bg . ';font-family:Georgia,\'Times New Roman\',serif;font-size:11.5px;letter-spacing:.03em;color:#5D6E86;text-transform:uppercase;width:34%;vertical-align:top;">' . h($label) . '</td>
-              <td style="padding:12px 18px;border:1px solid #E5E9F0;background:' . $bg . ';font-family:\'Segoe UI\',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.5;color:#0A1F3D;vertical-align:top;">' . nl2br(h($value)) . '</td>
-            </tr>';
+        return $bg;
+    };
+
+    foreach ($rows as [$label, $value]) {
+        if (is_short_value($value)) {
+            if ($pending === null) {
+                $pending = [$label, $value];
+                continue;
+            }
+            $bg = $nextBg();
+            $rowsHtml .= '<tr>'
+                . '<td width="50%" style="border:1px solid #E5E9F0;background:' . $bg . ';padding:0;vertical-align:top;">' . render_field_block($pending[0], $pending[1], $HEADING_FONT, $BODY_FONT) . '</td>'
+                . '<td width="50%" style="border:1px solid #E5E9F0;background:' . $bg . ';padding:0;vertical-align:top;">' . render_field_block($label, $value, $HEADING_FONT, $BODY_FONT) . '</td>'
+                . '</tr>';
+            $pending = null;
+        } else {
+            if ($pending !== null) {
+                $bg = $nextBg();
+                $rowsHtml .= '<tr><td colspan="2" style="border:1px solid #E5E9F0;background:' . $bg . ';padding:0;">' . render_field_block($pending[0], $pending[1], $HEADING_FONT, $BODY_FONT) . '</td></tr>';
+                $pending = null;
+            }
+            $bg = $nextBg();
+            $rowsHtml .= '<tr><td colspan="2" style="border:1px solid #E5E9F0;background:' . $bg . ';padding:0;">' . render_field_block($label, $value, $HEADING_FONT, $BODY_FONT) . '</td></tr>';
+        }
+    }
+    if ($pending !== null) {
+        $bg = $nextBg();
+        $rowsHtml .= '<tr><td colspan="2" style="border:1px solid #E5E9F0;background:' . $bg . ';padding:0;">' . render_field_block($pending[0], $pending[1], $HEADING_FONT, $BODY_FONT) . '</td></tr>';
     }
 
     $safeTitle = h($title);
@@ -33,6 +83,7 @@ function render_request_email($title, array $rows, $submitterEmail) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 <title>{$safeTitle}</title>
 </head>
 <body style="margin:0;padding:0;background:#EEF1F6;">
@@ -45,11 +96,11 @@ function render_request_email($title, array $rows, $submitterEmail) {
             <td style="background:#0A1F3D;padding:26px 34px 20px;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                 <tr>
-                  <td style="font-family:Georgia,'Times New Roman',serif;color:#FFFFFF;font-size:16px;font-weight:700;letter-spacing:.03em;">Africa Kidney Health Summit</td>
-                  <td align="right" style="font-family:'Segoe UI',Helvetica,Arial,sans-serif;color:rgba(255,255,255,.55);font-size:11px;letter-spacing:.04em;">Ref: {$refNumber}</td>
+                  <td style="font-family:{$HEADING_FONT};color:#FFFFFF;font-size:17px;font-weight:800;letter-spacing:-.01em;">Africa Kidney Health Summit</td>
+                  <td align="right" style="font-family:{$BODY_FONT};color:rgba(255,255,255,.55);font-size:11px;letter-spacing:.04em;">Ref: {$refNumber}</td>
                 </tr>
               </table>
-              <p style="margin:4px 0 0;font-family:'Segoe UI',Helvetica,Arial,sans-serif;color:#8FA3C7;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;">Official Secretariat Notification &middot; 2027</p>
+              <p style="margin:4px 0 0;font-family:{$HEADING_FONT};color:#8FA3C7;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;">Official Secretariat Notification &middot; 2027</p>
             </td>
           </tr>
           <tr>
@@ -58,8 +109,8 @@ function render_request_email($title, array $rows, $submitterEmail) {
 
           <tr>
             <td style="padding:32px 34px 6px;">
-              <h1 style="margin:0 0 14px;font-family:Georgia,'Times New Roman',serif;color:#0A1F3D;font-size:20px;font-weight:700;line-height:1.4;">{$safeTitle}</h1>
-              <p style="margin:0;font-family:'Segoe UI',Helvetica,Arial,sans-serif;color:#5D6E86;font-size:13.5px;line-height:1.65;">The following request has been formally submitted through the official Summit website and requires the Secretariat's attention.</p>
+              <h1 style="margin:0 0 14px;font-family:{$HEADING_FONT};color:#0A1F3D;font-size:20px;font-weight:800;letter-spacing:-.02em;line-height:1.4;">{$safeTitle}</h1>
+              <p style="margin:0;font-family:{$BODY_FONT};color:#5D6E86;font-size:13.5px;line-height:1.65;">The following request has been formally submitted through the official Summit website and requires the Secretariat's attention.</p>
             </td>
           </tr>
 
@@ -75,7 +126,7 @@ function render_request_email($title, array $rows, $submitterEmail) {
             <td style="padding:24px 34px 0;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-left:3px solid #2E6FBF;background:#F7F9FC;">
                 <tr>
-                  <td style="padding:14px 18px;font-family:'Segoe UI',Helvetica,Arial,sans-serif;font-size:13px;line-height:1.6;color:#0A1F3D;">
+                  <td style="padding:14px 18px;font-family:{$BODY_FONT};font-size:13px;line-height:1.6;color:#0A1F3D;">
                     Please reply directly to this email to correspond with the requester at <strong>{$safeEmail}</strong>.
                   </td>
                 </tr>
@@ -87,7 +138,7 @@ function render_request_email($title, array $rows, $submitterEmail) {
             <td style="padding:30px 34px 28px;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid #E5E9F0;">
                 <tr>
-                  <td style="padding-top:18px;font-family:'Segoe UI',Helvetica,Arial,sans-serif;color:#8494A8;font-size:11px;line-height:1.7;">
+                  <td style="padding-top:18px;font-family:{$BODY_FONT};color:#8494A8;font-size:11px;line-height:1.7;">
                     Submitted {$submittedAt} &middot; Automated notification from the official request system at kidneyhealth.africa<br>
                     Africa Kidney Health Summit 2027 &mdash; This message and any reply may contain information intended solely for the Secretariat.
                   </td>
