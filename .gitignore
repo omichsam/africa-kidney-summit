@@ -3,3 +3,4 @@
 
 # Written fresh by the deploy workflow from GitHub secrets — must never be committed.
 mail-config.local.php
+email-design-previews/
