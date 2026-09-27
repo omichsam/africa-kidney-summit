@@ -110,11 +110,26 @@ function openModal(modalEl, trigger) {
   const focusables = getFocusable(modalEl.querySelector('.modal__panel'));
   (focusables[0] || modalEl).focus();
 }
+// Restores a modal's form view (undoes the "success" swap from a prior submission and clears
+// any error/fields) so reopening it later always starts fresh instead of showing a stale
+// success screen — previously this required a full page refresh to submit a second request.
+function resetModalState(modalEl) {
+  const formView = modalEl.querySelector('[id$="FormView"]');
+  const successView = modalEl.querySelector('.modal__success');
+  const form = modalEl.querySelector('form');
+  const errorEl = modalEl.querySelector('.form-error');
+  if (formView) formView.style.display = '';
+  if (successView) successView.classList.remove('show');
+  if (form) form.reset();
+  if (errorEl) { errorEl.textContent = ''; errorEl.classList.remove('show'); }
+}
+
 function closeModal() {
   if (!activeModal) return;
   activeModal.classList.remove('open');
   activeModal.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
+  resetModalState(activeModal);
   if (lastFocusedBeforeModal) lastFocusedBeforeModal.focus();
   activeModal = null;
 }
