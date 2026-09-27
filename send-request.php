@@ -42,6 +42,31 @@ $recipients = [
     'exhibit' => ['to' => 'admin@kidneyhealth.africa', 'subject' => 'Exhibition & Partnership Enquiry — Africa Kidney Health Summit'],
 ];
 
+// Plain request-type names for the requester-facing confirmation email (no "— Africa Kidney
+// Health Summit" suffix, since that reads redundantly inside a sentence).
+$confirmationTitles = [
+    'rate'    => 'Student / Group Rate Request',
+    'letter'  => 'Invitation Letter / Invoice Request',
+    'exhibit' => 'Exhibition & Partnership Enquiry',
+];
+
+// Best-effort extraction of a first name to greet the requester by, from whichever field the
+// form happened to submit it under ("First name" for rate/letter, "Contact person" for exhibit).
+function find_first_name(array $rows) {
+    foreach ($rows as [$label, $value]) {
+        if (strcasecmp(trim($label), 'First name') === 0 && trim($value) !== '') {
+            return trim($value);
+        }
+    }
+    foreach ($rows as [$label, $value]) {
+        if (strcasecmp(trim($label), 'Contact person') === 0 && trim($value) !== '') {
+            $parts = preg_split('/\s+/', trim($value));
+            return $parts[0];
+        }
+    }
+    return null;
+}
+
 $formType = $_POST['form_type'] ?? '';
 if (!isset($recipients[$formType])) {
     http_response_code(400);
@@ -111,6 +136,39 @@ try {
     $mail->AltBody = $body;
 
     $mail->send();
+
+    // Best-effort confirmation email back to the requester. The secretariat has already been
+    // notified successfully above, so a failure here shouldn't fail the whole request.
+    try {
+        $confirmMail = new PHPMailer\PHPMailer\PHPMailer(true);
+        $confirmMail->isSMTP();
+        $confirmMail->Host = $config['smtp_host'];
+        $confirmMail->SMTPAuth = true;
+        $confirmMail->Username = $config['smtp_user'];
+        $confirmMail->Password = $config['smtp_pass'];
+        $confirmMail->SMTPSecure = $port === 465
+            ? PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS
+            : PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+        $confirmMail->Port = $port;
+        $confirmMail->CharSet = 'UTF-8';
+
+        $confirmationTitle = $confirmationTitles[$formType];
+        $firstName = find_first_name($rows);
+
+        $confirmMail->setFrom($config['smtp_user'], 'Africa Kidney Health Summit');
+        $confirmMail->addAddress($submitterEmail);
+        $confirmMail->Subject = 'Your ' . $confirmationTitle . ' has been received — Africa Kidney Health Summit';
+        $confirmMail->isHTML(true);
+        $confirmMail->Body = render_confirmation_email($confirmationTitle, $firstName);
+        $confirmMail->AltBody = "Dear " . ($firstName ?: 'there') . ",\n\n"
+            . "Thank you for your submission. Your {$confirmationTitle} has been successfully received by the Africa Kidney Health Summit Secretariat and is now pending review.\n\n"
+            . "We will contact you using the email address provided should further information be required.\n\n"
+            . "Kind regards,\nAfrica Kidney Health Summit Secretariat";
+        $confirmMail->send();
+    } catch (Throwable $e) {
+        // Swallow: the request has already been safely delivered to the secretariat.
+    }
+
     respond(true, 'Sent.');
 } catch (Throwable $e) {
     http_response_code(500);
