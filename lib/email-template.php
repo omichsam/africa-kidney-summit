@@ -14,8 +14,8 @@ function render_request_email($title, array $rows, $submitterEmail) {
     foreach ($rows as [$label, $value]) {
         $rowsHtml .= '
             <tr>
-              <td style="padding:11px 0;border-bottom:1px solid #EEF1F6;font-family:\'Segoe UI\',Helvetica,Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:.04em;color:#8494A8;text-transform:uppercase;width:36%;vertical-align:top;">' . h($label) . '</td>
-              <td style="padding:11px 0 11px 18px;border-bottom:1px solid #EEF1F6;font-family:\'Segoe UI\',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.5;color:#0A1F3D;vertical-align:top;">' . nl2br(h($value)) . '</td>
+              <td style="padding:13px 0;border-bottom:1px solid #F0F2F6;font-family:\'Segoe UI\',Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.02em;color:#8494A8;width:32%;vertical-align:top;">' . h($label) . '</td>
+              <td style="padding:13px 0 13px 20px;border-bottom:1px solid #F0F2F6;font-family:\'Segoe UI\',Helvetica,Arial,sans-serif;font-size:14.5px;line-height:1.5;color:#0A1F3D;vertical-align:top;">' . nl2br(h($value)) . '</td>
             </tr>';
     }
 
@@ -30,41 +30,40 @@ function render_request_email($title, array $rows, $submitterEmail) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{$safeTitle}</title>
 </head>
-<body style="margin:0;padding:0;background:#F2F5FA;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F2F5FA;">
+<body style="margin:0;padding:0;background:#FFFFFF;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FFFFFF;">
     <tr>
-      <td align="center" style="padding:32px 16px;">
-        <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#FFFFFF;border-radius:14px;overflow:hidden;">
+      <td align="center" style="padding:40px 24px;">
+        <table role="presentation" width="720" cellpadding="0" cellspacing="0" style="max-width:720px;width:100%;">
           <tr>
-            <td style="background:#1B3A8F;background:linear-gradient(135deg,#1B3A8F,#2E6FBF);padding:30px 32px;">
-              <p style="margin:0 0 6px;font-family:'Segoe UI',Helvetica,Arial,sans-serif;color:rgba(255,255,255,.72);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;">Africa Kidney Health Summit &middot; 2027</p>
-              <h1 style="margin:0;font-family:'Segoe UI',Helvetica,Arial,sans-serif;color:#FFFFFF;font-size:21px;font-weight:800;line-height:1.35;">{$safeTitle}</h1>
+            <td style="border-top:3px solid #2E6FBF;padding:22px 0 0;">
+              <p style="margin:0 0 10px;font-family:'Segoe UI',Helvetica,Arial,sans-serif;color:#2E6FBF;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;">Africa Kidney Health Summit &middot; 2027</p>
+              <h1 style="margin:0;font-family:'Segoe UI',Helvetica,Arial,sans-serif;color:#0A1F3D;font-size:20px;font-weight:700;line-height:1.4;">{$safeTitle}</h1>
             </td>
           </tr>
           <tr>
-            <td style="padding:28px 32px 6px;">
-              <p style="margin:0 0 22px;font-family:'Segoe UI',Helvetica,Arial,sans-serif;color:#5D6E86;font-size:14px;line-height:1.6;">A new request was just submitted through the summit website. Details are below.</p>
+            <td style="padding:22px 0 4px;">
+              <p style="margin:0;font-family:'Segoe UI',Helvetica,Arial,sans-serif;color:#8494A8;font-size:13.5px;line-height:1.6;">A new request was just submitted through the summit website.</p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:18px 0 0;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
                 {$rowsHtml}
               </table>
             </td>
           </tr>
           <tr>
-            <td style="padding:10px 32px 28px;">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F7F9FC;border-radius:10px;">
-                <tr>
-                  <td style="padding:14px 18px;font-family:'Segoe UI',Helvetica,Arial,sans-serif;font-size:13px;line-height:1.6;color:#0A1F3D;">
-                    Reply directly to this email to respond to <strong>{$safeEmail}</strong> &mdash; it's already set as the reply-to address.
-                  </td>
-                </tr>
-              </table>
+            <td style="padding:22px 0 0;">
+              <p style="margin:0;font-family:'Segoe UI',Helvetica,Arial,sans-serif;font-size:13.5px;line-height:1.6;color:#5D6E86;">
+                Reply directly to this email to respond to <strong style="color:#0A1F3D;">{$safeEmail}</strong>.
+              </p>
             </td>
           </tr>
           <tr>
-            <td style="padding:18px 32px 26px;border-top:1px solid #EEF1F6;">
-              <p style="margin:0;font-family:'Segoe UI',Helvetica,Arial,sans-serif;color:#8494A8;font-size:11px;line-height:1.7;">
-                Sent automatically from the request form at kidneyhealth.africa.<br>
-                Africa Kidney Health Summit 2027
+            <td style="padding:32px 0 0;border-top:1px solid #F0F2F6;margin-top:24px;">
+              <p style="margin:24px 0 0;font-family:'Segoe UI',Helvetica,Arial,sans-serif;color:#8494A8;font-size:11.5px;line-height:1.7;">
+                Sent automatically from the request form at kidneyhealth.africa &middot; Africa Kidney Health Summit 2027
               </p>
             </td>
           </tr>
