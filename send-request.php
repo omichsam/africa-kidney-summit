@@ -39,8 +39,9 @@ if (!empty($_POST['botcheck'])) {
 // admin@/secretariat@kidneyhealth.africa are set up — switch the 'to' values
 // back once those mailboxes are confirmed working.
 $recipients = [
-    'rate'   => ['to' => 'onwongasamm@gmail.com', 'subject' => 'Student / Group Rate Request — Africa Kidney Health Summit'],
-    'letter' => ['to' => 'onwongasamm@gmail.com', 'subject' => 'Invitation Letter / Invoice Request — Africa Kidney Health Summit'],
+    'rate'    => ['to' => 'onwongasamm@gmail.com', 'subject' => 'Student / Group Rate Request — Africa Kidney Health Summit'],
+    'letter'  => ['to' => 'onwongasamm@gmail.com', 'subject' => 'Invitation Letter / Invoice Request — Africa Kidney Health Summit'],
+    'exhibit' => ['to' => 'onwongasamm@gmail.com', 'subject' => 'Exhibition & Partnership Enquiry — Africa Kidney Health Summit'],
 ];
 
 $formType = $_POST['form_type'] ?? '';

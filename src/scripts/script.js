@@ -142,16 +142,21 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-exhibitForm.addEventListener('submit', (e) => {
+const exhibitSubmitBtn = document.getElementById('exhibitSubmitBtn');
+
+exhibitForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   exhibitError.classList.remove('show'); exhibitError.textContent = '';
 
   const org = document.getElementById('eorg').value.trim();
   const name = document.getElementById('ename').value.trim();
+  const position = document.getElementById('eposition').value.trim();
   const email = document.getElementById('eemail').value.trim();
   const country = document.getElementById('ecountry').value;
+  const phoneCode = document.getElementById('ephoneCode').value.trim();
   const phone = document.getElementById('ephone').value.trim();
   const pkg = document.getElementById('epackage').value;
+  const message = document.getElementById('emessage').value.trim();
 
   let error = '';
   if (!org) error = 'Please provide your company or organisation name.';
@@ -166,8 +171,40 @@ exhibitForm.addEventListener('submit', (e) => {
     return;
   }
 
-  modalFormView.style.display = 'none';
-  modalSuccessView.classList.add('show');
+  const lines = [
+    `Company / Organisation: ${org}`,
+    `Contact person: ${name}`,
+    `Position: ${position || '—'}`,
+    `Email: ${email}`,
+    `Country: ${country}`,
+    `Telephone: ${phoneCode} ${phone}`,
+    `Package of interest: ${pkg}`,
+    `Message: ${message || '—'}`,
+  ];
+  const payload = new URLSearchParams();
+  payload.set('form_type', 'exhibit');
+  payload.set('email', email);
+  payload.set('summary', lines.join('\n'));
+  payload.set('botcheck', '');
+
+  const label = exhibitSubmitBtn.querySelector('.btn-label');
+  exhibitSubmitBtn.disabled = true; label.textContent = 'Sending…';
+  try {
+    const res = await fetch(REQUEST_FORM_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded', Accept: 'application/json' },
+      body: payload,
+    });
+    const result = await res.json();
+    if (!result.success) throw new Error(result.message || 'Submission failed');
+    modalFormView.style.display = 'none';
+    modalSuccessView.classList.add('show');
+  } catch (err) {
+    exhibitError.textContent = 'Something went wrong sending your enquiry. Please try again or email admin@kidneyhealth.africa directly.';
+    exhibitError.classList.add('show');
+  } finally {
+    exhibitSubmitBtn.disabled = false; label.textContent = 'Send enquiry';
+  }
 });
 
 // RATE & LETTER REQUEST FORMS — submitted to send-request.php (see that file at the repo
