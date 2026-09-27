@@ -149,6 +149,7 @@ exhibitForm.addEventListener('submit', (e) => {
   const org = document.getElementById('eorg').value.trim();
   const name = document.getElementById('ename').value.trim();
   const email = document.getElementById('eemail').value.trim();
+  const country = document.getElementById('ecountry').value;
   const phone = document.getElementById('ephone').value.trim();
   const pkg = document.getElementById('epackage').value;
 
@@ -156,6 +157,7 @@ exhibitForm.addEventListener('submit', (e) => {
   if (!org) error = 'Please provide your company or organisation name.';
   else if (!name) error = 'Please provide a contact person.';
   else if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) error = 'Please provide a valid email address.';
+  else if (!country) error = 'Please select your country.';
   else if (!phone) error = 'Please provide a contact telephone number.';
   else if (!pkg) error = 'Please select a package of interest.';
 
@@ -229,6 +231,52 @@ function wireRequestForm({ form, errorEl, formView, successView, submitBtn, form
     }
   });
 }
+
+// COUNTRY SELECT + DIALLING CODE — populates both request forms' country dropdowns
+// from one shared list, and updates the read-only code prefix next to the phone
+// field when a country is chosen (e.g. Kenya -> +254).
+const COUNTRIES = [
+  ['Algeria','213'],['Angola','244'],['Benin','229'],['Botswana','267'],['Burkina Faso','226'],
+  ['Burundi','257'],['Cabo Verde','238'],['Cameroon','237'],['Central African Republic','236'],
+  ['Chad','235'],['Comoros','269'],['Congo (Republic)','242'],['Congo (DRC)','243'],
+  ["Côte d'Ivoire",'225'],['Djibouti','253'],['Egypt','20'],['Equatorial Guinea','240'],
+  ['Eritrea','291'],['Eswatini','268'],['Ethiopia','251'],['Gabon','241'],['Gambia','220'],
+  ['Ghana','233'],['Guinea','224'],['Guinea-Bissau','245'],['Kenya','254'],['Lesotho','266'],
+  ['Liberia','231'],['Libya','218'],['Madagascar','261'],['Malawi','265'],['Mali','223'],
+  ['Mauritania','222'],['Mauritius','230'],['Morocco','212'],['Mozambique','258'],['Namibia','264'],
+  ['Niger','227'],['Nigeria','234'],['Rwanda','250'],['São Tomé and Príncipe','239'],
+  ['Senegal','221'],['Seychelles','248'],['Sierra Leone','232'],['Somalia','252'],
+  ['South Africa','27'],['South Sudan','211'],['Sudan','249'],['Tanzania','255'],['Togo','228'],
+  ['Tunisia','216'],['Uganda','256'],['Zambia','260'],['Zimbabwe','263'],
+  ['United Kingdom','44'],['United States / Canada','1'],['France','33'],['Germany','49'],
+  ['India','91'],['United Arab Emirates','971'],['China','86'],['Other','']
+];
+
+function populateCountrySelect(select){
+  COUNTRIES.forEach(([name, code]) => {
+    const opt = document.createElement('option');
+    opt.value = name;
+    opt.dataset.code = code;
+    opt.textContent = name;
+    select.appendChild(opt);
+  });
+}
+
+function wireCountryPhoneCode(countryId, codeId){
+  const select = document.getElementById(countryId);
+  const codeField = document.getElementById(codeId);
+  if (!select || !codeField) return;
+  populateCountrySelect(select);
+  select.addEventListener('change', () => {
+    const opt = select.options[select.selectedIndex];
+    const code = opt && opt.dataset.code;
+    codeField.value = code ? '+' + code : '+';
+  });
+}
+
+wireCountryPhoneCode('rcountry', 'rphoneCode');
+wireCountryPhoneCode('lcountry', 'lphoneCode');
+wireCountryPhoneCode('ecountry', 'ephoneCode');
 
 // RATE MODAL
 const rateModal = document.getElementById('rateModal');

@@ -45,7 +45,7 @@
   tailwind.config = { prefix: 'tw-', corePlugins: { preflight: false } };
 </script>
 
-<link rel="stylesheet" href="src/styles/styles.css?v=20260927-8">
+<link rel="stylesheet" href="src/styles/styles.css?v=20260927-9">
 
 <!-- Structured data: helps search engines show this as a rich Event result -->
 <script type="application/ld+json">
@@ -545,17 +545,17 @@
       <form id="exhibitForm" novalidate>
         <div class="field">
           <label for="eorg">Company / Organisation <span class="req">*</span></label>
-          <input id="eorg" name="eorg" type="text" placeholder="MedTech Diagnostics Ltd" required>
+          <input id="eorg" name="eorg" type="text" placeholder="Company or organisation name" required>
         </div>
 
         <div class="grid-2">
           <div class="field">
             <label for="ename">Contact person <span class="req">*</span></label>
-            <input id="ename" name="ename" type="text" placeholder="Jane Wanjiku" required>
+            <input id="ename" name="ename" type="text" placeholder="Contact person's name" required>
           </div>
           <div class="field">
             <label for="eposition">Position</label>
-            <input id="eposition" name="eposition" type="text" placeholder="Head of Business Development">
+            <input id="eposition" name="eposition" type="text" placeholder="Position or job title">
           </div>
         </div>
 
@@ -565,8 +565,18 @@
             <input id="eemail" name="eemail" type="email" placeholder="you@company.com" required>
           </div>
           <div class="field">
-            <label for="ephone">Telephone <span class="req">*</span></label>
-            <input id="ephone" name="ephone" type="tel" placeholder="+254 700 000 000" required>
+            <label for="ecountry">Country <span class="req">*</span></label>
+            <select id="ecountry" name="ecountry" required>
+              <option value="">Select a country…</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="ephone">Telephone <span class="req">*</span></label>
+          <div class="phone-input">
+            <input type="text" class="phone-input__code" id="ephoneCode" name="ephone_code" value="+" readonly tabindex="-1" aria-label="Country dialling code, set automatically from the country you select above">
+            <input id="ephone" name="ephone" type="tel" placeholder="7XX XXX XXX" required>
           </div>
         </div>
 
@@ -627,11 +637,11 @@
         <div class="grid-2">
           <div class="field">
             <label for="rfname">First name <span class="req">*</span></label>
-            <input id="rfname" name="First name" type="text" placeholder="Wanjiru" required>
+            <input id="rfname" name="First name" type="text" placeholder="First name" required>
           </div>
           <div class="field">
             <label for="rlname">Last name <span class="req">*</span></label>
-            <input id="rlname" name="Last name" type="text" placeholder="Kamau" required>
+            <input id="rlname" name="Last name" type="text" placeholder="Last name" required>
           </div>
         </div>
 
@@ -642,31 +652,36 @@
           </div>
           <div class="field">
             <label for="rrole">Role / Title</label>
-            <input id="rrole" name="Role / Title" type="text" placeholder="Final year student">
+            <input id="rrole" name="Role / Title" type="text" placeholder="Role or title">
           </div>
         </div>
 
         <div class="grid-2">
           <div class="field">
             <label for="rorg">Organization <span class="req">*</span></label>
-            <input id="rorg" name="Organization" type="text" placeholder="University of Nairobi" required>
+            <input id="rorg" name="Organization" type="text" placeholder="Organization name" required>
           </div>
           <div class="field">
             <label for="rcountry">Country <span class="req">*</span></label>
-            <input id="rcountry" name="Country" type="text" placeholder="Kenya" required>
+            <select id="rcountry" name="Country" required>
+              <option value="">Select a country…</option>
+            </select>
           </div>
         </div>
 
         <div class="field">
           <label for="rphone">Phone number <span class="req">*</span></label>
-          <input id="rphone" name="Phone number" type="tel" placeholder="+254 700 000 000" required>
+          <div class="phone-input">
+            <input type="text" class="phone-input__code" id="rphoneCode" name="Country code" value="+" readonly tabindex="-1" aria-label="Country dialling code, set automatically from the country you select above">
+            <input id="rphone" name="Phone number" type="tel" placeholder="7XX XXX XXX" required>
+          </div>
           <p class="field__note">This should be a WhatsApp number. We'll use it for faster updates on your request.</p>
         </div>
 
         <div class="grid-2">
           <div class="field">
             <label for="rpasses">No. of delegate passes needed <span class="req">*</span></label>
-            <input id="rpasses" name="No. of delegate passes needed" type="number" min="1" step="1" placeholder="5" required>
+            <input id="rpasses" name="No. of delegate passes needed" type="number" min="1" step="1" placeholder="1" required>
           </div>
           <div class="field">
             <label for="rgroup">Group description <span class="req">*</span></label>
@@ -727,11 +742,11 @@
         <div class="grid-2">
           <div class="field">
             <label for="lfname">First name <span class="req">*</span></label>
-            <input id="lfname" name="First name" type="text" placeholder="Wanjiru" required>
+            <input id="lfname" name="First name" type="text" placeholder="First name" required>
           </div>
           <div class="field">
             <label for="llname">Last name <span class="req">*</span></label>
-            <input id="llname" name="Last name" type="text" placeholder="Kamau" required>
+            <input id="llname" name="Last name" type="text" placeholder="Last name" required>
           </div>
         </div>
 
@@ -742,24 +757,29 @@
           </div>
           <div class="field">
             <label for="lrole">Role / Title</label>
-            <input id="lrole" name="Role / Title" type="text" placeholder="Head of Delegation">
+            <input id="lrole" name="Role / Title" type="text" placeholder="Role or title">
           </div>
         </div>
 
         <div class="grid-2">
           <div class="field">
             <label for="lorg">Organization <span class="req">*</span></label>
-            <input id="lorg" name="Organization" type="text" placeholder="Ministry of Health" required>
+            <input id="lorg" name="Organization" type="text" placeholder="Organization name" required>
           </div>
           <div class="field">
             <label for="lcountry">Country <span class="req">*</span></label>
-            <input id="lcountry" name="Country" type="text" placeholder="Kenya" required>
+            <select id="lcountry" name="Country" required>
+              <option value="">Select a country…</option>
+            </select>
           </div>
         </div>
 
         <div class="field">
           <label for="lphone">Phone number <span class="req">*</span></label>
-          <input id="lphone" name="Phone number" type="tel" placeholder="+254 700 000 000" required>
+          <div class="phone-input">
+            <input type="text" class="phone-input__code" id="lphoneCode" name="Country code" value="+" readonly tabindex="-1" aria-label="Country dialling code, set automatically from the country you select above">
+            <input id="lphone" name="Phone number" type="tel" placeholder="7XX XXX XXX" required>
+          </div>
           <p class="field__note">This should be a WhatsApp number. We'll use it for faster updates on your request.</p>
         </div>
 
@@ -988,6 +1008,6 @@
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
-<script src="src/scripts/script.js?v=20260927-2"></script>
+<script src="src/scripts/script.js?v=20260927-4"></script>
 </body>
 </html>
