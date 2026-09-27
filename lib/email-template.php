@@ -6,8 +6,10 @@
  * enhancement that several clients (Gmail app, Apple Mail, Outlook.com) do honour; everywhere
  * else it falls back to the closest system font.
  *
- * One font family throughout (Plus Jakarta Sans, weight only distinguishes label vs value) —
- * same family the main site uses for headings — for a single, formal, consistent voice.
+ * Each field renders as "Label : Value" on a single line inside its own bordered box, with
+ * padding on the surrounding table cell (not margin, which Outlook drops) creating the gap
+ * between boxes — that's what keeps paired fields like Country code / Phone number visibly
+ * separated instead of touching.
  */
 
 $FONT = "'Plus Jakarta Sans','Segoe UI',Helvetica,Arial,sans-serif";
@@ -25,25 +27,18 @@ function is_short_value($value) {
 }
 
 function render_field_block($label, $value, $font) {
-    return '
-              <div style="padding:9px 16px;">
-                <p style="margin:0 0 2px;font-family:' . $font . ';font-size:10.5px;font-weight:700;letter-spacing:.05em;color:#8494A8;text-transform:uppercase;">' . h($label) . '</p>
-                <p style="margin:0;font-family:' . $font . ';font-weight:500;font-size:14px;line-height:1.4;color:#0A1F3D;">' . nl2br(h($value)) . '</p>
-              </div>';
+    return '<div style="border:1px solid #E5E9F0;border-radius:8px;padding:10px 14px;background:#FFFFFF;">'
+        . '<p style="margin:0;font-family:' . $font . ';font-size:13.5px;line-height:1.5;">'
+        . '<span style="font-weight:700;color:#8494A8;letter-spacing:.02em;">' . h($label) . '</span>'
+        . '<span style="color:#0A1F3D;font-weight:500;"> : ' . nl2br(h($value)) . '</span>'
+        . '</p></div>';
 }
 
 function render_request_email($title, array $rows, $submitterEmail) {
     global $FONT;
 
     $rowsHtml = '';
-    $zebra = false;
     $pending = null;
-
-    $nextBg = function () use (&$zebra) {
-        $bg = $zebra ? '#F7F9FC' : '#FFFFFF';
-        $zebra = !$zebra;
-        return $bg;
-    };
 
     foreach ($rows as [$label, $value]) {
         if (is_short_value($value)) {
@@ -51,25 +46,21 @@ function render_request_email($title, array $rows, $submitterEmail) {
                 $pending = [$label, $value];
                 continue;
             }
-            $bg = $nextBg();
             $rowsHtml .= '<tr>'
-                . '<td width="50%" style="border:1px solid #E5E9F0;background:' . $bg . ';padding:0;vertical-align:top;">' . render_field_block($pending[0], $pending[1], $FONT) . '</td>'
-                . '<td width="50%" style="border:1px solid #E5E9F0;background:' . $bg . ';padding:0;vertical-align:top;">' . render_field_block($label, $value, $FONT) . '</td>'
+                . '<td width="50%" style="padding:5px 5px 5px 0;vertical-align:top;">' . render_field_block($pending[0], $pending[1], $FONT) . '</td>'
+                . '<td width="50%" style="padding:5px 0 5px 5px;vertical-align:top;">' . render_field_block($label, $value, $FONT) . '</td>'
                 . '</tr>';
             $pending = null;
         } else {
             if ($pending !== null) {
-                $bg = $nextBg();
-                $rowsHtml .= '<tr><td colspan="2" style="border:1px solid #E5E9F0;background:' . $bg . ';padding:0;">' . render_field_block($pending[0], $pending[1], $FONT) . '</td></tr>';
+                $rowsHtml .= '<tr><td colspan="2" style="padding:5px 0;">' . render_field_block($pending[0], $pending[1], $FONT) . '</td></tr>';
                 $pending = null;
             }
-            $bg = $nextBg();
-            $rowsHtml .= '<tr><td colspan="2" style="border:1px solid #E5E9F0;background:' . $bg . ';padding:0;">' . render_field_block($label, $value, $FONT) . '</td></tr>';
+            $rowsHtml .= '<tr><td colspan="2" style="padding:5px 0;">' . render_field_block($label, $value, $FONT) . '</td></tr>';
         }
     }
     if ($pending !== null) {
-        $bg = $nextBg();
-        $rowsHtml .= '<tr><td colspan="2" style="border:1px solid #E5E9F0;background:' . $bg . ';padding:0;">' . render_field_block($pending[0], $pending[1], $FONT) . '</td></tr>';
+        $rowsHtml .= '<tr><td colspan="2" style="padding:5px 0;">' . render_field_block($pending[0], $pending[1], $FONT) . '</td></tr>';
     }
 
     $safeTitle = h($title);
@@ -109,7 +100,7 @@ function render_request_email($title, array $rows, $submitterEmail) {
           </tr>
 
           <tr>
-            <td style="padding:12px 30px 0;">
+            <td style="padding:12px 26px 0;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
                 {$rowsHtml}
               </table>
