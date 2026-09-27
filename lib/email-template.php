@@ -6,10 +6,10 @@
  * a <style>@import — since different clients honour one but strip the other; everywhere both
  * are stripped it falls back to Segoe UI/Helvetica, which is why the stack lists both.
  *
- * Each field renders as "Label : Value" on a single line inside its own bordered box, with
- * padding on the surrounding table cell (not margin, which Outlook drops) creating the gap
- * between boxes — that's what keeps paired fields like Country code / Phone number visibly
- * separated instead of touching.
+ * Each field renders as "Label : Value" on a single line, laid out as a plain divided list
+ * (thin row rules, a thin column rule between paired fields) rather than boxing every field —
+ * cleaner than individually bordered cards while keeping paired fields like Country code /
+ * Phone number visibly separated.
  */
 
 $FONT = "'Plus Jakarta Sans','Segoe UI',Helvetica,Arial,sans-serif";
@@ -26,12 +26,11 @@ function is_short_value($value) {
     return mb_strlen($value) <= 40 && strpos($value, "\n") === false;
 }
 
-function render_field_block($label, $value, $font) {
-    return '<div style="border:1px solid #E5E9F0;border-radius:8px;padding:10px 14px;background:#FFFFFF;">'
-        . '<p style="margin:0;font-family:' . $font . ';font-size:13.5px;line-height:1.5;">'
+function render_field_content($label, $value, $font) {
+    return '<p style="margin:0;font-family:' . $font . ';font-size:13.5px;line-height:1.5;">'
         . '<span style="font-weight:700;color:#8494A8;letter-spacing:.02em;">' . h($label) . '</span>'
         . '<span style="color:#0A1F3D;font-weight:500;"> : ' . nl2br(h($value)) . '</span>'
-        . '</p></div>';
+        . '</p>';
 }
 
 function render_request_email($title, array $rows, $submitterEmail) {
@@ -39,6 +38,8 @@ function render_request_email($title, array $rows, $submitterEmail) {
 
     $rowsHtml = '';
     $pending = null;
+    $isFirstRow = true;
+    $rule = 'border-top:1px solid #EEF1F6;';
 
     foreach ($rows as [$label, $value]) {
         if (is_short_value($value)) {
@@ -46,21 +47,28 @@ function render_request_email($title, array $rows, $submitterEmail) {
                 $pending = [$label, $value];
                 continue;
             }
+            $top = $isFirstRow ? '' : $rule;
             $rowsHtml .= '<tr>'
-                . '<td width="50%" style="padding:5px 5px 5px 0;vertical-align:top;">' . render_field_block($pending[0], $pending[1], $FONT) . '</td>'
-                . '<td width="50%" style="padding:5px 0 5px 5px;vertical-align:top;">' . render_field_block($label, $value, $FONT) . '</td>'
+                . '<td width="50%" style="padding:13px 18px 13px 0;vertical-align:top;border-right:1px solid #EEF1F6;' . $top . '">' . render_field_content($pending[0], $pending[1], $FONT) . '</td>'
+                . '<td width="50%" style="padding:13px 0 13px 18px;vertical-align:top;' . $top . '">' . render_field_content($label, $value, $FONT) . '</td>'
                 . '</tr>';
             $pending = null;
+            $isFirstRow = false;
         } else {
             if ($pending !== null) {
-                $rowsHtml .= '<tr><td colspan="2" style="padding:5px 0;">' . render_field_block($pending[0], $pending[1], $FONT) . '</td></tr>';
+                $top = $isFirstRow ? '' : $rule;
+                $rowsHtml .= '<tr><td colspan="2" style="padding:13px 0;' . $top . '">' . render_field_content($pending[0], $pending[1], $FONT) . '</td></tr>';
                 $pending = null;
+                $isFirstRow = false;
             }
-            $rowsHtml .= '<tr><td colspan="2" style="padding:5px 0;">' . render_field_block($label, $value, $FONT) . '</td></tr>';
+            $top = $isFirstRow ? '' : $rule;
+            $rowsHtml .= '<tr><td colspan="2" style="padding:13px 0;' . $top . '">' . render_field_content($label, $value, $FONT) . '</td></tr>';
+            $isFirstRow = false;
         }
     }
     if ($pending !== null) {
-        $rowsHtml .= '<tr><td colspan="2" style="padding:5px 0;">' . render_field_block($pending[0], $pending[1], $FONT) . '</td></tr>';
+        $top = $isFirstRow ? '' : $rule;
+        $rowsHtml .= '<tr><td colspan="2" style="padding:13px 0;' . $top . '">' . render_field_content($pending[0], $pending[1], $FONT) . '</td></tr>';
     }
 
     $safeTitle = h($title);
