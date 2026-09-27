@@ -6,70 +6,102 @@
  * a <style>@import — since different clients honour one but strip the other; everywhere both
  * are stripped it falls back to Segoe UI/Helvetica, which is why the stack lists both.
  *
- * Each field renders as "Label : Value" on a single line, laid out as a plain divided list
- * (thin row rules, a thin column rule between paired fields) rather than boxing every field —
- * cleaner than individually bordered cards while keeping paired fields like Country code /
- * Phone number visibly separated.
+ * Fields sit inside one tinted panel, grouped into rows of up to three short fields (icon +
+ * "Label: value"), with any longer free-text field taking its own full-width row. Icons are
+ * inline SVG chosen by keyword match on the label — they degrade gracefully (blank circle) on
+ * clients that strip SVG, such as Outlook desktop.
  */
 
 $FONT = "'Plus Jakarta Sans','Segoe UI',Helvetica,Arial,sans-serif";
+
+$ICONS = [
+    'user' => '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+    'mail' => '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>',
+    'phone' => '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>',
+    'globe' => '<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+    'briefcase' => '<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
+    'file' => '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
+    'tag' => '<path d="M20.59 13.41 11 3.83A2 2 0 0 0 9.59 3.24L3 3v6.59a2 2 0 0 0 .59 1.41l9.58 9.58a2 2 0 0 0 2.82 0l6.6-6.6a2 2 0 0 0 0-2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/>',
+];
 
 function h($value) {
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 }
 
-// Short values (e.g. a name, an email, a country) are paired two-to-a-row so the reader
-// doesn't have to scroll through a long single column for what's really a compact form.
+// Short values (e.g. a name, an email, a country) are grouped up to three-to-a-row so the
+// reader doesn't scroll through a long single column for what's really a compact form.
 // Anything longer, or containing a line break (free-text messages), gets its own full-width row.
-// Applies identically regardless of which of the three request forms produced the rows.
 function is_short_value($value) {
-    return mb_strlen($value) <= 40 && strpos($value, "\n") === false;
+    return mb_strlen($value) <= 34 && strpos($value, "\n") === false;
 }
 
-function render_field_content($label, $value, $font) {
-    return '<p style="margin:0;font-family:' . $font . ';font-size:13.5px;line-height:1.5;">'
-        . '<span style="font-weight:700;color:#8494A8;letter-spacing:.02em;">' . h($label) . '</span>'
-        . '<span style="color:#0A1F3D;font-weight:500;"> : ' . nl2br(h($value)) . '</span>'
-        . '</p>';
+function field_icon_key($label) {
+    $l = mb_strtolower($label);
+    if (strpos($l, 'email') !== false) return 'mail';
+    if (strpos($l, 'phone') !== false) return 'phone';
+    if (strpos($l, 'country') !== false) return 'globe';
+    if (strpos($l, 'name') !== false || strpos($l, 'contact person') !== false) return 'user';
+    if (strpos($l, 'organi') !== false || strpos($l, 'company') !== false) return 'briefcase';
+    if (strpos($l, 'message') !== false || strpos($l, 'information') !== false || strpos($l, 'additional') !== false) return 'file';
+    return 'tag';
+}
+
+function render_field_content($label, $value, $font, $wrap) {
+    global $ICONS;
+    $iconPath = $ICONS[field_icon_key($label)];
+    $whiteSpace = $wrap ? 'normal' : 'nowrap';
+    return '<table role="presentation" cellpadding="0" cellspacing="0" width="100%"><tr>'
+        . '<td width="30" style="vertical-align:top;padding-top:1px;">'
+        . '<table role="presentation" width="26" height="26" cellpadding="0" cellspacing="0" style="width:26px;height:26px;background:#0A1F3D;border-radius:50%;">'
+        . '<tr><td align="center" valign="middle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' . $iconPath . '</svg></td></tr>'
+        . '</table></td>'
+        . '<td style="vertical-align:middle;padding-left:4px;">'
+        . '<p style="margin:0;font-family:' . $font . ';font-size:13px;line-height:1.5;white-space:' . $whiteSpace . ';">'
+        . '<span style="color:#6B7A93;font-weight:500;">' . h($label) . ':</span> '
+        . '<span style="color:#0A1F3D;font-weight:700;">' . nl2br(h($value)) . '</span>'
+        . '</p></td>'
+        . '</tr></table>';
+}
+
+// Renders one logical row as its own mini-table so the column count can vary (1, 2 or 3)
+// without relying on colspan tricks. $items is a list of [label, value] pairs.
+function render_field_row($items, $font, $isFirstRow) {
+    $count = count($items);
+    $width = floor(100 / $count);
+    $cells = '';
+    foreach ($items as $i => [$label, $value]) {
+        $borderRight = $i < $count - 1 ? 'border-right:1px solid #E3E9F5;' : '';
+        $cells .= '<td width="' . $width . '%" style="padding:14px 18px;vertical-align:top;' . $borderRight . '">' . render_field_content($label, $value, $font, $count === 1) . '</td>';
+    }
+    $borderTop = $isFirstRow ? '' : 'border-top:1px solid #E3E9F5;';
+    return '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;' . $borderTop . '"><tr>' . $cells . '</tr></table>';
 }
 
 function render_request_email($title, array $rows, $submitterEmail) {
     global $FONT;
 
     $rowsHtml = '';
-    $pending = null;
+    $buffer = [];
     $isFirstRow = true;
-    $rule = 'border-top:1px solid #EEF1F6;';
+
+    $flush = function () use (&$buffer, &$rowsHtml, &$isFirstRow, $FONT) {
+        if (empty($buffer)) return;
+        $rowsHtml .= render_field_row($buffer, $FONT, $isFirstRow);
+        $isFirstRow = false;
+        $buffer = [];
+    };
 
     foreach ($rows as [$label, $value]) {
         if (is_short_value($value)) {
-            if ($pending === null) {
-                $pending = [$label, $value];
-                continue;
-            }
-            $top = $isFirstRow ? '' : $rule;
-            $rowsHtml .= '<tr>'
-                . '<td width="50%" style="padding:13px 18px 13px 0;vertical-align:top;border-right:1px solid #EEF1F6;' . $top . '">' . render_field_content($pending[0], $pending[1], $FONT) . '</td>'
-                . '<td width="50%" style="padding:13px 0 13px 18px;vertical-align:top;' . $top . '">' . render_field_content($label, $value, $FONT) . '</td>'
-                . '</tr>';
-            $pending = null;
-            $isFirstRow = false;
+            $buffer[] = [$label, $value];
+            if (count($buffer) === 3) $flush();
         } else {
-            if ($pending !== null) {
-                $top = $isFirstRow ? '' : $rule;
-                $rowsHtml .= '<tr><td colspan="2" style="padding:13px 0;' . $top . '">' . render_field_content($pending[0], $pending[1], $FONT) . '</td></tr>';
-                $pending = null;
-                $isFirstRow = false;
-            }
-            $top = $isFirstRow ? '' : $rule;
-            $rowsHtml .= '<tr><td colspan="2" style="padding:13px 0;' . $top . '">' . render_field_content($label, $value, $FONT) . '</td></tr>';
+            $flush();
+            $rowsHtml .= render_field_row([[$label, $value]], $FONT, $isFirstRow);
             $isFirstRow = false;
         }
     }
-    if ($pending !== null) {
-        $top = $isFirstRow ? '' : $rule;
-        $rowsHtml .= '<tr><td colspan="2" style="padding:13px 0;' . $top . '">' . render_field_content($pending[0], $pending[1], $FONT) . '</td></tr>';
-    }
+    $flush();
 
     $safeTitle = h($title);
     $safeEmail = h($submitterEmail);
@@ -112,9 +144,11 @@ function render_request_email($title, array $rows, $submitterEmail) {
           </tr>
 
           <tr>
-            <td style="padding:12px 26px 0;">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
-                {$rowsHtml}
+            <td style="padding:16px 30px 0;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F7FAFF;border:1px solid #E3E9F5;border-radius:14px;border-collapse:separate;overflow:hidden;">
+                <tr><td style="padding:0;">
+                  {$rowsHtml}
+                </td></tr>
               </table>
             </td>
           </tr>
