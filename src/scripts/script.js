@@ -177,7 +177,8 @@ exhibitForm.addEventListener('submit', async (e) => {
     `Position: ${position || '—'}`,
     `Email: ${email}`,
     `Country: ${country}`,
-    `Telephone: ${phoneCode} ${phone}`,
+    `Country code: ${phoneCode}`,
+    `Phone number: ${phone}`,
     `Package of interest: ${pkg}`,
     `Message: ${message || '—'}`,
   ];
