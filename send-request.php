@@ -88,13 +88,10 @@ $htmlBody = render_request_email($recipients[$formType]['subject'], $rows, $subm
 
 try {
     $port = (int) $config['smtp_port'];
-    $debugLog = '';
 
     $mail = new PHPMailer\PHPMailer\PHPMailer(true);
     $mail->isSMTP();
     $mail->Host = $config['smtp_host'];
-    $mail->SMTPDebug = 2;
-    $mail->Debugoutput = function ($str, $level) use (&$debugLog) { $debugLog .= $str . "\n"; };
     $mail->SMTPAuth = true;
     $mail->Username = $config['smtp_user'];
     $mail->Password = $config['smtp_pass'];
@@ -117,13 +114,5 @@ try {
     respond(true, 'Sent.');
 } catch (Throwable $e) {
     http_response_code(500);
-    // TEMPORARY diagnostic: surfaces the real SMTP error/host/port/transcript while wiring up
-    // the admin@ mailbox. Revert to the generic message below before leaving this deployed.
-    respond(false, sprintf(
-        'DEBUG host=%s port=%s error=%s log=%s',
-        $config['smtp_host'],
-        $config['smtp_port'],
-        $e->getMessage(),
-        $debugLog ?? ''
-    ));
+    respond(false, 'The mail server could not send this request.');
 }
