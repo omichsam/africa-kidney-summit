@@ -45,7 +45,7 @@
   tailwind.config = { prefix: 'tw-', corePlugins: { preflight: false } };
 </script>
 
-<link rel="stylesheet" href="src/styles/styles.css?v=20260927-9">
+<link rel="stylesheet" href="src/styles/styles.css?v=20260928-1">
 
 <!-- Structured data: helps search engines show this as a rich Event result -->
 <script type="application/ld+json">
@@ -681,7 +681,11 @@
         <div class="grid-2">
           <div class="field">
             <label for="rpasses">No. of delegate passes needed <span class="req">*</span></label>
-            <input id="rpasses" name="No. of delegate passes needed" type="number" min="1" step="1" placeholder="1" required>
+            <div class="number-stepper">
+              <button type="button" class="number-stepper__btn" data-step="-1" aria-label="Decrease delegate passes">&minus;</button>
+              <input id="rpasses" name="No. of delegate passes needed" type="number" min="1" step="1" placeholder="1" required>
+              <button type="button" class="number-stepper__btn" data-step="1" aria-label="Increase delegate passes">&plus;</button>
+            </div>
           </div>
           <div class="field">
             <label for="rgroup">Group description <span class="req">*</span></label>
@@ -786,7 +790,11 @@
         <div class="grid-2">
           <div class="field">
             <label for="lpasses">No. of delegate passes <span class="req">*</span></label>
-            <input id="lpasses" name="No. of delegate passes" type="number" min="1" step="1" placeholder="1" required>
+            <div class="number-stepper">
+              <button type="button" class="number-stepper__btn" data-step="-1" aria-label="Decrease delegate passes">&minus;</button>
+              <input id="lpasses" name="No. of delegate passes" type="number" min="1" step="1" placeholder="1" required>
+              <button type="button" class="number-stepper__btn" data-step="1" aria-label="Increase delegate passes">&plus;</button>
+            </div>
           </div>
           <div class="field">
             <label for="lneed">What is needed <span class="req">*</span></label>
@@ -1008,6 +1016,6 @@
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
-<script src="src/scripts/script.js?v=20260928-1"></script>
+<script src="src/scripts/script.js?v=20260928-2"></script>
 </body>
 </html>

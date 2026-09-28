@@ -331,6 +331,39 @@ wireCountryPhoneCode('rcountry', 'rphoneCode');
 wireCountryPhoneCode('lcountry', 'lphoneCode');
 wireCountryPhoneCode('ecountry', 'ephoneCode');
 
+// DELEGATE PASSES STEPPER — the +/- buttons flanking the delegate-passes number fields.
+// Native number-input spin arrows are tiny and easy to miss, so this replaces them with
+// large, obvious buttons wired directly to the underlying input's value.
+document.querySelectorAll('.number-stepper').forEach((stepper) => {
+  const input = stepper.querySelector('input[type="number"]');
+  const buttons = stepper.querySelectorAll('.number-stepper__btn');
+  if (!input) return;
+
+  function updateDisabledState() {
+    const min = input.min !== '' ? Number(input.min) : -Infinity;
+    const current = input.value === '' ? min : Number(input.value);
+    buttons.forEach((btn) => {
+      const step = Number(btn.dataset.step);
+      btn.disabled = step < 0 && current <= min;
+    });
+  }
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const step = Number(btn.dataset.step);
+      const min = input.min !== '' ? Number(input.min) : -Infinity;
+      const current = input.value === '' ? (min === -Infinity ? 0 : min) : Number(input.value);
+      const next = Math.max(min, current + step);
+      input.value = next;
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      updateDisabledState();
+    });
+  });
+
+  input.addEventListener('input', updateDisabledState);
+  updateDisabledState();
+});
+
 // RATE MODAL
 const rateModal = document.getElementById('rateModal');
 document.getElementById('openRateModalCta').addEventListener('click', (e) => openModal(rateModal, e.currentTarget));

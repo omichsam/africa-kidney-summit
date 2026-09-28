@@ -488,6 +488,15 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .phone-input{display:flex}
 .phone-input__code{flex:0 0 4.4rem;width:4.4rem;min-width:0;text-align:center;padding-left:.4rem!important;padding-right:.4rem!important;border-radius:10px 0 0 10px!important;border-right:0!important;color:var(--muted);cursor:default}
 .phone-input input[id$="phone"]{border-radius:0 10px 10px 0}
+.number-stepper{display:flex}
+.number-stepper input[type="number"]{flex:1;min-width:0;text-align:center;border-radius:0;border-left:0;border-right:0;font-weight:700;-moz-appearance:textfield}
+.number-stepper input[type="number"]::-webkit-outer-spin-button,.number-stepper input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.number-stepper__btn{flex:0 0 3rem;width:3rem;border:1px solid var(--line);background:var(--blue-2);color:#fff;font-size:1.35rem;line-height:1;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,transform .15s;padding:0}
+.number-stepper__btn:first-child{border-radius:10px 0 0 10px;border-right:0}
+.number-stepper__btn:last-child{border-radius:0 10px 10px 0;border-left:0}
+.number-stepper__btn:hover{background:var(--blue)}
+.number-stepper__btn:active{transform:scale(.92)}
+.number-stepper__btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
 @media(max-width:640px){.grid-2{grid-template-columns:1fr}}
 
 .form-error{display:none;margin-top:1rem;padding:.9rem 1.1rem;border-radius:10px;background:#FDF0F2;border:1px solid rgba(230,57,80,.3);font-size:.83rem;color:var(--red-dark);line-height:1.5}
