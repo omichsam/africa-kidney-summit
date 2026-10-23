@@ -18,6 +18,23 @@ document.getElementById('copyrightYear').textContent = new Date().getFullYear();
   }, 6000);
 })();
 
+// SUMMIT IN FOCUS GALLERY — prev/next arrows just scroll the row by roughly one card width.
+(function initFocusGallery(){
+  const row = document.getElementById('focusGalleryRow');
+  const prev = document.getElementById('focusGalleryPrev');
+  const next = document.getElementById('focusGalleryNext');
+  if (!row || !prev || !next) return;
+
+  function step(direction) {
+    const card = row.querySelector('.focus-gallery__card');
+    const amount = (card ? card.offsetWidth + 20 : 280) * direction;
+    row.scrollBy({ left: amount, behavior: 'smooth' });
+  }
+
+  prev.addEventListener('click', () => step(-1));
+  next.addEventListener('click', () => step(1));
+})();
+
 // COUNTDOWN
 const EVENT_DATE = new Date('2027-03-09T09:00:00+03:00');
 (function(){

@@ -45,7 +45,7 @@
   tailwind.config = { prefix: 'tw-', corePlugins: { preflight: false } };
 </script>
 
-<link rel="stylesheet" href="src/styles/styles.css?v=20261023-1">
+<link rel="stylesheet" href="src/styles/styles.css?v=20261023-2">
 
 <!-- Structured data: helps search engines show this as a rich Event result -->
 <script type="application/ld+json">
@@ -247,6 +247,7 @@
     <div class="days">
       <article class="day reveal">
         <div class="day__banner day__banner--1">
+          <img class="day__photo" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=70" alt="A data dashboard showing health trend charts" loading="lazy">
           <span class="day__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.3"/><path d="m15.3 15.3 3.7 3.7"/></svg></span>
           <span class="day__tag">Day One</span>
         </div>
@@ -262,6 +263,7 @@
       </article>
       <article class="day reveal" style="--d:90ms">
         <div class="day__banner day__banner--2">
+          <img class="day__photo" src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?auto=format&fit=crop&w=800&q=70" alt="Surgeons performing a kidney procedure" loading="lazy">
           <span class="day__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c2.6 0 4.6 1.9 4.6 4.3 0 2.6-1.9 4.9-4.6 4.9S7.4 9.9 7.4 7.3C7.4 4.9 9.4 3 12 3Z"/><path d="M8 12.2c-1.2 1.5-2 3.5-2 5.7 0 3.1 2.6 5.1 6 5.1s6-2 6-5.1c0-2.2-.8-4.2-2-5.7"/></svg></span>
           <span class="day__tag">Day Two</span>
         </div>
@@ -278,6 +280,7 @@
       </article>
       <article class="day reveal" style="--d:180ms">
         <div class="day__banner day__banner--3">
+          <img class="day__photo" src="https://images.unsplash.com/photo-1504813184591-01572f98c85f?auto=format&fit=crop&w=800&q=70" alt="A surgical team in an operating theatre" loading="lazy">
           <span class="day__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 7v2h16V7L12 3Z"/><path d="M5.5 9v8M9 9v8M15 9v8M18.5 9v8"/><path d="M4 20h16"/></svg></span>
           <span class="day__tag">Day Three</span>
         </div>
@@ -292,6 +295,54 @@
       </article>
     </div>
     <p class="programme__declaration reveal">One Continent. One Declaration. Public Commitments. Africa Acts on Kidney Disease.</p>
+  </div>
+</section>
+
+<!-- SUMMIT IN FOCUS -->
+<section class="section" id="focus-gallery">
+  <div class="container">
+    <div class="focus-gallery__head reveal">
+      <div>
+        <span class="eyebrow">The Summit in Focus</span>
+        <h2 class="h2">People. Care. Policy. Action.</h2>
+        <p class="lead">Visual stories from the kidney health ecosystem across Africa.</p>
+      </div>
+      <div class="focus-gallery__nav">
+        <button type="button" class="focus-gallery__arrow" id="focusGalleryPrev" aria-label="Scroll to previous images">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <button type="button" class="focus-gallery__arrow" id="focusGalleryNext" aria-label="Scroll to next images">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="focus-gallery__row reveal" id="focusGalleryRow">
+      <figure class="focus-gallery__card">
+        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=700&q=70" alt="Two health leaders in conversation" loading="lazy">
+        <figcaption><b>Health leaders</b><small>Evidence, leadership and collaboration.</small></figcaption>
+      </figure>
+      <figure class="focus-gallery__card">
+        <img src="https://images.unsplash.com/photo-1599045118108-bf9954418b76?auto=format&fit=crop&w=700&q=70" alt="A clinician reviewing diagnostic monitors" loading="lazy">
+        <figcaption><b>Patient-centred care</b><small>Prevention, diagnosis and treatment.</small></figcaption>
+      </figure>
+      <figure class="focus-gallery__card">
+        <img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=700&q=70" alt="An anatomical heart model used for clinical training" loading="lazy">
+        <figcaption><b>Clinical excellence</b><small>Workforce, diagnostics and care pathways.</small></figcaption>
+      </figure>
+      <figure class="focus-gallery__card">
+        <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=700&q=70" alt="A panel discussion with an engaged audience" loading="lazy">
+        <figcaption><b>Policy dialogue</b><small>Turning evidence into action.</small></figcaption>
+      </figure>
+      <figure class="focus-gallery__card">
+        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=700&q=70" alt="Two people shaking hands in partnership" loading="lazy">
+        <figcaption><b>Partnership in action</b><small>Governments, partners and communities as one.</small></figcaption>
+      </figure>
+      <figure class="focus-gallery__card">
+        <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=700&q=70" alt="A doctor wearing a stethoscope and mask" loading="lazy">
+        <figcaption><b>Frontline carers</b><small>The clinicians and nurses answering the call.</small></figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
@@ -343,77 +394,56 @@
   </div>
 </section>
 
-<!-- WHO SHOULD ATTEND (replaces delegate pricing) -->
+<!-- WHY ATTEND (replaces delegate pricing) -->
 <section class="section section--tint" id="registration">
   <div class="container">
     <div class="head-center reveal">
-      <span class="eyebrow">Who Should Attend</span>
+      <span class="eyebrow">Why Attend</span>
       <h2 class="h2">Every voice in Africa's kidney health ecosystem.</h2>
       <p class="lead">The summit is open to everyone working to improve kidney health across the continent, from ministries and clinicians to students, advocates and industry partners. All are welcome at the same table.</p>
     </div>
 
-    <div class="attend-grid">
-      <div class="attend-card reveal">
-        <div class="attend-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01"/></svg></div>
-        <b>Government, Policy &amp; Health System Leaders</b>
-        <small>Ministries of Health, national and subnational governments, regulators, public health agencies, parliamentary health committees, policymakers and health financing authorities shaping policy, budgets, regulation and national health priorities.</small>
-        <span class="attend-card__tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg> Policy action</span>
+    <div class="attend-grid attend-grid--photo">
+      <div class="attend-card attend-card--photo reveal">
+        <div class="attend-card__photo"><img src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?auto=format&fit=crop&w=700&q=70" alt="Policy leaders in a meeting room" loading="eager"></div>
+        <span class="attend-card__num">01</span>
+        <b>Policy &amp; Systems</b>
+        <small>Government, policy and health system leaders shaping budgets, regulation and national priorities.</small>
       </div>
 
-      <div class="attend-card reveal" style="--d:60ms">
-        <div class="attend-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c2.6 0 4.6 1.9 4.6 4.3 0 2.6-1.9 4.9-4.6 4.9S7.4 9.9 7.4 7.3C7.4 4.9 9.4 3 12 3Z"/><path d="M8 12.2c-1.2 1.5-2 3.5-2 5.7 0 3.1 2.6 5.1 6 5.1s6-2 6-5.1c0-2.2-.8-4.2-2-5.7"/></svg></div>
-        <b>Cardio–Metabolic–Renal Clinicians</b>
-        <small>Nephrologists, cardiologists, endocrinologists, diabetologists, physicians, paediatric specialists, nurses and other healthcare professionals working across the interconnected fields of kidney, cardiovascular and metabolic health.</small>
-        <span class="attend-card__tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg> Clinical practice</span>
+      <div class="attend-card attend-card--photo reveal" style="--d:60ms">
+        <div class="attend-card__photo"><img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=700&q=70" alt="A clinician reviewing notes beside a stethoscope" loading="lazy"></div>
+        <span class="attend-card__num">02</span>
+        <b>Clinical &amp; Delivery</b>
+        <small>Clinicians, nurses, allied health professionals and frontline care teams.</small>
       </div>
 
-      <div class="attend-card reveal" style="--d:120ms">
-        <div class="attend-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 3-3.4 3-5.5A5.5 5.5 0 0 0 12 5.5 5.5 5.5 0 0 0 2 8.5C2 12 6 15.5 12 21c6-5.5 10-9 10-12.5"/></svg></div>
-        <b>Primary Healthcare, Nurses &amp; Allied Health Professionals</b>
-        <small>Nurses, community health professionals, clinical officers, nutritionists, pharmacists and allied health teams at the frontline.</small>
-        <span class="attend-card__tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg> Frontline care</span>
+      <div class="attend-card attend-card--photo reveal" style="--d:120ms">
+        <div class="attend-card__photo"><img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=700&q=70" alt="Laboratory research equipment" loading="lazy"></div>
+        <span class="attend-card__num">03</span>
+        <b>Evidence &amp; Academia</b>
+        <small>Researchers, universities, epidemiologists and evidence leaders.</small>
       </div>
 
-      <div class="attend-card reveal" style="--d:180ms">
-        <div class="attend-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></div>
-        <b>Researchers, Academia &amp; Evidence Leaders</b>
-        <small>Universities, research institutions, epidemiologists and health data networks generating the evidence, data and economic insights needed to shape kidney health policy, prevention strategies and investment decisions across Africa.</small>
-        <span class="attend-card__tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg> Evidence &amp; data</span>
+      <div class="attend-card attend-card--photo reveal" style="--d:180ms">
+        <div class="attend-card__photo"><img src="https://images.unsplash.com/photo-1593113646773-028c64a8f1b8?auto=format&fit=crop&w=700&q=70" alt="Volunteers distributing community aid" loading="lazy"></div>
+        <span class="attend-card__num">04</span>
+        <b>Civil Society &amp; Community</b>
+        <small>Patient groups, NGOs, foundations and community organisations.</small>
       </div>
 
-      <div class="attend-card reveal" style="--d:240ms">
-        <div class="attend-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></div>
-        <b>Students &amp; Trainees</b>
-        <small>Medical students, residents, fellows and early career health professionals.</small>
-        <span class="attend-card__tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg> Next generation</span>
+      <div class="attend-card attend-card--photo reveal" style="--d:240ms">
+        <div class="attend-card__photo"><img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=700&q=70" alt="A modern hospital building" loading="lazy"></div>
+        <span class="attend-card__num">05</span>
+        <b>Industry &amp; Investors</b>
+        <small>Hospitals, insurers, manufacturers, diagnostics, pharma and health technology.</small>
       </div>
 
-      <div class="attend-card reveal" style="--d:300ms">
-        <div class="attend-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg></div>
-        <b>Civil Society, Patient Groups &amp; Community Organisations</b>
-        <small>Kidney foundations, patient and caregiver groups, advocacy organisations, NGOs and community-based organisations amplifying patient voices, advancing awareness and prevention, and advocating for equitable access and stronger kidney health policies.</small>
-        <span class="attend-card__tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg> Community voice</span>
-      </div>
-
-      <div class="attend-card reveal" style="--d:360ms">
-        <div class="attend-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
-        <b>Industry, Hospitals, Insurers &amp; Investors</b>
-        <small>Hospitals, healthcare providers, insurers and payers, investors, device manufacturers, diagnostics companies, pharmaceutical firms and health technology companies financing, innovating, delivering and scaling sustainable kidney health solutions across Africa.</small>
-        <span class="attend-card__tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg> Innovation</span>
-      </div>
-
-      <div class="attend-card reveal" style="--d:420ms">
-        <div class="attend-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9h4"/></svg></div>
-        <b>Media, Press &amp; Health Communicators</b>
-        <small>Journalists, health reporters, editors, broadcasters, digital media and communications professionals shaping public understanding, amplifying patient voices and keeping kidney health visible on Africa's public and policy agenda.</small>
-        <span class="attend-card__tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg> Public awareness</span>
-      </div>
-
-      <div class="attend-card reveal" style="--d:480ms">
-        <div class="attend-card__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51 15.42 17.49M15.41 6.51 8.59 10.49"/></svg></div>
-        <b>Professional Societies &amp; Health Networks</b>
-        <small>Renal, nephrology, cardiology, diabetes, metabolic health and other professional societies, alongside NCD divisions, clinical associations and cardio–renal–metabolic networks working to strengthen standards of care, professional practice, prevention and policy advocacy across Africa.</small>
-        <span class="attend-card__tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg> Professional standards</span>
+      <div class="attend-card attend-card--photo reveal" style="--d:300ms">
+        <div class="attend-card__photo"><img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=700&q=70" alt="A person reading a newspaper" loading="lazy"></div>
+        <span class="attend-card__num">06</span>
+        <b>Media &amp; Professional Networks</b>
+        <small>Health communicators, societies, associations and networks.</small>
       </div>
     </div>
 
@@ -1015,6 +1045,6 @@
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
-<script src="src/scripts/script.js?v=20261023-1"></script>
+<script src="src/scripts/script.js?v=20261023-2"></script>
 </body>
 </html>

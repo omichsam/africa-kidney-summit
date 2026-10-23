@@ -296,14 +296,15 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
    the whole card mixes both techniques rather than picking one. */
 .day{background:var(--blue-pale);border:none;border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s;box-shadow:6px 6px 14px rgba(163,177,198,.4),-6px -6px 14px rgba(255,255,255,.85)}
 .day:hover{transform:translateY(-6px);box-shadow:9px 9px 20px rgba(163,177,198,.45),-9px -9px 20px rgba(255,255,255,.9)}
-.day__banner{position:relative;overflow:hidden;padding:1.2rem;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(150deg,var(--b1) 0%,var(--b2) 100%)}
+.day__banner{position:relative;overflow:hidden;padding:1.2rem;min-height:132px;display:flex;align-items:flex-end;justify-content:space-between;background:linear-gradient(150deg,var(--b1) 0%,var(--b2) 100%)}
 .day__banner--1{--b1:#173B7A;--b2:#2E6FBF}
 .day__banner--2{--b1:#5B2E8F;--b2:#A6122A}
 .day__banner--3{--b1:#8C1226;--b2:#E63950}
-.day__banner::before{content:'';position:absolute;width:210px;height:210px;border-radius:50%;top:-90px;right:-70px;background:radial-gradient(circle,rgba(255,255,255,.24),transparent 70%);transition:transform .5s cubic-bezier(.22,1,.36,1)}
-.day__banner::after{content:'';position:absolute;width:160px;height:160px;border-radius:50%;bottom:-80px;left:-50px;background:radial-gradient(circle,rgba(255,255,255,.14),transparent 70%)}
-.day:hover .day__banner::before{transform:scale(1.12) translate(-6px,6px)}
-.day__ico{position:relative;z-index:2;width:44px;height:44px;border-radius:13px;flex-shrink:0;display:grid;place-items:center;background:rgba(255,255,255,.16);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.3);color:#fff;box-shadow:0 10px 24px -10px rgba(10,31,61,.35);transition:transform .4s cubic-bezier(.22,1,.36,1)}
+.day__photo{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.day:hover .day__photo{transform:scale(1.06)}
+.day__banner::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(150deg,var(--b1) 0%,var(--b2) 100%);opacity:.62;mix-blend-mode:multiply}
+.day__banner::after{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(0deg, rgba(0,0,0,.45) 0%, transparent 55%)}
+.day__ico{position:relative;z-index:2;align-self:flex-start;width:44px;height:44px;border-radius:13px;flex-shrink:0;display:grid;place-items:center;background:rgba(255,255,255,.16);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.3);color:#fff;box-shadow:0 10px 24px -10px rgba(10,31,61,.35);transition:transform .4s cubic-bezier(.22,1,.36,1)}
 .day__ico svg{width:22px;height:22px}
 .day:hover .day__ico{transform:translateY(-3px) rotate(-4deg)}
 .day__tag{position:relative;z-index:2;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;padding:.36rem .72rem;border-radius:999px;background:rgba(255,255,255,.18);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.32);color:#fff}
@@ -318,6 +319,31 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .day__pending svg{width:15px;height:15px;color:var(--blue-2);flex-shrink:0}
 .day__list{margin-bottom:1.3rem}
 @media(max-width:900px){.days{grid-template-columns:1fr}}
+
+/* SUMMIT IN FOCUS — horizontal scroll-snap gallery. Edge fade reuses the same mask technique
+   as .partners__viewport; nav arrows just scrollBy() the row (see script.js). */
+.focus-gallery__head{display:flex;align-items:flex-end;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
+.focus-gallery__nav{display:flex;gap:.6rem;flex-shrink:0}
+.focus-gallery__arrow{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);display:grid;place-items:center;cursor:pointer;transition:transform .2s,border-color .2s,color .2s}
+.focus-gallery__arrow:hover{border-color:var(--blue-2);color:var(--blue-2);transform:translateY(-2px)}
+.focus-gallery__arrow svg{width:18px;height:18px}
+.focus-gallery__row{
+  margin-top:2.4rem;display:flex;gap:1.2rem;overflow-x:auto;scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;padding:.3rem .3rem 1rem;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 2%,#000 96%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 2%,#000 96%,transparent);
+}
+.focus-gallery__row::-webkit-scrollbar{height:0}
+.focus-gallery__card{
+  position:relative;flex:0 0 260px;aspect-ratio:3/3.6;border-radius:var(--r-lg);overflow:hidden;
+  scroll-snap-align:start;box-shadow:0 1px 2px rgba(10,31,61,.03),0 12px 32px -26px rgba(10,31,61,.3);
+}
+.focus-gallery__card img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.focus-gallery__card:hover img{transform:scale(1.06)}
+.focus-gallery__card figcaption{position:absolute;inset:auto 0 0 0;padding:1.6rem 1.2rem 1.1rem;background:linear-gradient(to top,rgba(10,31,61,.82),transparent)}
+.focus-gallery__card b{display:block;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:.95rem;color:#fff;letter-spacing:-.015em}
+.focus-gallery__card small{display:block;font-size:.76rem;color:rgba(255,255,255,.8);margin-top:.25rem;line-height:1.4}
+@media(max-width:560px){.focus-gallery__card{flex-basis:210px}}
 
 /* SPEAKERS */
 .speakers{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-top:2.8rem}
@@ -371,16 +397,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 }
 .attend-card:hover::before{transform:scaleX(1)}
 .attend-card:hover{transform:translateY(-6px);box-shadow:10px 10px 24px rgba(163,177,198,.45),-10px -10px 24px rgba(255,255,255,.9)}
-.attend-card__ico{
-  width:48px;height:48px;border-radius:14px;
-  display:grid;place-items:center;
-  background:linear-gradient(140deg,rgba(255,255,255,.65),rgba(255,255,255,.3));
-  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
-  border:1px solid rgba(255,255,255,.7);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.7),3px 3px 9px rgba(163,177,198,.4);
-  color:var(--blue-2);
-}
-.attend-card__ico svg{width:22px;height:22px}
 .attend-card b{
   font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;
   font-size:.96rem;color:var(--ink);letter-spacing:-.02em;line-height:1.3;
@@ -388,14 +404,23 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .attend-card small{
   font-size:.81rem;color:var(--muted);line-height:1.58;
 }
-.attend-card__tag{
-  margin-top:auto;padding-top:.9rem;border-top:1px dashed var(--line-soft);
-  font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--red-2);display:flex;align-items:center;gap:.4rem;
-}
-.attend-card__tag svg{width:12px;height:12px}
 @media(max-width:1020px){.attend-grid{grid-template-columns:repeat(2,1fr)}.attend-grid>.attend-card:last-child{grid-column:1/-1}}
 @media(max-width:480px){.attend-grid{grid-template-columns:1fr}}
+
+/* Photo-card variant: a thumbnail image replaces the icon chip, a small numbered tag replaces
+   the dashed category footer. Reuses the same card shell (.attend-card) as the icon variant. */
+.attend-grid--photo{grid-template-columns:repeat(3,1fr)}
+.attend-card--photo{padding:0 0 1.5rem;overflow:hidden}
+.attend-card--photo .attend-card__photo{aspect-ratio:16/10;overflow:hidden;background:linear-gradient(150deg,#EAF2FC,#FCEFF2)}
+.attend-card--photo .attend-card__photo img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.attend-card--photo:hover .attend-card__photo img{transform:scale(1.06)}
+.attend-card--photo b,.attend-card--photo small{margin-inline:1.4rem}
+.attend-card--photo b{margin-top:1.1rem;display:block}
+.attend-card--photo small{margin-top:.4rem;display:block}
+.attend-card__num{margin:1.1rem 1.4rem 0;display:block;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:.68rem;letter-spacing:.12em;color:var(--red-2)}
+.attend-card__num + b{margin-top:.3rem}
+@media(max-width:1020px){.attend-grid--photo{grid-template-columns:repeat(2,1fr)}.attend-grid--photo>.attend-card:last-child{grid-column:auto}}
+@media(max-width:600px){.attend-grid--photo{grid-template-columns:1fr}}
 
 .attend-note{
   margin-top:2rem;padding:1.4rem 1.6rem;border-radius:var(--r-lg);
