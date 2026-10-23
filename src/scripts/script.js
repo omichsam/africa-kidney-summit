@@ -1,6 +1,23 @@
 // COPYRIGHT YEAR
 document.getElementById('copyrightYear').textContent = new Date().getFullYear();
 
+// HERO BACKGROUND CAROUSEL — crossfades through the .hero__bg-slide elements on a timer.
+// Skipped entirely for reduced-motion users, who just see the first (already-active) slide.
+(function initHeroCarousel(){
+  const slides = Array.from(document.querySelectorAll('.hero__bg-slide'));
+  if (slides.length < 2) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let current = slides.findIndex((s) => s.classList.contains('active'));
+  if (current === -1) current = 0;
+
+  setInterval(() => {
+    slides[current].classList.remove('active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('active');
+  }, 6000);
+})();
+
 // COUNTDOWN
 const EVENT_DATE = new Date('2027-03-09T09:00:00+03:00');
 (function(){

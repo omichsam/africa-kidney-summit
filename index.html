@@ -45,7 +45,7 @@
   tailwind.config = { prefix: 'tw-', corePlugins: { preflight: false } };
 </script>
 
-<link rel="stylesheet" href="src/styles/styles.css?v=20260928-1">
+<link rel="stylesheet" href="src/styles/styles.css?v=20261023-1">
 
 <!-- Structured data: helps search engines show this as a rich Event result -->
 <script type="application/ld+json">
@@ -106,6 +106,12 @@
 <main id="main-content">
 <!-- HERO -->
 <section class="hero" id="top">
+  <div class="hero__bg" aria-hidden="true">
+    <div class="hero__bg-slide active" style="background-image:url('https://images.unsplash.com/photo-1644174547761-de211415598e?auto=format&amp;fit=crop&amp;w=1600&amp;q=75')"></div>
+    <div class="hero__bg-slide" style="background-image:url('src/assets/images/venue-kicc.jpg')"></div>
+    <div class="hero__bg-slide" style="background-image:url('https://images.unsplash.com/photo-1666214280557-f1b5022eb634?auto=format&amp;fit=crop&amp;w=1600&amp;q=75')"></div>
+    <div class="hero__bg-scrim"></div>
+  </div>
   <div class="container">
     <div class="hero__grid">
       <div class="hero__content">
@@ -130,16 +136,9 @@
           </a>
           <a href="#exhibition" class="btn btn--ghost btn--lg">Exhibit / Partnership</a>
         </div>
-      </div>
-
-      <div class="hero__visual">
-        <div class="hero__image-wrap">
-          <img src="https://images.unsplash.com/photo-1644174547761-de211415598e?auto=format&fit=crop&w=1000&q=80" alt="African delegates gathered at a formal continental convening" loading="eager">
-          <div class="hero__image-tint" aria-hidden="true"></div>
-          <div class="hero__badge">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c2.6 0 4.6 1.9 4.6 4.3 0 2.6-1.9 4.9-4.6 4.9S7.4 9.9 7.4 7.3C7.4 4.9 9.4 3 12 3Z"/><path d="M8 12.2c-1.2 1.5-2 3.5-2 5.7 0 3.1 2.6 5.1 6 5.1s6-2 6-5.1c0-2.2-.8-4.2-2-5.7"/></svg>
-            <div>Kidney health<small>Across 54 African nations</small></div>
-          </div>
+        <div class="hero__badge hero__badge--inline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c2.6 0 4.6 1.9 4.6 4.3 0 2.6-1.9 4.9-4.6 4.9S7.4 9.9 7.4 7.3C7.4 4.9 9.4 3 12 3Z"/><path d="M8 12.2c-1.2 1.5-2 3.5-2 5.7 0 3.1 2.6 5.1 6 5.1s6-2 6-5.1c0-2.2-.8-4.2-2-5.7"/></svg>
+          <div>Kidney health<small>Across 54 African nations</small></div>
         </div>
       </div>
     </div>
@@ -1016,6 +1015,6 @@
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
-<script src="src/scripts/script.js?v=20260928-2"></script>
+<script src="src/scripts/script.js?v=20261023-1"></script>
 </body>
 </html>
