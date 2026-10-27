@@ -28,7 +28,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" sizes="192x192" href="src/assets/images/favicon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="src/assets/images/apple-touch-icon.png">
 
@@ -45,7 +45,7 @@
   tailwind.config = { prefix: 'tw-', corePlugins: { preflight: false } };
 </script>
 
-<link rel="stylesheet" href="src/styles/styles.css?v=20261023-2">
+<link rel="stylesheet" href="src/styles/styles.css?v=20261027-1">
 
 <!-- Structured data: helps search engines show this as a rich Event result -->
 <script type="application/ld+json">
@@ -79,124 +79,118 @@
 </script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to main content</a>
 
-<a class="skip-link" href="#main-content">Skip to main content</a>
-
-<!-- HEADER -->
-<div class="site-header" id="siteHeader">
-  <header class="nav">
-    <div class="container nav__inner">
-      <a class="logo" href="#top" aria-label="Home">
-        <img class="logo__img" src="src/assets/images/logo.png" alt="Africa Kidney Health Summit">
+  <header class="site-header" id="top">
+    <div class="container nav-wrap">
+      <a class="brand brand--logo" href="#top" aria-label="Africa Kidney Health Summit home">
+        <img src="src/assets/images/logo.png" alt="Africa Kidney Health Summit">
+        <span class="brand-text"><strong>Africa Kidney</strong><small>Health Summit</small></span>
       </a>
-      <nav class="nav__links" id="navLinks">
-        <a href="#about">About</a>
-        <a href="#program">Programme</a>
-        <a href="#registration">Attendees</a>
-        <a href="#booking-form">Attend</a>
-        <a href="#exhibition">Exhibition &amp; Partnership</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+        <a class="active" href="#about">About</a>
+        <a href="#programme">Programme</a>
+        <a href="#attend">Why Attend</a>
+        <a href="#register">Register</a>
+        <a href="#partner">Partner</a>
+        <a href="#contact">Contact</a>
+        <a class="nav-cta" href="#register">Register <span>→</span></a>
       </nav>
-      <a href="#booking-form" class="btn btn--primary btn--sm nav__cta">Register</a>
-      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </header>
-</div>
-<div class="nav__backdrop" id="navBackdrop" hidden></div>
 
-<main id="main-content">
-<!-- HERO -->
-<section class="hero" id="top">
-  <div class="hero__bg" aria-hidden="true">
-    <div class="hero__bg-slide active" style="background-image:url('https://images.unsplash.com/photo-1644174547761-de211415598e?auto=format&amp;fit=crop&amp;w=1600&amp;q=75')"></div>
-    <div class="hero__bg-slide" style="background-image:url('src/assets/images/venue-kicc.jpg')"></div>
-    <div class="hero__bg-slide" style="background-image:url('https://images.unsplash.com/photo-1666214280557-f1b5022eb634?auto=format&amp;fit=crop&amp;w=1600&amp;q=75')"></div>
-    <div class="hero__bg-scrim"></div>
-  </div>
-  <div class="container">
-    <div class="hero__grid">
-      <div class="hero__content">
-        <span class="official-pill">
-          <span class="official-pill__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.4 9.3 8 10 4.6-.7 8-5 8-10V6l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg></span>
-          Official Summit · 9–11 March 2027
-        </span>
-        <h1>Africa assembles to confront <em>kidney disease</em>.</h1>
-        <p class="hero__sub">The cost of kidney disease is a bill that <strong>Africa cannot afford to keep paying</strong>. The Africa Kidney Health Summit convenes leaders and stakeholders across the kidney health ecosystem in Africa to move kidney health into the centre of public policy, national planning and health investment.</p>
-        <div class="countdown" id="countdown" aria-live="polite">
-          <div class="cd cd--primary"><span class="cd__num" id="cd-days">000</span><span class="cd__lbl">Days</span></div>
-          <span class="cd__sep">:</span>
-          <div class="cd"><span class="cd__num" id="cd-hours">00</span><span class="cd__lbl">Hours</span></div>
-          <span class="cd__sep">:</span>
-          <div class="cd"><span class="cd__num" id="cd-mins">00</span><span class="cd__lbl">Minutes</span></div>
-          <span class="cd__sep">:</span>
-          <div class="cd"><span class="cd__num" id="cd-secs">00</span><span class="cd__lbl"><span class="cd__live-dot" aria-hidden="true"></span>Seconds</span></div>
-        </div>
-        <div class="hero__cta">
-          <a href="#booking-form" class="btn btn--primary btn--lg">Book a delegate place
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-          <a href="#exhibition" class="btn btn--ghost btn--lg">Exhibit / Partnership</a>
-        </div>
-        <div class="hero__badge hero__badge--inline">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c2.6 0 4.6 1.9 4.6 4.3 0 2.6-1.9 4.9-4.6 4.9S7.4 9.9 7.4 7.3C7.4 4.9 9.4 3 12 3Z"/><path d="M8 12.2c-1.2 1.5-2 3.5-2 5.7 0 3.1 2.6 5.1 6 5.1s6-2 6-5.1c0-2.2-.8-4.2-2-5.7"/></svg>
-          <div>Kidney health<small>Across 54 African nations</small></div>
-        </div>
+  <main id="main">
+    <section class="hero hero--centered" aria-labelledby="hero-title">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="hero-bg-slide is-active" style="background-image:url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1600&q=80')"></div>
+        <div class="hero-bg-slide" style="background-image:url('src/assets/images/venue-kicc.jpg')"></div>
+        <div class="hero-bg-slide" style="background-image:url('https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=1600&q=80')"></div>
+        <div class="hero-bg-slide" style="background-image:url('https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1600&q=80')"></div>
+        <div class="hero-bg-slide" style="background-image:url('https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&w=1600&q=80')"></div>
       </div>
-    </div>
-  </div>
-</section>
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="hero-glow hero-glow-one" aria-hidden="true"></div>
+      <div class="hero-glow hero-glow-two" aria-hidden="true"></div>
+      <div class="container hero-inner">
+        <div class="hero-copy-wrap">
+          <div class="eyebrow"><span></span> OFFICIAL SUMMIT · 9–11 MARCH 2027</div>
+          <div class="hero-location"><span class="location-dot">⌖</span> Nairobi, Kenya <i></i> Africa's continental kidney health convening</div>
+          <h1 id="hero-title">Africa assembles to<br><strong>confront <em>kidney disease.</em></strong></h1>
+          <p class="hero-copy">The cost of kidney disease is a bill that Africa cannot afford to keep paying. Leaders, clinicians, researchers, policymakers and partners will come together to turn evidence into policy, investment and action.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#register">Book a delegate place <span>→</span></a>
+            <a class="btn btn-ghost" href="#partner">Exhibit / Partner <span>→</span></a>
+          </div>
+        </div>
 
-<!-- ABOUT -->
-<section class="section" id="about">
-  <div class="container">
-    <div class="about__grid">
-      <div class="reveal">
-        <span class="eyebrow">About the Summit</span>
-        <h2 class="h2">Convening Africa's Kidney Health Ecosystem.</h2>
-        <p class="lead">The Africa Kidney Health Summit brings together the people who shape policy, allocate health budgets, deliver care, generate evidence and build health systems around one shared continental agenda. <strong>The Summit is anchored around three commitments:</strong></p>
-        <ul class="about__points">
-          <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg></span><div><b>One continental platform</b><p>Governments, policymakers, clinicians, researchers, payers, industry, development partners, patients and civil society come together to address kidney health as both a health and economic priority.</p></div></li>
-          <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg></span><div><b>From evidence to policy and action</b><p>We move beyond conversations. Evidence will inform policy priorities, financing and budget decisions, prevention strategies, clinical practice and measurable commitments that can be taken forward after the Summit.</p></div></li>
-          <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg></span><div><b>Africa led, Africa focused</b><p>Africa's kidney health response must reflect the realities of African health systems. The Summit will champion solutions that are locally relevant, financially sustainable and capable of improving prevention, early detection and access to care across the continent.</p></div></li>
-        </ul>
+        <aside class="countdown-card" aria-label="Countdown to the Africa Kidney Health Summit">
+          <div class="countdown-heading"><span class="calendar-icon">▣</span><div><small>THE SUMMIT BEGINS</small><strong>9 March 2027 · 09:00 EAT</strong></div></div>
+          <div class="countdown-grid" id="countdown">
+            <div><strong id="cd-days">000</strong><span>Days</span></div>
+            <div><strong id="cd-hours">00</strong><span>Hours</span></div>
+            <div><strong id="cd-mins">00</strong><span>Minutes</span></div>
+            <div><strong id="cd-secs">00</strong><span>Seconds</span></div>
+          </div>
+        </aside>
       </div>
-      <div class="about__visual reveal" style="--d:120ms">
-        <figure class="photo">
-          <img src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?auto=format&fit=crop&w=1000&q=80" alt="A clinician presenting diagnostic scan data to a colleague" loading="lazy">
+      <div class="hero-bottom container">
+        <div><strong>One continent.</strong><span>One shared kidney health agenda.</span></div>
+        <div class="hero-scroll">Scroll to explore <span>↓</span></div>
+      </div>
+    </section>
+
+    <div class="pattern-strip" aria-hidden="true"></div>
+
+    <section class="about section" id="about">
+      <div class="container about-grid">
+        <div class="section-intro reveal">
+          <div class="section-kicker">ABOUT THE SUMMIT</div>
+          <h2>Convening Africa's Kidney Health Ecosystem.</h2>
+          <p>The Africa Kidney Health Summit brings together the people who shape policy, allocate health budgets, deliver care, generate evidence and build health systems around one shared continental agenda.</p>
+          <a class="text-link" href="#attend">Learn more <span>→</span></a>
+        </div>
+        <figure class="about-visual reveal">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80" alt="Two delegates shaking hands at the summit">
+          <figcaption><strong>Built on partnership.</strong> Governments, clinicians and civil society, united by one continental agenda.</figcaption>
         </figure>
-        <div class="chip chip--1"><span class="chip__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><div>Nairobi<small>Kenya · East Africa</small></div></div>
-        <div class="chip chip--2"><span class="chip__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></span><div>Pan African<small>54 nations invited</small></div></div>
       </div>
-    </div>
-  </div>
-</section>
+      <div class="container">
+        <div class="commitments-carousel" data-carousel="commitments">
+          <div class="section-carousel-controls">
+            <button class="carousel-arrow carousel-prev" data-target=".commitments-track" aria-label="Previous summit principle">‹</button>
+            <span class="carousel-progress"><b>01</b><i></i><span>03</span></span>
+            <button class="carousel-arrow carousel-next" data-target=".commitments-track" aria-label="Next summit principle">›</button>
+          </div>
+          <div class="commitments-track">
+            <article class="info-card reveal">
+              <div class="icon-circle">♧</div><h3>One continental platform</h3>
+              <p>Governments, policymakers, clinicians, researchers, payers, industry, development partners, patients and civil society come together to address kidney health as both a health and economic priority.</p>
+            </article>
+            <article class="info-card reveal">
+              <div class="icon-circle teal">▤</div><h3>From evidence to policy and action</h3>
+              <p>Evidence will inform policy priorities, financing and budget decisions, prevention strategies, clinical practice and measurable commitments that can be taken forward after the Summit.</p>
+            </article>
+            <article class="info-card reveal">
+              <div class="icon-circle red">⌂</div><h3>Africa led, Africa focused</h3>
+              <p>Solutions must reflect African health systems—locally relevant, financially sustainable and capable of improving prevention, early detection and access to care.</p>
+            </article>
+          </div>
+          <div class="mobile-swipe-hint">Swipe or use the arrows to explore all three principles <span>→</span></div>
+        </div>
+      </div>
+    </section>
 
-<!-- STATS -->
-<section class="stats">
-  <div class="container">
-    <div class="stats__grid">
-      <div class="stat reveal">
-        <span class="stat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
-        <div class="stat__num" data-count="3"><span class="stat__num-val">0</span></div>
-        <div class="stat__lbl">Days of High Level Plenaries, Policy Dialogues and Expert Panels</div>
+    <section class="stats-band">
+      <div class="container stats-grid">
+        <div class="stat"><strong>3</strong><span class="stat__full">Days of High-Level Plenaries,<br>Policy Dialogues & Expert Panels</span><span class="stat__short">Days of plenaries</span></div>
+        <div class="stat"><strong>54+</strong><span class="stat__full">African nations<br>invited</span><span class="stat__short">nations invited</span></div>
+        <div class="stat"><strong>1</strong><span class="stat__full">Shared continental<br>agenda</span><span class="stat__short">shared agenda</span></div>
+        <div class="stat"><strong>4</strong><span class="stat__full">Priority action<br>areas</span><span class="stat__short">priority areas</span></div>
       </div>
-      <div class="stat reveal" style="--d:80ms">
-        <span class="stat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></span>
-        <div class="stat__num" data-count="54"><span class="stat__num-val">0</span><em>+</em></div>
-        <div class="stat__lbl">African nations invited</div>
-      </div>
-      <div class="stat reveal" style="--d:160ms">
-        <span class="stat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22v-7"/></svg></span>
-        <div class="stat__num" data-count="1"><span class="stat__num-val">0</span></div>
-        <div class="stat__lbl">Shared continental agenda</div>
-      </div>
-      <div class="stat reveal" style="--d:240ms">
-        <span class="stat__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg></span>
-        <div class="stat__num" data-count="4"><span class="stat__num-val">0</span></div>
-        <div class="stat__lbl">Priority action areas</div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
 <!-- FOCUS AREAS -->
 <section class="section" id="focus" hidden>
@@ -236,632 +230,210 @@
   </div>
 </section>
 
-<!-- PROGRAMME -->
-<section class="section section--tint" id="program">
-  <div class="container">
-    <div class="head-center reveal">
-      <span class="eyebrow">Official Programme</span>
-      <h2 class="h2">A Rising Burden, A Rising Bill, Africa Acts on Kidney Disease.</h2>
-      <p class="lead">Summit Pillars: three days building from the scale of the crisis to Africa's public commitments.</p>
-    </div>
-    <div class="days">
-      <article class="day reveal">
-        <div class="day__banner day__banner--1">
-          <img class="day__photo" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=70" alt="A data dashboard showing health trend charts" loading="lazy">
-          <span class="day__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.3"/><path d="m15.3 15.3 3.7 3.7"/></svg></span>
-          <span class="day__tag">Day One</span>
+    <section class="visuals section" aria-labelledby="visuals-title">
+      <div class="container">
+        <div class="section-heading-row compact-heading">
+          <div><div class="section-kicker">THE SUMMIT IN FOCUS</div><h2 id="visuals-title">People. Care. Policy. Action.</h2><p>Visual stories from the kidney health ecosystem across Africa.</p></div>
+          <div class="carousel-controls" aria-label="Image carousel controls"><button class="carousel-prev" data-target=".image-track" aria-label="Previous image">‹</button><button class="carousel-next" data-target=".image-track" aria-label="Next image">›</button></div>
         </div>
-        <div class="day__body">
-          <h3>The Rising Burden</h3>
-          <p class="day__date">9 March 2027</p>
-          <ul class="day__list">
-            <li><span class="day__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg></span>The scale, distribution and changing face of kidney disease in Africa.</li>
-            <li><span class="day__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg></span>Making kidney disease prevention and early detection a health system priority.</li>
-          </ul>
-          <p class="day__pending"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Full session list to be published</p>
+        <div class="image-carousel visual-feature" tabindex="0">
+          <div class="image-track">
+            <figure><img loading="lazy" src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=85" alt="An African clinician checking a phone"><figcaption><strong>Health leaders</strong><span>Evidence, leadership and collaboration.</span></figcaption></figure>
+            <figure><img loading="lazy" src="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=1200&q=85" alt="A clinical treatment room"><figcaption><strong>Patient-centred care</strong><span>Prevention, diagnosis and treatment.</span></figcaption></figure>
+            <figure><img loading="lazy" src="https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=1200&q=85" alt="A stethoscope"><figcaption><strong>Clinical excellence</strong><span>Workforce, diagnostics and care pathways.</span></figcaption></figure>
+            <figure><img loading="lazy" src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1200&q=85" alt="People attending a formal conference"><figcaption><strong>Policy dialogue</strong><span>Turning evidence into decisions.</span></figcaption></figure>
+            <figure><img loading="lazy" src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&w=1200&q=85" alt="Hands holding coins reading make a change"><figcaption><strong>Community action</strong><span>Patients, advocates and communities.</span></figcaption></figure>
+            <figure><img loading="lazy" src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=85" alt="A modern hospital reception"><figcaption><strong>Stronger systems</strong><span>Infrastructure that makes care accessible.</span></figcaption></figure>
+            <figure><img loading="lazy" src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&w=1200&q=85" alt="A community gathering outdoors"><figcaption><strong>Prevention starts early</strong><span>Awareness and healthier communities.</span></figcaption></figure>
+          </div>
         </div>
-      </article>
-      <article class="day reveal" style="--d:90ms">
-        <div class="day__banner day__banner--2">
-          <img class="day__photo" src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?auto=format&fit=crop&w=800&q=70" alt="Surgeons performing a kidney procedure" loading="lazy">
-          <span class="day__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c2.6 0 4.6 1.9 4.6 4.3 0 2.6-1.9 4.9-4.6 4.9S7.4 9.9 7.4 7.3C7.4 4.9 9.4 3 12 3Z"/><path d="M8 12.2c-1.2 1.5-2 3.5-2 5.7 0 3.1 2.6 5.1 6 5.1s6-2 6-5.1c0-2.2-.8-4.2-2-5.7"/></svg></span>
-          <span class="day__tag">Day Two</span>
-        </div>
-        <div class="day__body">
-          <h3>Improving the Standard of Kidney Care</h3>
-          <p class="day__date">10 March 2027</p>
-          <ul class="day__list">
-            <li><span class="day__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg></span>Access and equity to care through decentralised models and infrastructure</li>
-            <li><span class="day__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg></span>Essential diagnostics, medicines and workforce distribution</li>
-            <li><span class="day__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg></span>Dialysis and transplantation</li>
-          </ul>
-          <p class="day__pending"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Full session list to be published</p>
-        </div>
-      </article>
-      <article class="day reveal" style="--d:180ms">
-        <div class="day__banner day__banner--3">
-          <img class="day__photo" src="https://images.unsplash.com/photo-1504813184591-01572f98c85f?auto=format&fit=crop&w=800&q=70" alt="A surgical team in an operating theatre" loading="lazy">
-          <span class="day__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 7v2h16V7L12 3Z"/><path d="M5.5 9v8M9 9v8M15 9v8M18.5 9v8"/><path d="M4 20h16"/></svg></span>
-          <span class="day__tag">Day Three</span>
-        </div>
-        <div class="day__body">
-          <h3>Africa Acts</h3>
-          <p class="day__date">11 March 2027</p>
-          <ul class="day__list">
-            <li><span class="day__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg></span>Stakeholders make specific, measurable and public commitments that will lower the kidney bill for Africa</li>
-          </ul>
-          <p class="day__pending"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 6v6c0 5 3.4 9.3 8 10 4.6-.7 8-5 8-10V6l-8-4Z"/><path d="m9 12 2 2L20 6"/></svg>Culminates with the 2027 World Kidney Day Public Walk through Nairobi, bringing the Summit's commitments into the community</p>
-        </div>
-      </article>
-    </div>
-    <p class="programme__declaration reveal">One Continent. One Declaration. Public Commitments. Africa Acts on Kidney Disease.</p>
-  </div>
-</section>
-
-<!-- SUMMIT IN FOCUS -->
-<section class="section" id="focus-gallery">
-  <div class="container">
-    <div class="focus-gallery__head reveal">
-      <div>
-        <span class="eyebrow">The Summit in Focus</span>
-        <h2 class="h2">People. Care. Policy. Action.</h2>
-        <p class="lead">Visual stories from the kidney health ecosystem across Africa.</p>
       </div>
-      <div class="focus-gallery__nav">
-        <button type="button" class="focus-gallery__arrow" id="focusGalleryPrev" aria-label="Scroll to previous images">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-        </button>
-        <button type="button" class="focus-gallery__arrow" id="focusGalleryNext" aria-label="Scroll to next images">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-        </button>
-      </div>
-    </div>
+    </section>
 
-    <div class="focus-gallery__row reveal" id="focusGalleryRow">
-      <figure class="focus-gallery__card">
-        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=700&q=70" alt="Two health leaders in conversation" loading="lazy">
-        <figcaption><b>Health leaders</b><small>Evidence, leadership and collaboration.</small></figcaption>
-      </figure>
-      <figure class="focus-gallery__card">
-        <img src="https://images.unsplash.com/photo-1599045118108-bf9954418b76?auto=format&fit=crop&w=700&q=70" alt="A clinician reviewing diagnostic monitors" loading="lazy">
-        <figcaption><b>Patient-centred care</b><small>Prevention, diagnosis and treatment.</small></figcaption>
-      </figure>
-      <figure class="focus-gallery__card">
-        <img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=700&q=70" alt="An anatomical heart model used for clinical training" loading="lazy">
-        <figcaption><b>Clinical excellence</b><small>Workforce, diagnostics and care pathways.</small></figcaption>
-      </figure>
-      <figure class="focus-gallery__card">
-        <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=700&q=70" alt="A panel discussion with an engaged audience" loading="lazy">
-        <figcaption><b>Policy dialogue</b><small>Turning evidence into action.</small></figcaption>
-      </figure>
-      <figure class="focus-gallery__card">
-        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=700&q=70" alt="Two people shaking hands in partnership" loading="lazy">
-        <figcaption><b>Partnership in action</b><small>Governments, partners and communities as one.</small></figcaption>
-      </figure>
-      <figure class="focus-gallery__card">
-        <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=700&q=70" alt="A doctor wearing a stethoscope and mask" loading="lazy">
-        <figcaption><b>Frontline carers</b><small>The clinicians and nurses answering the call.</small></figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
-
-<!-- SPEAKERS -->
-<section class="section" id="speakers" hidden>
-  <div class="container">
-    <div class="head-center reveal">
-      <span class="eyebrow">Featured Speakers</span>
-      <h2 class="h2">Voices shaping Africa's kidney health agenda.</h2>
-      <p class="lead">Confirmed speakers from across the continent and international partners.</p>
-    </div>
-    <div class="speakers">
-      <article class="speaker reveal">
-        <div class="speaker__photo"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=700&q=80" alt="Dr. Amara Kimani" loading="lazy"><span class="speaker__scrim" aria-hidden="true"></span><span class="speaker__flag">🇰🇪 Kenya</span></div>
-        <div class="speaker__body"><span class="tag">Keynote</span><h4>Dr. Amara Kimani</h4><p>Chief of Nephrology, Nairobi Transplant Institute</p></div>
-      </article>
-      <article class="speaker reveal" style="--d:80ms">
-        <div class="speaker__photo"><img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?auto=format&fit=crop&w=700&q=80" alt="Prof. Nadia Mensah" loading="lazy"><span class="speaker__scrim" aria-hidden="true"></span><span class="speaker__flag">🇬🇭 Ghana</span></div>
-        <div class="speaker__body"><span class="tag">Policy</span><h4>Prof. Nadia Mensah</h4><p>Head of Nephrology, Accra Regional Hospital</p></div>
-      </article>
-      <article class="speaker reveal" style="--d:160ms">
-        <div class="speaker__photo"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=700&q=80" alt="Dr. James Okafor" loading="lazy"><span class="speaker__scrim" aria-hidden="true"></span><span class="speaker__flag">🇳🇬 Nigeria</span></div>
-        <div class="speaker__body"><span class="tag">Paediatrics</span><h4>Dr. James Okafor</h4><p>Head of Paediatric Nephrology, Lagos Children's Hospital</p></div>
-      </article>
-      <article class="speaker reveal" style="--d:240ms">
-        <div class="speaker__photo"><img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=700&q=80" alt="Dr. Sana Rahman" loading="lazy"><span class="speaker__scrim" aria-hidden="true"></span><span class="speaker__flag">🇹🇿 Tanzania</span></div>
-        <div class="speaker__body"><span class="tag">Dialysis</span><h4>Dr. Sana Rahman</h4><p>Director, Global Dialysis Outcomes Registry</p></div>
-      </article>
-      <article class="speaker speaker--hidden" id="speakerMore1">
-        <div class="speaker__photo"><img src="https://images.unsplash.com/photo-1666886573553-453e9cdbd967?auto=format&fit=crop&w=700&q=80" alt="Dr. Farida Al-Amin" loading="lazy"><span class="speaker__scrim" aria-hidden="true"></span><span class="speaker__flag">🇪🇬 Egypt</span></div>
-        <div class="speaker__body"><span class="tag">Research</span><h4>Dr. Farida Al-Amin</h4><p>Senior Researcher, Cairo Kidney Institute</p></div>
-      </article>
-      <article class="speaker speaker--hidden" id="speakerMore2">
-        <div class="speaker__photo"><img src="https://images.unsplash.com/photo-1605602517387-ec78b947335e?auto=format&fit=crop&w=700&q=80" alt="Prof. Thabo Nkosi" loading="lazy"><span class="speaker__scrim" aria-hidden="true"></span><span class="speaker__flag">🇿🇦 South Africa</span></div>
-        <div class="speaker__body"><span class="tag">Health Policy</span><h4>Prof. Thabo Nkosi</h4><p>Director, National Renal Care Programme</p></div>
-      </article>
-      <article class="speaker speaker--hidden" id="speakerMore3">
-        <div class="speaker__photo"><img src="https://images.unsplash.com/photo-1638727295415-286409421143?auto=format&fit=crop&w=700&q=80" alt="Dr. Amina Diallo" loading="lazy"><span class="speaker__scrim" aria-hidden="true"></span><span class="speaker__flag">🇸🇳 Senegal</span></div>
-        <div class="speaker__body"><span class="tag">Community Health</span><h4>Dr. Amina Diallo</h4><p>Lead, West Africa Kidney Screening Initiative</p></div>
-      </article>
-      <article class="speaker speaker--more reveal" style="--d:320ms">
-        <button type="button" class="speaker__more" id="viewMoreSpeakers" aria-expanded="false" aria-controls="speakerMore1 speakerMore2 speakerMore3">
-          <span class="speaker__more-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-          <b>View more speakers</b>
-          <small>3 more confirmed names</small>
-        </button>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- WHY ATTEND (replaces delegate pricing) -->
-<section class="section section--tint" id="registration">
-  <div class="container">
-    <div class="head-center reveal">
-      <span class="eyebrow">Why Attend</span>
-      <h2 class="h2">Every voice in Africa's kidney health ecosystem.</h2>
-      <p class="lead">The summit is open to everyone working to improve kidney health across the continent, from ministries and clinicians to students, advocates and industry partners. All are welcome at the same table.</p>
-    </div>
-
-    <div class="attend-grid attend-grid--photo">
-      <div class="attend-card attend-card--photo reveal">
-        <div class="attend-card__photo"><img src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?auto=format&fit=crop&w=700&q=70" alt="Policy leaders in a meeting room" loading="eager"></div>
-        <span class="attend-card__num">01</span>
-        <b>Policy &amp; Systems</b>
-        <small>Government, policy and health system leaders shaping budgets, regulation and national priorities.</small>
-      </div>
-
-      <div class="attend-card attend-card--photo reveal" style="--d:60ms">
-        <div class="attend-card__photo"><img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=700&q=70" alt="A clinician reviewing notes beside a stethoscope" loading="lazy"></div>
-        <span class="attend-card__num">02</span>
-        <b>Clinical &amp; Delivery</b>
-        <small>Clinicians, nurses, allied health professionals and frontline care teams.</small>
-      </div>
-
-      <div class="attend-card attend-card--photo reveal" style="--d:120ms">
-        <div class="attend-card__photo"><img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=700&q=70" alt="Laboratory research equipment" loading="lazy"></div>
-        <span class="attend-card__num">03</span>
-        <b>Evidence &amp; Academia</b>
-        <small>Researchers, universities, epidemiologists and evidence leaders.</small>
-      </div>
-
-      <div class="attend-card attend-card--photo reveal" style="--d:180ms">
-        <div class="attend-card__photo"><img src="https://images.unsplash.com/photo-1593113646773-028c64a8f1b8?auto=format&fit=crop&w=700&q=70" alt="Volunteers distributing community aid" loading="lazy"></div>
-        <span class="attend-card__num">04</span>
-        <b>Civil Society &amp; Community</b>
-        <small>Patient groups, NGOs, foundations and community organisations.</small>
-      </div>
-
-      <div class="attend-card attend-card--photo reveal" style="--d:240ms">
-        <div class="attend-card__photo"><img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=700&q=70" alt="A modern hospital building" loading="lazy"></div>
-        <span class="attend-card__num">05</span>
-        <b>Industry &amp; Investors</b>
-        <small>Hospitals, insurers, manufacturers, diagnostics, pharma and health technology.</small>
-      </div>
-
-      <div class="attend-card attend-card--photo reveal" style="--d:300ms">
-        <div class="attend-card__photo"><img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=700&q=70" alt="A person reading a newspaper" loading="lazy"></div>
-        <span class="attend-card__num">06</span>
-        <b>Media &amp; Professional Networks</b>
-        <small>Health communicators, societies, associations and networks.</small>
-      </div>
-    </div>
-
-    <div class="attend-note reveal" hidden>
-      <span class="attend-note__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.4 9.3 8 10 4.6-.7 8-5 8-10V6l-8-4Z"/><path d="m9 12 2 2L20 6"/></svg></span>
-      <p>Registration is open to all kidney health stakeholders. Group and institutional bookings are welcome, and the secretariat can assist with custom arrangements. Email <a href="mailto:admin@kidneyhealth.africa">admin@kidneyhealth.africa</a> for assistance.</p>
-    </div>
-
-    <div style="text-align:center;margin-top:2.4rem" hidden>
-      <a href="#booking-form" class="btn btn--primary btn--lg">Book a delegate place
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- BOOKING — includes the "how it works" steps, folded in rather than given its own
-     section, since it was just describing the registration flow directly below it. -->
-<section class="section section--tint" id="booking-form">
-  <div class="container">
-    <div class="head-center reveal">
-      <span class="eyebrow">Delegate Registration</span>
-      <h2 class="h2">Register here to secure your spot as a delegate.</h2>
-      <p class="lead">Select a registration option, confirm your details and submit. Make your payment to complete your registration and receive a confirmation as an event ticket.</p>
-    </div>
-
-    <div class="process-v2 process-v2--actions reveal">
-      <div class="process-v2__grid">
-
-        <a class="process-step process-step--blue" href="https://apps.little.africa/events/africa-kidney-health-summit" target="_blank" rel="noopener">
-          <span class="process-step__tag">Registration</span>
-          <div class="process-step__badge">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14M13 6l6 6-6 6"/>
-            </svg>
-          </div>
-          <h4>Register Now</h4>
-          <p>Book your delegate spot via Little Events Ticketing App. Select your ticket type, input your details, choose a payment method, complete the transaction to receive your confirmation and event ticket.</p>
-          <span class="process-step__cta">Continue to ticketing
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </span>
-        </a>
-
-        <button type="button" class="process-step process-step--violet" id="openLetterModalCta">
-          <span class="process-step__tag">Documentation</span>
-          <div class="process-step__badge">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/>
-              <path d="M14 2v6h6M8 13h8M8 17h5"/>
-            </svg>
-          </div>
-          <h4>Invitation Letter Or Invoice</h4>
-          <p>Need a formal letter or pro forma invoice? Whether for the visa application, attendance approval and/or funding?</p>
-          <span class="process-step__cta">Request a letter or invoice
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </span>
-        </button>
-
-        <button type="button" class="process-step process-step--red" id="openRateModalCta">
-          <span class="process-step__tag">Concessions</span>
-          <div class="process-step__badge">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
-          </div>
-          <h4>Student &amp; Group Rates</h4>
-          <p>Bringing a delegation, or registering as a student? Discounted rates are available. Submit your group details and we'll confirm eligibility.</p>
-          <span class="process-step__cta">Request special rate
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </span>
-        </button>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- EXHIBITION & PARTNERSHIP (no pricing) -->
-<section class="section section--tint" id="exhibition">
-  <div class="container">
-    <div class="head-center reveal">
-      <span class="eyebrow">Exhibition &amp; Partnership</span>
-      <h2 class="h2">Reach Africa's kidney health decision makers.</h2>
-      <p class="lead">Exhibition space and partnership packages for device manufacturers, diagnostic companies, pharmaceutical firms and service providers.</p>
-    </div>
-
-    <div class="exhibition exhibition--pair">
-      <div class="exhibit-tile reveal">
-        <div class="exhibit-tile__mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
-        <span class="exhibit-tile__tag">Exhibition</span>
-        <h3>Exhibition Space</h3>
-        <p>Shell scheme booths with fascia board, power point and delegate passes, with direct floor access to book meetings with clinicians, procurement leads and ministry delegations across the three days.</p>
-        <button type="button" class="exhibit-tile__cta js-open-exhibit-modal" data-package="Exhibition Space">Learn more
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </button>
-      </div>
-
-      <div class="exhibit-tile reveal" style="--d:80ms">
-        <div class="exhibit-tile__mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.4 9.3 8 10 4.6-.7 8-5 8-10V6l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg></div>
-        <span class="exhibit-tile__tag">Partnership</span>
-        <h3>Partnership Packages</h3>
-        <p>Premium booth placement, logo on official materials, breakout session slots and keynote mentions: tiered packages for organisations seeking a strategic, high visibility presence.</p>
-        <button type="button" class="exhibit-tile__cta js-open-exhibit-modal" data-package="Partnership Package">Learn more
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- MODAL -->
-<div class="modal" id="exhibitModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
-  <div class="modal__panel" role="document" tabindex="-1">
-    <button class="modal__close" id="closeExhibitModal" aria-label="Close">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-    </button>
-
-    <div id="modalFormView">
-      <div class="modal__head">
-        <span class="modal__tag">Exhibition &amp; Partnership</span>
-        <h3 id="modalTitle">Request partnership information</h3>
-        <p>Tell us about your organisation and the partnership team will contact you with the full prospectus and availability.</p>
-      </div>
-
-      <form id="exhibitForm" novalidate>
-        <div class="field">
-          <label for="eorg">Company / Organisation <span class="req">*</span></label>
-          <input id="eorg" name="eorg" type="text" placeholder="Company or organisation name" required>
+    <section class="programme section" id="programme">
+      <div class="container">
+        <div class="section-heading-row">
+          <div><div class="section-kicker">OFFICIAL PROGRAMME</div><h2>A Rising Burden, A Rising Bill, Africa Acts on Kidney Disease.</h2><p>Three days building from the scale of the crisis to Africa's public commitments.</p></div>
+          <a class="outline-link" href="#programme">View full programme →</a>
         </div>
-
-        <div class="grid-2">
-          <div class="field">
-            <label for="ename">Contact person <span class="req">*</span></label>
-            <input id="ename" name="ename" type="text" placeholder="Contact person's name" required>
+        <div class="content-carousel programme-carousel" data-carousel="programme">
+          <div class="section-carousel-controls">
+            <button class="carousel-arrow carousel-prev" data-target=".programme-track" aria-label="Previous programme day">‹</button>
+            <span class="carousel-progress"><b>01</b><i></i><span>03</span></span>
+            <button class="carousel-arrow carousel-next" data-target=".programme-track" aria-label="Next programme day">›</button>
           </div>
-          <div class="field">
-            <label for="eposition">Position</label>
-            <input id="eposition" name="eposition" type="text" placeholder="Position or job title">
+          <div class="programme-track">
+            <article class="day-card day-one"><div class="day-top"><span>DAY ONE</span><b>9 March 2027</b></div><h3>The Rising Burden</h3><ul><li>The scale, distribution and changing face of kidney disease in Africa.</li><li>Making prevention and early detection a health system priority.</li></ul><button class="card-more" type="button">Read more <span>+</span></button><span class="day-note">Full session list to be published →</span></article>
+            <article class="day-card day-two"><div class="day-top"><span>DAY TWO</span><b>10 March 2027</b></div><h3>Improving the Standard of Kidney Care</h3><ul><li>Access and equity through decentralised models and infrastructure.</li><li>Essential diagnostics, medicines and workforce distribution.</li><li>Dialysis and transplantation.</li></ul><button class="card-more" type="button">Read more <span>+</span></button><span class="day-note">Full session list to be published →</span></article>
+            <article class="day-card day-three"><div class="day-top"><span>DAY THREE</span><b>11 March 2027</b></div><h3>Africa Acts</h3><ul><li>Specific, measurable and public commitments that lower the kidney bill.</li><li>Culminates with the 2027 World Kidney Day Public Walk through Nairobi.</li></ul><button class="card-more" type="button">Read more <span>+</span></button><span class="day-note">Full session list to be published →</span></article>
           </div>
+          <div class="mobile-swipe-hint">3 programme days <span>Swipe →</span></div>
         </div>
-
-        <div class="grid-2">
-          <div class="field">
-            <label for="eemail">Email <span class="req">*</span></label>
-            <input id="eemail" name="eemail" type="email" placeholder="you@company.com" required>
-          </div>
-          <div class="field">
-            <label for="ecountry">Country <span class="req">*</span></label>
-            <select id="ecountry" name="ecountry" required>
-              <option value="">Select a country…</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="ephone">Telephone <span class="req">*</span></label>
-          <div class="phone-input">
-            <input type="text" class="phone-input__code" id="ephoneCode" name="ephone_code" value="+" readonly tabindex="-1" aria-label="Country dialling code, set automatically from the country you select above">
-            <input id="ephone" name="ephone" type="tel" placeholder="7XX XXX XXX" required>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="epackage">Package of interest <span class="req">*</span></label>
-          <select id="epackage" name="epackage" required>
-            <option value="">Select a package…</option>
-            <option>Exhibition Space</option>
-            <option>Partnership Package</option>
-            <option>Custom / other</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="emessage">Message</label>
-          <textarea id="emessage" name="emessage" placeholder="Tell us briefly about your products and what you would like to achieve at the summit."></textarea>
-        </div>
-
-        <div class="form-error" id="exhibitError" role="alert"></div>
-
-        <button type="submit" class="btn btn--primary btn--block btn--lg" id="exhibitSubmitBtn">
-          <span class="btn-label">Send enquiry</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </button>
-        <p style="margin-top:.8rem;font-size:.74rem;color:var(--muted-2);text-align:center">
-          Your details will only be used by the summit secretariat to respond to this enquiry.
-        </p>
-      </form>
-    </div>
-
-    <div class="modal__success" id="modalSuccessView">
-      <div class="ok">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg>
+        <div class="declaration"><span>◈</span><strong>One Continent. One Declaration. Public Commitments.</strong><em>Africa Acts on Kidney Disease.</em></div>
       </div>
-      <b>Enquiry received.</b>
-      <p>The partnership team will contact you within 48 hours with the full prospectus. For urgent queries, email <a href="mailto:admin@kidneyhealth.africa">admin@kidneyhealth.africa</a>.</p>
-    </div>
-  </div>
-</div>
+    </section>
 
-<!-- STUDENT & GROUP RATE REQUEST -->
-<div class="modal" id="rateModal" role="dialog" aria-modal="true" aria-labelledby="rateModalTitle" aria-hidden="true">
-  <div class="modal__panel" role="document" tabindex="-1">
-    <button class="modal__close" id="closeRateModal" aria-label="Close">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-    </button>
-
-    <div id="rateFormView">
-      <div class="modal__head">
-        <span class="modal__tag">Concessions</span>
-        <h3 id="rateModalTitle">Request a student or group rate</h3>
-        <p>Tell us about your group and the secretariat will confirm your eligibility and rate.</p>
+    <section class="speakers-section section" id="speakers" hidden>
+      <div class="container">
+        <div class="section-heading-row">
+          <div><div class="section-kicker">Featured Speakers</div><h2>Voices shaping Africa's kidney health agenda.</h2><p>Confirmed speakers from across the continent and international partners.</p></div>
+        </div>
+        <div class="content-carousel speakers-carousel" data-carousel="speakers">
+          <div class="section-carousel-controls">
+            <button class="carousel-arrow carousel-prev" data-target=".speaker-track" aria-label="Previous speaker">‹</button>
+            <span class="carousel-progress"><b>01</b><i></i><span>07</span></span>
+            <button class="carousel-arrow carousel-next" data-target=".speaker-track" aria-label="Next speaker">›</button>
+          </div>
+          <div class="speaker-track">
+            <article class="speaker-card">
+              <div class="speaker-card__photo"><img loading="lazy" src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=700&q=80" alt="Dr. Amara Kimani"><span class="speaker-card__flag">🇰🇪 Kenya</span></div>
+              <span class="speaker-card__tag">Keynote</span>
+              <h4>Dr. Amara Kimani</h4>
+              <p>Chief of Nephrology, Nairobi Transplant Institute</p>
+            </article>
+            <article class="speaker-card">
+              <div class="speaker-card__photo"><img loading="lazy" src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?auto=format&fit=crop&w=700&q=80" alt="Prof. Nadia Mensah"><span class="speaker-card__flag">🇬🇭 Ghana</span></div>
+              <span class="speaker-card__tag">Policy</span>
+              <h4>Prof. Nadia Mensah</h4>
+              <p>Head of Nephrology, Accra Regional Hospital</p>
+            </article>
+            <article class="speaker-card">
+              <div class="speaker-card__photo"><img loading="lazy" src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=700&q=80" alt="Dr. James Okafor"><span class="speaker-card__flag">🇳🇬 Nigeria</span></div>
+              <span class="speaker-card__tag">Paediatrics</span>
+              <h4>Dr. James Okafor</h4>
+              <p>Head of Paediatric Nephrology, Lagos Children's Hospital</p>
+            </article>
+            <article class="speaker-card">
+              <div class="speaker-card__photo"><img loading="lazy" src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=700&q=80" alt="Dr. Sana Rahman"><span class="speaker-card__flag">🇹🇿 Tanzania</span></div>
+              <span class="speaker-card__tag">Dialysis</span>
+              <h4>Dr. Sana Rahman</h4>
+              <p>Director, Global Dialysis Outcomes Registry</p>
+            </article>
+            <article class="speaker-card">
+              <div class="speaker-card__photo"><img loading="lazy" src="https://images.unsplash.com/photo-1666886573553-453e9cdbd967?auto=format&fit=crop&w=700&q=80" alt="Dr. Farida Al-Amin"><span class="speaker-card__flag">🇪🇬 Egypt</span></div>
+              <span class="speaker-card__tag">Research</span>
+              <h4>Dr. Farida Al-Amin</h4>
+              <p>Senior Researcher, Cairo Kidney Institute</p>
+            </article>
+            <article class="speaker-card">
+              <div class="speaker-card__photo"><img loading="lazy" src="https://images.unsplash.com/photo-1605602517387-ec78b947335e?auto=format&fit=crop&w=700&q=80" alt="Prof. Thabo Nkosi"><span class="speaker-card__flag">🇿🇦 South Africa</span></div>
+              <span class="speaker-card__tag">Health Policy</span>
+              <h4>Prof. Thabo Nkosi</h4>
+              <p>Director, National Renal Care Programme</p>
+            </article>
+            <article class="speaker-card">
+              <div class="speaker-card__photo"><img loading="lazy" src="https://images.unsplash.com/photo-1638727295415-286409421143?auto=format&fit=crop&w=700&q=80" alt="Dr. Amina Diallo"><span class="speaker-card__flag">🇸🇳 Senegal</span></div>
+              <span class="speaker-card__tag">Community Health</span>
+              <h4>Dr. Amina Diallo</h4>
+              <p>Lead, West Africa Kidney Screening Initiative</p>
+            </article>
+          </div>
+          <div class="mobile-swipe-hint">7 confirmed speakers <span>Swipe →</span></div>
+        </div>
       </div>
+    </section>
 
-      <form id="rateForm" novalidate>
-        <input type="checkbox" name="botcheck" style="display:none" aria-hidden="true" tabindex="-1" autocomplete="off">
-
-        <div class="grid-2">
-          <div class="field">
-            <label for="rfname">First name <span class="req">*</span></label>
-            <input id="rfname" name="First name" type="text" placeholder="First name" required>
+    <section class="attend section" id="attend">
+      <div class="container">
+        <div class="section-heading-row attend-heading"><div><div class="section-kicker">WHY ATTEND</div><h2>Every voice in Africa's kidney health ecosystem.</h2><p>The summit is open to everyone working to improve kidney health across the continent—from ministries and clinicians to students, advocates and industry partners.</p></div><a class="btn btn-primary" href="#register">Attend →</a></div>
+        <div class="content-carousel audience-carousel" data-carousel="audience">
+          <div class="section-carousel-controls">
+            <button class="carousel-arrow carousel-prev" data-target=".audience-track" aria-label="Previous attendee group">‹</button>
+            <span class="carousel-progress"><b>01</b><i></i><span>06</span></span>
+            <button class="carousel-arrow carousel-next" data-target=".audience-track" aria-label="Next attendee group">›</button>
           </div>
-          <div class="field">
-            <label for="rlname">Last name <span class="req">*</span></label>
-            <input id="rlname" name="Last name" type="text" placeholder="Last name" required>
+          <div class="audience-track">
+            <article class="audience-card audience-card--flat"><span>01</span><h3>Policy & Systems</h3><p>Government, policy and health system leaders shaping budgets, regulation and national priorities.</p></article>
+            <article class="audience-card audience-card--flat"><span>02</span><h3>Clinical & Delivery</h3><p>Clinicians, nurses, allied health professionals and frontline care teams.</p></article>
+            <article class="audience-card audience-card--flat"><span>03</span><h3>Evidence & Academia</h3><p>Researchers, universities, epidemiologists and evidence leaders.</p></article>
+            <article class="audience-card audience-card--flat"><span>04</span><h3>Civil Society & Community</h3><p>Patient groups, NGOs, foundations and community organisations.</p></article>
+            <article class="audience-card audience-card--flat"><span>05</span><h3>Industry & Investors</h3><p>Hospitals, insurers, manufacturers, diagnostics, pharma and health technology.</p></article>
+            <article class="audience-card audience-card--flat"><span>06</span><h3>Media & Professional Networks</h3><p>Health communicators, societies, associations and networks.</p></article>
           </div>
+          <div class="mobile-swipe-hint">More attendee groups <span>Swipe →</span></div>
         </div>
+      </div>
+    </section>
 
-        <div class="grid-2">
-          <div class="field">
-            <label for="remail">Email address <span class="req">*</span></label>
-            <input id="remail" name="Email address" type="email" placeholder="you@example.com" required>
+    <section class="register section" id="register">
+      <div class="container">
+        <div class="register-head"><div class="section-kicker">DELEGATE REGISTRATION</div><h2>Three ways to secure your place.</h2><p>Register directly, request documentation, or ask about a group rate—pick the option that fits.</p></div>
+        <div class="content-carousel registration-carousel" data-carousel="registration">
+          <div class="section-carousel-controls">
+            <button class="carousel-arrow carousel-prev" data-target=".registration-track" aria-label="Previous registration option">‹</button>
+            <span class="carousel-progress"><b>01</b><i></i><span>03</span></span>
+            <button class="carousel-arrow carousel-next" data-target=".registration-track" aria-label="Next registration option">›</button>
           </div>
-          <div class="field">
-            <label for="rrole">Role / Title</label>
-            <input id="rrole" name="Role / Title" type="text" placeholder="Role or title">
+          <div class="registration-track">
+            <article class="registration-card registration-card-main"><div class="registration-image"><img loading="lazy" src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=900&q=80" alt="Delegates at a formal summit"></div><span>01</span><h3>Registration</h3><p>Book your delegate spot via the Little Events Ticketing App. Select your ticket type, enter your details, choose a payment method and complete the transaction.</p><button class="registration-more" type="button">View details <span>+</span></button><a class="btn btn-primary" href="https://apps.little.africa/events/africa-kidney-health-summit" target="_blank" rel="noopener">Continue to ticketing →</a></article>
+            <article class="registration-card"><div class="registration-image"><img loading="lazy" src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80" alt="A professional office setting"></div><span>02</span><h3>Invitation Letter or Invoice</h3><p>Need a formal letter or pro forma invoice for a visa application, attendance approval or funding?</p><button class="registration-more" type="button">View details <span>+</span></button><button type="button" class="btn btn-outline" id="openLetterModalCta">Request a letter →</button></article>
+            <article class="registration-card"><div class="registration-image"><img loading="lazy" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80" alt="Young professionals collaborating"></div><span>03</span><h3>Student & Group Rates</h3><p>Bringing a delegation, or registering as a student? Discounted rates are available.</p><button class="registration-more" type="button">View details <span>+</span></button><button type="button" class="btn btn-outline" id="openRateModalCta">Request special rate →</button></article>
           </div>
+          <div class="mobile-swipe-hint">3 registration options <span>Swipe →</span></div>
         </div>
+      </div>
+    </section>
 
-        <div class="grid-2">
-          <div class="field">
-            <label for="rorg">Organization <span class="req">*</span></label>
-            <input id="rorg" name="Organization" type="text" placeholder="Organization name" required>
+    <section class="partner section" id="partner">
+      <div class="container">
+        <div class="partner-top"><div><div class="section-kicker">EXHIBITION & PARTNERSHIP</div><h2>Reach Africa's kidney health decision makers.</h2><p>Two clear ways to participate: showcase solutions through exhibition or support the Summit through a strategic partnership.</p></div></div>
+        <div class="content-carousel roles-carousel" data-carousel="roles">
+          <div class="section-carousel-controls">
+            <button class="carousel-arrow carousel-prev" data-target=".partner-roles" aria-label="Previous option">‹</button>
+            <span class="carousel-progress"><b>01</b><i></i><span>02</span></span>
+            <button class="carousel-arrow carousel-next" data-target=".partner-roles" aria-label="Next option">›</button>
           </div>
-          <div class="field">
-            <label for="rcountry">Country <span class="req">*</span></label>
-            <select id="rcountry" name="Country" required>
-              <option value="">Select a country…</option>
-            </select>
+          <div class="partner-roles">
+            <article class="partner-role"><span class="role-number">01</span><div><h3>Exhibition Space</h3><p>Put your products, diagnostics, services or technology in front of clinicians, policymakers and health-system leaders.</p><button type="button" class="js-open-exhibit-modal" data-package="Exhibition Space">Request exhibition space →</button></div></article>
+            <article class="partner-role"><span class="role-number">02</span><div><h3>Partnership Packages</h3><p>Align your organisation with Africa's kidney health agenda through strategic visibility, knowledge exchange and programme support.</p><button type="button" class="js-open-exhibit-modal" data-package="Partnership Package">Request partnership packages →</button></div></article>
           </div>
+          <div class="mobile-swipe-hint">2 ways to participate <span>Swipe →</span></div>
         </div>
-
-        <div class="field">
-          <label for="rphone">Phone number <span class="req">*</span></label>
-          <div class="phone-input">
-            <input type="text" class="phone-input__code" id="rphoneCode" name="Country code" value="+" readonly tabindex="-1" aria-label="Country dialling code, set automatically from the country you select above">
-            <input id="rphone" name="Phone number" type="tel" placeholder="7XX XXX XXX" required>
-          </div>
-          <p class="field__note">This should be a WhatsApp number. We'll use it for faster updates on your request.</p>
-        </div>
-
-        <div class="grid-2">
-          <div class="field">
-            <label for="rpasses">No. of delegate passes needed <span class="req">*</span></label>
-            <div class="number-stepper">
-              <button type="button" class="number-stepper__btn" data-step="-1" aria-label="Decrease delegate passes">&minus;</button>
-              <input id="rpasses" name="No. of delegate passes needed" type="number" min="1" step="1" placeholder="1" required>
-              <button type="button" class="number-stepper__btn" data-step="1" aria-label="Increase delegate passes">&plus;</button>
+        <div class="partner-carousel-wrap">
+          <div class="partner-carousel-head"><span>Convening & ecosystem partners</span><div class="carousel-controls"><button class="carousel-prev" data-target=".partner-track" aria-label="Previous partner">‹</button><button class="carousel-next" data-target=".partner-track" aria-label="Next partner">›</button></div></div>
+          <div class="partner-carousel" tabindex="0">
+            <div class="partner-track">
+              <article class="partner-slide"><div class="partner-logo partner-logo--img"><img src="src/assets/images/partner-little.png" alt="Little"></div><div><strong>Little</strong><span>Ticketing & event services</span></div></article>
+              <article class="partner-slide"><div class="partner-logo partner-logo--img"><img src="src/assets/images/partner-mdv.png" alt="MDV Global Consulting Ltd."></div><div><strong>MDV Global Consulting Ltd.</strong><span>Strategic consulting</span></div></article>
+              <article class="partner-slide"><div class="partner-logo partner-logo--img"><img src="src/assets/images/partner-renal-roads.png" alt="Renal Roads by Benacore"></div><div><strong>Renal Roads by Benacore</strong><span>Kidney health solutions</span></div></article>
+              <article class="partner-slide"><div class="partner-logo partner-logo--img"><img src="src/assets/images/partner-benacore.png" alt="Benacore"></div><div><strong>Benacore</strong><span>Health innovation</span></div></article>
+              <article class="partner-slide"><div class="partner-logo logo-kenya">54</div><div><strong>Africa-wide network</strong><span>54 nations invited</span></div></article>
             </div>
           </div>
-          <div class="field">
-            <label for="rgroup">Group description <span class="req">*</span></label>
-            <select id="rgroup" name="Group description" required>
-              <option value="">Select an option…</option>
-              <option>Students / trainees</option>
-              <option>Colleagues from the same organisation</option>
-              <option>Industry association</option>
-              <option>Other</option>
-            </select>
-          </div>
         </div>
 
-        <div class="field">
-          <label for="rmessage">Any other request or additional information</label>
-          <textarea id="rmessage" name="Additional information" placeholder="Anything else the secretariat should know."></textarea>
-        </div>
-
-        <div class="form-error" id="rateError" role="alert"></div>
-
-        <button type="submit" class="btn btn--primary btn--block btn--lg" id="rateSubmitBtn">
-          <span class="btn-label">Send request</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </button>
-        <p style="margin-top:.8rem;font-size:.74rem;color:var(--muted-2);text-align:center">
-          Sent straight to the summit secretariat. Your confirmation and invitation letter (if applicable) will be sent to the email address you provide.
-        </p>
-      </form>
-    </div>
-
-    <div class="modal__success" id="rateSuccessView">
-      <div class="ok">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg>
-      </div>
-      <b>Request received.</b>
-      <p>The secretariat will confirm your eligibility and rate by email, and may reach out on WhatsApp for faster updates. For urgent queries, email <a href="mailto:admin@kidneyhealth.africa">admin@kidneyhealth.africa</a>.</p>
-    </div>
-  </div>
-</div>
-
-<!-- INVITATION LETTER OR INVOICE REQUEST -->
-<div class="modal" id="letterModal" role="dialog" aria-modal="true" aria-labelledby="letterModalTitle" aria-hidden="true">
-  <div class="modal__panel" role="document" tabindex="-1">
-    <button class="modal__close" id="closeLetterModal" aria-label="Close">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-    </button>
-
-    <div id="letterFormView">
-      <div class="modal__head">
-        <span class="modal__tag">Documentation</span>
-        <h3 id="letterModalTitle">Request an invitation letter or invoice</h3>
-        <p>Tell us what you need and the secretariat will prepare it for you.</p>
-      </div>
-
-      <form id="letterForm" novalidate>
-        <input type="checkbox" name="botcheck" style="display:none" aria-hidden="true" tabindex="-1" autocomplete="off">
-
-        <div class="grid-2">
-          <div class="field">
-            <label for="lfname">First name <span class="req">*</span></label>
-            <input id="lfname" name="First name" type="text" placeholder="First name" required>
-          </div>
-          <div class="field">
-            <label for="llname">Last name <span class="req">*</span></label>
-            <input id="llname" name="Last name" type="text" placeholder="Last name" required>
-          </div>
-        </div>
-
-        <div class="grid-2">
-          <div class="field">
-            <label for="lemail">Email address <span class="req">*</span></label>
-            <input id="lemail" name="Email address" type="email" placeholder="you@example.com" required>
-          </div>
-          <div class="field">
-            <label for="lrole">Role / Title</label>
-            <input id="lrole" name="Role / Title" type="text" placeholder="Role or title">
-          </div>
-        </div>
-
-        <div class="grid-2">
-          <div class="field">
-            <label for="lorg">Organization <span class="req">*</span></label>
-            <input id="lorg" name="Organization" type="text" placeholder="Organization name" required>
-          </div>
-          <div class="field">
-            <label for="lcountry">Country <span class="req">*</span></label>
-            <select id="lcountry" name="Country" required>
-              <option value="">Select a country…</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="lphone">Phone number <span class="req">*</span></label>
-          <div class="phone-input">
-            <input type="text" class="phone-input__code" id="lphoneCode" name="Country code" value="+" readonly tabindex="-1" aria-label="Country dialling code, set automatically from the country you select above">
-            <input id="lphone" name="Phone number" type="tel" placeholder="7XX XXX XXX" required>
-          </div>
-          <p class="field__note">This should be a WhatsApp number. We'll use it for faster updates on your request.</p>
-        </div>
-
-        <div class="grid-2">
-          <div class="field">
-            <label for="lpasses">No. of delegate passes <span class="req">*</span></label>
-            <div class="number-stepper">
-              <button type="button" class="number-stepper__btn" data-step="-1" aria-label="Decrease delegate passes">&minus;</button>
-              <input id="lpasses" name="No. of delegate passes" type="number" min="1" step="1" placeholder="1" required>
-              <button type="button" class="number-stepper__btn" data-step="1" aria-label="Increase delegate passes">&plus;</button>
+        <!-- Logo-only auto-scrolling marquee, shown on small screens instead of the named
+             cards above — two copies of the same track placed back to back and scrolled
+             exactly one track-width via CSS animation gives a seamless, never-ending loop
+             with no JS. -->
+        <div class="partner-marquee-wrap">
+          <span class="partner-marquee-label">Convening & ecosystem partners</span>
+          <div class="partner-marquee">
+            <div class="partner-marquee__inner">
+              <div class="partner-marquee__track">
+                <img src="src/assets/images/partner-little.png" alt="Little">
+                <img src="src/assets/images/partner-mdv.png" alt="MDV Global Consulting Ltd.">
+                <img src="src/assets/images/partner-renal-roads.png" alt="Renal Roads by Benacore">
+                <img src="src/assets/images/partner-benacore.png" alt="Benacore">
+              </div>
+              <div class="partner-marquee__track" aria-hidden="true">
+                <img src="src/assets/images/partner-little.png" alt="">
+                <img src="src/assets/images/partner-mdv.png" alt="">
+                <img src="src/assets/images/partner-renal-roads.png" alt="">
+                <img src="src/assets/images/partner-benacore.png" alt="">
+              </div>
             </div>
           </div>
-          <div class="field">
-            <label for="lneed">What is needed <span class="req">*</span></label>
-            <select id="lneed" name="What is needed" required>
-              <option value="">Select an option…</option>
-              <option>Letter of invitation</option>
-              <option>Invoice</option>
-              <option>Both</option>
-            </select>
-          </div>
         </div>
-
-        <div class="field">
-          <label for="lmessage">Other information to be included</label>
-          <textarea id="lmessage" name="Other information" placeholder="Anything the secretariat should include in the letter or invoice."></textarea>
-        </div>
-
-        <div class="form-error" id="letterError" role="alert"></div>
-
-        <button type="submit" class="btn btn--primary btn--block btn--lg" id="letterSubmitBtn">
-          <span class="btn-label">Send request</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </button>
-        <p style="margin-top:.8rem;font-size:.74rem;color:var(--muted-2);text-align:center">
-          Sent straight to the summit secretariat. The letter or invoice will be shared to the email address you provide.
-        </p>
-      </form>
-    </div>
-
-    <div class="modal__success" id="letterSuccessView">
-      <div class="ok">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg>
       </div>
-      <b>Request received.</b>
-      <p>The secretariat will prepare your document and email it to you, usually within 48 hours, and may reach out on WhatsApp for faster updates. For urgent queries, email <a href="mailto:secretariat@kidneyhealth.africa">secretariat@kidneyhealth.africa</a>.</p>
-    </div>
-  </div>
-</div>
+    </section>
+
+    <section class="venue section" id="contact">
+      <div class="container contact-strip">
+        <div class="contact-copy"><div class="section-kicker">CONTACT</div><h2>Connect with the Africa Kidney Health Summit team.</h2><p>For registration, partnership, media and programme enquiries, contact the Secretariat.</p></div>
+        <div class="contact-card"><span class="contact-badge">AFRICA KIDNEY HEALTH ALLIANCE</span><a href="mailto:admin@kidneyhealth.africa">admin@kidneyhealth.africa</a><div class="contact-phone-row"><a class="contact-phone-link" href="tel:+254703700300">+254 703 700 300</a><a class="contact-icon-link contact-icon-link--call" href="tel:+254703700300" aria-label="Call the Secretariat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a><a class="contact-icon-link contact-icon-link--wa" href="https://wa.me/254703700300" target="_blank" rel="noopener" aria-label="WhatsApp the Secretariat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a></div><a class="contact-whatsapp-cta" href="https://wa.me/254703700300" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>Chat with us on WhatsApp</a><span>Mon–Fri · 09:00–17:00 EAT · Nairobi, Kenya</span></div>
+      </div>
+    </section>
 
 <!-- VENUE & CONTACT (merged — these were two full sections repeating the same email/phone/
      location the footer already shows) -->
@@ -888,7 +460,7 @@
       </figure>
     </div>
 
-    <div class="contact__grid" id="contact">
+    <div class="contact__grid" id="venue-contact">
       <div class="ccard reveal">
         <div class="ccard__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg></div>
         <h3>Email the secretariat</h3>
@@ -910,141 +482,320 @@
     </div>
   </div>
 </section>
+  </main>
 
-<!-- CTA -->
-<div class="container">
-  <section class="cta reveal">
-    <div class="cta__inner">
-      <div>
-        <h2>Africa's kidney health agenda will be set in Nairobi.</h2>
-        <p>Be in the room. Book your delegate place or request partnership information.</p>
-      </div>
-      <div class="cta__actions">
-        <a href="#booking-form" class="btn btn--primary btn--lg">Book a delegate place</a>
-        <button type="button" class="btn btn--white btn--lg" id="openExhibitModalCta">Exhibit / Partnership</button>
-        <p class="cta__micro">9th – 11th March 2027 · Nairobi, Kenya</p>
-      </div>
-    </div>
-  </section>
-</div>
+  <footer class="site-footer minimal-footer">
+    <div class="footer-inner">
+      <a class="footer-brand footer-brand--logo" href="#top" aria-label="Africa Kidney Health Summit home">
+        <img src="src/assets/images/logo.png" alt="Africa Kidney Health Summit">
+        <span>
+          <strong>Africa Kidney Health Summit</strong>
+          <small>9–11 March 2027 · Nairobi, Kenya</small>
+        </span>
+      </a>
 
-<!-- PARTNERS CAROUSEL -->
-<section class="partners" id="partners">
-  <div class="container">
-    <div class="partners__head reveal">
-      <span class="partners__label">Convening Partners</span>
-      <p class="partners__title">Leading institutions, ministries and professional societies convening this summit across Africa.</p>
-    </div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#about">About</a>
+        <a href="#programme">Programme</a>
+        <a href="#attend">Why Attend</a>
+        <a href="#register">Register</a>
+        <a href="#contact">Contact</a>
+      </nav>
 
-    <div class="partners__viewport reveal" role="group" aria-label="Summit partners">
-      <div class="partners__marquee" id="partnersMarquee">
-        <div class="partners__track">
-          <div class="partner-slide">
-            <div class="partner partner--logo">
-              <span class="partner__mark partner__mark--logo"><img src="src/assets/images/partner-little.png" alt="Little" loading="lazy"></span>
-            </div>
-          </div>
-          <div class="partner-slide">
-            <div class="partner partner--logo">
-              <span class="partner__mark partner__mark--logo"><img src="src/assets/images/partner-mdv.png" alt="MDV Global Consulting Ltd." loading="lazy"></span>
-            </div>
-          </div>
-          <div class="partner-slide">
-            <div class="partner partner--logo">
-              <span class="partner__mark partner__mark--logo"><img src="src/assets/images/partner-renal-roads.png" alt="Renal Roads by Benacore" loading="lazy"></span>
-            </div>
-          </div>
-          <div class="partner-slide">
-            <div class="partner partner--logo">
-              <span class="partner__mark partner__mark--logo"><img src="src/assets/images/partner-benacore.png" alt="Benacore" loading="lazy"></span>
-            </div>
-          </div>
+      <div class="footer-contact">
+        <a href="mailto:admin@kidneyhealth.africa">admin@kidneyhealth.africa</a>
+        <div class="footer-phone-row">
+          <a href="tel:+254703700300">+254 703 700 300</a>
+          <a class="footer-phone-wa" href="https://wa.me/254703700300" target="_blank" rel="noopener" aria-label="WhatsApp +254 703 700 300">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </a>
         </div>
-        <div class="partners__track" aria-hidden="true">
-          <div class="partner-slide">
-            <div class="partner partner--logo">
-              <span class="partner__mark partner__mark--logo"><img src="src/assets/images/partner-little.png" alt="" loading="lazy"></span>
-            </div>
-          </div>
-          <div class="partner-slide">
-            <div class="partner partner--logo">
-              <span class="partner__mark partner__mark--logo"><img src="src/assets/images/partner-mdv.png" alt="" loading="lazy"></span>
-            </div>
-          </div>
-          <div class="partner-slide">
-            <div class="partner partner--logo">
-              <span class="partner__mark partner__mark--logo"><img src="src/assets/images/partner-renal-roads.png" alt="" loading="lazy"></span>
-            </div>
-          </div>
-          <div class="partner-slide">
-            <div class="partner partner--logo">
-              <span class="partner__mark partner__mark--logo"><img src="src/assets/images/partner-benacore.png" alt="" loading="lazy"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-</main>
-
-<footer class="footer">
-  <div class="container">
-    <div class="footer__grid">
-      <div>
-        <a class="logo logo--footer" href="#top">
-          <img class="logo__img logo__img--footer" src="src/assets/images/logo.png" alt="Africa Kidney Health Summit">
-        </a>
-        <p class="footer__about">Convening Africa's kidney health ecosystem to drive prevention, early detection, access to care, and policy action.</p>
-        <div class="footer__social">
-          <a class="footer__social-ig" href="https://www.instagram.com/africa4kidney/" target="_blank" rel="noopener" aria-label="Instagram">
+        <div class="footer-social">
+          <a class="footer-social__ig" href="https://www.instagram.com/africa4kidney/" target="_blank" rel="noopener" aria-label="Instagram">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37Z"/><path d="M17.5 6.5h.01"/></svg>
           </a>
-          <a class="footer__social-tt" href="https://www.tiktok.com/@africa4kidney?_r=1&amp;_t=ZS-99mQJMxD9VP" target="_blank" rel="noopener" aria-label="TikTok">
+          <a class="footer-social__tt" href="https://www.tiktok.com/@africa4kidney" target="_blank" rel="noopener" aria-label="TikTok">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
           </a>
-          <a class="footer__social-fb" href="https://web.facebook.com/Africa4kidney" target="_blank" rel="noopener" aria-label="Facebook">
+          <a class="footer-social__fb" href="https://web.facebook.com/Africa4kidney" target="_blank" rel="noopener" aria-label="Facebook">
             <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3Z"/></svg>
           </a>
-          <a class="footer__social-wa" href="https://wa.me/254703700300" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <a class="footer-social__wa" href="https://wa.me/254703700300" target="_blank" rel="noopener" aria-label="WhatsApp">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
           </a>
         </div>
       </div>
-      <div>
-        <h5>Summit</h5>
-        <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#program">Programme</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5>Delegates</h5>
-        <ul>
-          <li><a href="#registration">Attendees</a></li>
-          <li><a href="#booking-form">Book a place</a></li>
-          <li><a href="#exhibition">Exhibition &amp; Partnership</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5>Secretariat</h5>
-        <div class="footer__meta">
-          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg><a href="mailto:admin@kidneyhealth.africa">admin@kidneyhealth.africa</a></div>
-          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.8a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.8 2.1Z"/></svg><a href="tel:+254703700300">+254 703 700 300</a></div>
-          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg><span>Nairobi, Kenya</span></div>
-        </div>
-      </div>
     </div>
-    <div class="footer__bottom">
-      <span>© <span id="copyrightYear">2026</span> Africa Kidney Health Summit. All rights reserved.</span>
+
+    <div class="footer-bottom">
+      <span>© 2027 Africa Kidney Health Summit</span>
+      <span>Convening Africa's kidney health ecosystem.</span>
+    </div>
+  </footer>
+
+  <!-- EXHIBITION & PARTNERSHIP ENQUIRY -->
+  <div class="t-modal" id="exhibitModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="t-modal__panel" role="document" tabindex="-1">
+      <button class="t-modal__close" id="closeExhibitModal" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <div id="modalFormView">
+        <div class="t-modal__head">
+          <span class="t-modal__tag">Exhibition &amp; Partnership</span>
+          <h3 id="modalTitle">Request partnership information</h3>
+          <p>Tell us about your organisation and the partnership team will contact you with the full prospectus and availability.</p>
+        </div>
+        <form id="exhibitForm" novalidate>
+          <div class="t-field">
+            <label for="eorg">Company / Organisation <span class="req">*</span></label>
+            <input id="eorg" name="eorg" type="text" placeholder="Company or organisation name" required>
+          </div>
+          <div class="t-grid-2">
+            <div class="t-field">
+              <label for="ename">Contact person <span class="req">*</span></label>
+              <input id="ename" name="ename" type="text" placeholder="Contact person's name" required>
+            </div>
+            <div class="t-field">
+              <label for="eposition">Position</label>
+              <input id="eposition" name="eposition" type="text" placeholder="Position or job title">
+            </div>
+          </div>
+          <div class="t-grid-2">
+            <div class="t-field">
+              <label for="eemail">Email <span class="req">*</span></label>
+              <input id="eemail" name="eemail" type="email" placeholder="you@company.com" required>
+            </div>
+            <div class="t-field">
+              <label for="ecountry">Country <span class="req">*</span></label>
+              <select id="ecountry" name="ecountry" required>
+                <option value="">Select a country…</option>
+              </select>
+            </div>
+          </div>
+          <div class="t-field">
+            <label for="ephone">Telephone <span class="req">*</span></label>
+            <div class="t-phone-input">
+              <input type="text" class="t-phone-input__code" id="ephoneCode" name="ephone_code" value="+" readonly tabindex="-1" aria-label="Country dialling code, set automatically from the country you select above">
+              <input id="ephone" name="ephone" type="tel" placeholder="7XX XXX XXX" required>
+            </div>
+          </div>
+          <div class="t-field">
+            <label for="epackage">Package of interest <span class="req">*</span></label>
+            <select id="epackage" name="epackage" required>
+              <option value="">Select a package…</option>
+              <option>Exhibition Space</option>
+              <option>Partnership Package</option>
+              <option>Custom / other</option>
+            </select>
+          </div>
+          <div class="t-field">
+            <label for="emessage">Message</label>
+            <textarea id="emessage" name="emessage" placeholder="Tell us briefly about your products and what you would like to achieve at the summit."></textarea>
+          </div>
+          <div class="t-form-error" id="exhibitError" role="alert"></div>
+          <button type="submit" class="btn btn-primary t-btn-block" id="exhibitSubmitBtn">
+            <span class="btn-label">Send enquiry</span>
+          </button>
+          <p class="t-form-foot">Your details will only be used by the summit secretariat to respond to this enquiry.</p>
+        </form>
+      </div>
+      <div class="t-modal__success" id="modalSuccessView">
+        <div class="t-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg></div>
+        <b>Enquiry received.</b>
+        <p>The partnership team will contact you within 48 hours with the full prospectus. For urgent queries, email <a href="mailto:admin@kidneyhealth.africa">admin@kidneyhealth.africa</a>.</p>
+      </div>
     </div>
   </div>
-</footer>
 
-<button type="button" class="back-to-top" id="backToTop" aria-label="Back to top">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-</button>
+  <!-- STUDENT & GROUP RATE REQUEST -->
+  <div class="t-modal" id="rateModal" role="dialog" aria-modal="true" aria-labelledby="rateModalTitle" aria-hidden="true">
+    <div class="t-modal__panel" role="document" tabindex="-1">
+      <button class="t-modal__close" id="closeRateModal" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <div id="rateFormView">
+        <div class="t-modal__head">
+          <span class="t-modal__tag">Concessions</span>
+          <h3 id="rateModalTitle">Request a student or group rate</h3>
+          <p>Tell us about your group and the secretariat will confirm your eligibility and rate.</p>
+        </div>
+        <form id="rateForm" novalidate>
+          <input type="checkbox" name="botcheck" style="display:none" aria-hidden="true" tabindex="-1" autocomplete="off">
+          <div class="t-grid-2">
+            <div class="t-field">
+              <label for="rfname">First name <span class="req">*</span></label>
+              <input id="rfname" name="First name" type="text" placeholder="First name" required>
+            </div>
+            <div class="t-field">
+              <label for="rlname">Last name <span class="req">*</span></label>
+              <input id="rlname" name="Last name" type="text" placeholder="Last name" required>
+            </div>
+          </div>
+          <div class="t-grid-2">
+            <div class="t-field">
+              <label for="remail">Email address <span class="req">*</span></label>
+              <input id="remail" name="Email address" type="email" placeholder="you@example.com" required>
+            </div>
+            <div class="t-field">
+              <label for="rrole">Role / Title</label>
+              <input id="rrole" name="Role / Title" type="text" placeholder="Role or title">
+            </div>
+          </div>
+          <div class="t-grid-2">
+            <div class="t-field">
+              <label for="rorg">Organization <span class="req">*</span></label>
+              <input id="rorg" name="Organization" type="text" placeholder="Organization name" required>
+            </div>
+            <div class="t-field">
+              <label for="rcountry">Country <span class="req">*</span></label>
+              <select id="rcountry" name="Country" required>
+                <option value="">Select a country…</option>
+              </select>
+            </div>
+          </div>
+          <div class="t-field">
+            <label for="rphone">Phone number <span class="req">*</span></label>
+            <div class="t-phone-input">
+              <input type="text" class="t-phone-input__code" id="rphoneCode" name="Country code" value="+" readonly tabindex="-1" aria-label="Country dialling code, set automatically from the country you select above">
+              <input id="rphone" name="Phone number" type="tel" placeholder="7XX XXX XXX" required>
+            </div>
+            <p class="t-field__note">This should be a WhatsApp number. We'll use it for faster updates on your request.</p>
+          </div>
+          <div class="t-grid-2">
+            <div class="t-field">
+              <label for="rpasses">No. of delegate passes needed <span class="req">*</span></label>
+              <div class="t-number-stepper">
+                <button type="button" class="t-number-stepper__btn" data-step="-1" aria-label="Decrease delegate passes">&minus;</button>
+                <input id="rpasses" name="No. of delegate passes needed" type="number" min="1" step="1" placeholder="1" required>
+                <button type="button" class="t-number-stepper__btn" data-step="1" aria-label="Increase delegate passes">&plus;</button>
+              </div>
+            </div>
+            <div class="t-field">
+              <label for="rgroup">Group description <span class="req">*</span></label>
+              <select id="rgroup" name="Group description" required>
+                <option value="">Select an option…</option>
+                <option>Students / trainees</option>
+                <option>Colleagues from the same organisation</option>
+                <option>Industry association</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="t-field">
+            <label for="rmessage">Any other request or additional information</label>
+            <textarea id="rmessage" name="Additional information" placeholder="Anything else the secretariat should know."></textarea>
+          </div>
+          <div class="t-form-error" id="rateError" role="alert"></div>
+          <button type="submit" class="btn btn-primary t-btn-block" id="rateSubmitBtn">
+            <span class="btn-label">Send request</span>
+          </button>
+          <p class="t-form-foot">Sent straight to the summit secretariat. Your confirmation and invitation letter (if applicable) will be sent to the email address you provide.</p>
+        </form>
+      </div>
+      <div class="t-modal__success" id="rateSuccessView">
+        <div class="t-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg></div>
+        <b>Request received.</b>
+        <p>The secretariat will confirm your eligibility and rate by email, and may reach out on WhatsApp for faster updates. For urgent queries, email <a href="mailto:admin@kidneyhealth.africa">admin@kidneyhealth.africa</a>.</p>
+      </div>
+    </div>
+  </div>
 
-<script src="src/scripts/script.js?v=20261023-2"></script>
+  <!-- INVITATION LETTER OR INVOICE REQUEST -->
+  <div class="t-modal" id="letterModal" role="dialog" aria-modal="true" aria-labelledby="letterModalTitle" aria-hidden="true">
+    <div class="t-modal__panel" role="document" tabindex="-1">
+      <button class="t-modal__close" id="closeLetterModal" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <div id="letterFormView">
+        <div class="t-modal__head">
+          <span class="t-modal__tag">Documentation</span>
+          <h3 id="letterModalTitle">Request an invitation letter or invoice</h3>
+          <p>Tell us what you need and the secretariat will prepare it for you.</p>
+        </div>
+        <form id="letterForm" novalidate>
+          <input type="checkbox" name="botcheck" style="display:none" aria-hidden="true" tabindex="-1" autocomplete="off">
+          <div class="t-grid-2">
+            <div class="t-field">
+              <label for="lfname">First name <span class="req">*</span></label>
+              <input id="lfname" name="First name" type="text" placeholder="First name" required>
+            </div>
+            <div class="t-field">
+              <label for="llname">Last name <span class="req">*</span></label>
+              <input id="llname" name="Last name" type="text" placeholder="Last name" required>
+            </div>
+          </div>
+          <div class="t-grid-2">
+            <div class="t-field">
+              <label for="lemail">Email address <span class="req">*</span></label>
+              <input id="lemail" name="Email address" type="email" placeholder="you@example.com" required>
+            </div>
+            <div class="t-field">
+              <label for="lrole">Role / Title</label>
+              <input id="lrole" name="Role / Title" type="text" placeholder="Role or title">
+            </div>
+          </div>
+          <div class="t-grid-2">
+            <div class="t-field">
+              <label for="lorg">Organization <span class="req">*</span></label>
+              <input id="lorg" name="Organization" type="text" placeholder="Organization name" required>
+            </div>
+            <div class="t-field">
+              <label for="lcountry">Country <span class="req">*</span></label>
+              <select id="lcountry" name="Country" required>
+                <option value="">Select a country…</option>
+              </select>
+            </div>
+          </div>
+          <div class="t-field">
+            <label for="lphone">Phone number <span class="req">*</span></label>
+            <div class="t-phone-input">
+              <input type="text" class="t-phone-input__code" id="lphoneCode" name="Country code" value="+" readonly tabindex="-1" aria-label="Country dialling code, set automatically from the country you select above">
+              <input id="lphone" name="Phone number" type="tel" placeholder="7XX XXX XXX" required>
+            </div>
+            <p class="t-field__note">This should be a WhatsApp number. We'll use it for faster updates on your request.</p>
+          </div>
+          <div class="t-grid-2">
+            <div class="t-field">
+              <label for="lpasses">No. of delegate passes <span class="req">*</span></label>
+              <div class="t-number-stepper">
+                <button type="button" class="t-number-stepper__btn" data-step="-1" aria-label="Decrease delegate passes">&minus;</button>
+                <input id="lpasses" name="No. of delegate passes" type="number" min="1" step="1" placeholder="1" required>
+                <button type="button" class="t-number-stepper__btn" data-step="1" aria-label="Increase delegate passes">&plus;</button>
+              </div>
+            </div>
+            <div class="t-field">
+              <label for="lneed">What is needed <span class="req">*</span></label>
+              <select id="lneed" name="What is needed" required>
+                <option value="">Select an option…</option>
+                <option>Letter of invitation</option>
+                <option>Invoice</option>
+                <option>Both</option>
+              </select>
+            </div>
+          </div>
+          <div class="t-field">
+            <label for="lmessage">Other information to be included</label>
+            <textarea id="lmessage" name="Other information" placeholder="Anything the secretariat should include in the letter or invoice."></textarea>
+          </div>
+          <div class="t-form-error" id="letterError" role="alert"></div>
+          <button type="submit" class="btn btn-primary t-btn-block" id="letterSubmitBtn">
+            <span class="btn-label">Send request</span>
+          </button>
+          <p class="t-form-foot">Sent straight to the summit secretariat. The letter or invoice will be shared to the email address you provide.</p>
+        </form>
+      </div>
+      <div class="t-modal__success" id="letterSuccessView">
+        <div class="t-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 6"/></svg></div>
+        <b>Request received.</b>
+        <p>The secretariat will prepare your document and email it to you, usually within 48 hours, and may reach out on WhatsApp for faster updates. For urgent queries, email <a href="mailto:secretariat@kidneyhealth.africa">secretariat@kidneyhealth.africa</a>.</p>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+  </button>
+
+  <script src="src/scripts/script.js?v=20261027-1"></script>
 </body>
 </html>
