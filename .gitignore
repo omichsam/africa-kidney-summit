@@ -4,11 +4,3 @@
 # Written fresh by the deploy workflow from GitHub secrets — must never be committed.
 mail-config.local.php
 email-design-previews/
-test.html
-test-styles.css
-test-script.js
-test-assets/
-test-hero-example.html
-test-hero-example-2.html
-test-hero-example-3.html
-test-hero-example-4.html
