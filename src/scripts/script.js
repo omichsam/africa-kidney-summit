@@ -96,6 +96,60 @@ document.querySelectorAll('.carousel-controls button').forEach((button) => {
   });
 });
 
+// Summit in Focus gallery: auto-advances through the photos on its own, but only while the
+// gallery is actually in view — and it steps aside the moment someone scrolls/drags it or
+// gives it focus/hover, so it never fights a real visitor's own scrolling. Same behaviour at
+// every screen width, since the track scrolls horizontally everywhere, not just on mobile.
+(() => {
+  const carousel = document.querySelector('.image-carousel');
+  const track = document.querySelector('.image-track');
+  if (!carousel || !track) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let timer = null;
+  let resumeTimer = null;
+  let inView = false;
+  let interacting = false;
+
+  // .image-track sizes itself to its full content (width:max-content) and never scrolls on
+  // its own — the actual overflow-x:auto scroller is .image-carousel, its parent. Read/write
+  // scroll position there, not on the track.
+  const cardStep = () => {
+    const first = track.querySelector('figure');
+    const gap = parseFloat(getComputedStyle(track).gap) || 18;
+    return first ? first.getBoundingClientRect().width + gap : carousel.clientWidth * 0.8;
+  };
+
+  const advance = () => {
+    const atEnd = carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 4;
+    carousel.scrollTo({ left: atEnd ? 0 : carousel.scrollLeft + cardStep(), behavior: 'smooth' });
+  };
+
+  const stop = () => { clearInterval(timer); timer = null; };
+  const start = () => {
+    if (timer || interacting || !inView) return;
+    timer = setInterval(advance, 4000);
+  };
+
+  const pauseThenResume = () => {
+    interacting = true;
+    stop();
+    clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(() => { interacting = false; start(); }, 3500);
+  };
+
+  ['pointerdown', 'touchstart', 'wheel'].forEach(evt => carousel.addEventListener(evt, pauseThenResume, { passive: true }));
+  carousel.addEventListener('mouseenter', () => { interacting = true; stop(); });
+  carousel.addEventListener('mouseleave', () => { interacting = false; start(); });
+  carousel.addEventListener('focusin', () => { interacting = true; stop(); });
+  carousel.addEventListener('focusout', () => { interacting = false; start(); });
+
+  new IntersectionObserver(entries => {
+    inView = entries[0].isIntersecting;
+    if (inView) start(); else stop();
+  }, { threshold: 0.4 }).observe(carousel);
+})();
+
 // Hero background: crossfades through .hero-bg-slide elements on a timer (the floating
 // media card was removed in favour of letting the background itself change).
 (() => {
@@ -127,6 +181,17 @@ document.querySelectorAll('.carousel-controls button').forEach((button) => {
       const bar = progress.querySelector('i');
       if (bar) bar.style.setProperty('--progress', `${(current / items.length) * 100}%`);
     }
+    // Nothing left to swipe to once the last card is reached, so the "Swipe →" hint
+    // would otherwise keep inviting an action that does nothing.
+    wrapper.classList.toggle('is-last-card', current === items.length);
+    // Keep tab buttons (where a carousel has them, e.g. registration) in sync with
+    // whichever card swiping or the arrows brought into view.
+    const tabs = wrapper.querySelectorAll('.carousel-tab');
+    tabs.forEach((tab, i) => {
+      const active = i === current - 1;
+      tab.classList.toggle('is-active', active);
+      tab.setAttribute('aria-selected', String(active));
+    });
   };
 
   document.querySelectorAll('.content-carousel, .commitments-carousel').forEach(wrapper => {
@@ -141,6 +206,13 @@ document.querySelectorAll('.carousel-controls button').forEach((button) => {
     };
     prev?.addEventListener('click', () => move(-1));
     next?.addEventListener('click', () => move(1));
+    wrapper.querySelectorAll('.carousel-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = items[Number(tab.dataset.index)];
+        if (!target) return;
+        track.scrollTo({left: target.offsetLeft - track.offsetLeft, behavior:'smooth'});
+      });
+    });
     track.addEventListener('scroll', () => updateProgress(wrapper, track), {passive:true});
     window.addEventListener('resize', () => updateProgress(wrapper, track));
     updateProgress(wrapper, track);
