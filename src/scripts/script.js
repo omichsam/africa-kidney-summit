@@ -50,8 +50,8 @@ const revealObserver = new IntersectionObserver(entries => {
 }, { threshold: 0.15 });
 revealEls.forEach(el => revealObserver.observe(el));
 
-// COUNTDOWN — summit opens 9 March 2027 at 09:00 EAT (UTC+03:00).
-const EVENT_DATE = new Date('2027-03-09T09:00:00+03:00');
+// COUNTDOWN — summit opens 4 March 2027 at 09:00 EAT (UTC+03:00).
+const EVENT_DATE = new Date('2027-03-04T09:00:00+03:00');
 (function(){
   const el = {d:document.getElementById('cd-days'),h:document.getElementById('cd-hours'),m:document.getElementById('cd-mins'),s:document.getElementById('cd-secs')};
   const wrap = document.getElementById('countdown');
